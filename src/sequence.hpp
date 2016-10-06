@@ -13,6 +13,7 @@ public:
 
 	void loadSeq();					// read two sequences from a file
 	size_t searchSeq(string) const;	//find the position of subsequence within the bigger sequence
+	vector<int> searchSeq_(string) const; 	//anotther version of searchSeq method
 	void display();					//display the two sequences
 	
 };
