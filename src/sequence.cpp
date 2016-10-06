@@ -1,28 +1,13 @@
 #include <iostream>
 #include <fstream>
-#include <vector>
+#include "sequence.hpp"
 using namespace std;
-
-class Sequence {
-	
-private:
-	
-	vector<char> seq1;	//the two sequences we are working with
-	vector<char> seq2;
-	
-public:
-
-	void loadSeq();					// read two sequences from a file
-	size_t searchSeq(string) const;	//find the position of subsequence within the bigger sequence
-	void display();					//display the two sequences
-	
-};
 
 
 void Sequence::loadSeq()
 {
 	const string fileName("promoters.fasta.txt"); //name of the file
-	string seq1_;	//first and second sequences
+	string seq1_;								  //first and second sequences
 	string seq2_;
 	
 	ifstream file(fileName);	//the file we are reading
@@ -73,7 +58,7 @@ void Sequence::display()
 	cout << endl << endl;
 };
 
-size_t Sequence::searchSeq(string subStr) const
+size_t Sequence::searchSeq(string subStr) const		//so far this method only searches the first sequence and only 4 letters
 {
 	vector<char> subStr_;
 	
@@ -81,19 +66,34 @@ size_t Sequence::searchSeq(string subStr) const
 	{
 		subStr_.push_back(c);
 	}
-	
-	
-	for(size_t i(0); i < seq1.size(); i++)
+		
+	for(size_t i(0); i < seq1.size() - 3; ++i)	//we check the whole sequence 
 	{
-		if(seq1[i] == subStr_[i] and seq1[i+1] == subStr_[i+1]
-			and seq1[i+2] == subStr_[i+2] and seq1[i+3] == subStr_[i+3])
-		{
-			return i+1;
-		}
+			if(seq1[i] == subStr_[0] and seq1[i+1]== subStr_[1] and seq1[i+2]== subStr_[2]
+				and seq1[i+3]== subStr_[3]) {return i+1;}		//if the we find that the position where ther sequences match then we return it
 	}
 	
-	return 456; 			
-			
+};
+
+vector<int> Sequence::searchSeq_(string subStr) const
+{
+	vector<int> output; 	//the vector of all matching positions
+	
+	vector<char> subStr_;	//used to convert a string into a table of char
+	
+	for(char& c : subStr)	//we convert the substring into a table of characters as well
+	{
+		subStr_.push_back(c);
+	}
+		
+	for(size_t i(0); i < seq1.size() - 3; ++i)	//we check the whole sequence 
+	{
+			if(seq1[i] == subStr_[0] and seq1[i+1]== subStr_[1] and seq1[i+2]== subStr_[2]
+				and seq1[i+3]== subStr_[3]) {output.push_back(i+1);}		//if the we find that the position where ther sequences match then we add its value
+																			//to the table
+	}
+	
+	return output;
 };
 
 int main()
@@ -101,7 +101,9 @@ int main()
 	Sequence seq_;
 	seq_.loadSeq();
 	seq_.display();
-	cout << seq_.searchSeq("CCCA");
+	for(auto c : seq_.searchSeq_("CCCC"))
+	{
+		cout << c << " ";
+	}
 	return 0;
 }
-
