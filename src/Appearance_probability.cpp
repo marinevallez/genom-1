@@ -2,6 +2,9 @@
 #include <vector>
 #include <string>
 
+//A function that takes a sequence s and an int n and gives how many time on average
+//s would appear in a n long sequence.
+
 using namespace std;
 
 double appearance_probability(string sequence, int longueur);
