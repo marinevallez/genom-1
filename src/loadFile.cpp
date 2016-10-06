@@ -11,7 +11,7 @@ int main()
 	cin >> fileName;
 	
 	ifstream currentFile(fileName);	 	// class instance from the file chosen by the user
-	if(file.fail())						// if it didnt open it will show an error 
+	if(currentFile.fail())						// if it didnt open it will show an error 
 	{
 		cerr << "File could not be opened" << endl;
 	}
