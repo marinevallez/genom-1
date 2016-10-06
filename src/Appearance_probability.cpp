@@ -6,14 +6,14 @@ using namespace std;
 
 double appearance_probability(string sequence, int longueur);
 
-const double at (0.2);
-const double gc (0.3);
+const double at (0.2); //We know from a research on internet that this is the
+const double gc (0.3); //probabilty of appearance for these nucleic acid
 
 int main()
 {
 	double a;
 	
-	a = appearance_probability("gtagatgatga", 9999);
+	a = appearance_probability("gattaca", 100);
 	
 	cout<<a<<endl;
 	
@@ -23,7 +23,18 @@ int main()
 double appearance_probability(string sequence, int longueur)
 {
 	double proba (1.0);
-	double position_possible(longueur-sequence.length()+1);
+	int longueur_2(sequence.length());
+	
+	for (size_t i(0); i<sequence.length(); ++i)
+	{
+		if (sequence[i] != 'a' or 't' or 'c' or 'g')
+		{
+			--longueur_2; //In case the input contains other letters, 
+			              //it won't take them in count.
+		}
+	}
+			
+	double position_possible(longueur - longueur_2 + 1);
 	
 	if (position_possible < 0)
 	{
@@ -40,9 +51,10 @@ double appearance_probability(string sequence, int longueur)
 		{
 			proba*=gc;
 		}
-	}
+	} //We just multiply the probabilty of appearance of the sequence by the
+	  //number of places it can appear.
 	
-	proba = proba*position_possible;
+	proba = proba*position_possible; 
 	
 	return proba;
 }
