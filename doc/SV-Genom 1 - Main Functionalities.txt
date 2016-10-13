@@ -1,0 +1,12 @@
+Functionalities of the program:
+
+1.- Being able to read a DNA sequence and a PWM (or/and it's logarithmic version) and give as output the list of site along the genome where the protein is gonna attach. list of sites (could be positions, this depends on the reference coordinates we choose to assigne to the sequence)
+
+2.- Being able to read a DNA sequence, a list of sites and their respective binding score(is a double number that is the product of multiplying the probabilities of each letter of the sequence) and output a PWM (or/and it's logarithmic version)
+
+
+3.-Based on the matrix or based on the binding scores and list of sites produce:
+ sequence logo https://en.wikipedia.org/wiki/Sequence_logo 
+ score distribution
+
+ 
