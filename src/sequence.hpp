@@ -1,19 +1,26 @@
+#ifndef SEQUENCE_H
+#define SEQUENCE_H
 #include <vector>
 #include <string>
+#include "Input.hpp"
 using namespace std;
 
-class Sequence {
+class Sequence : public Input {
 	
 private:
 	
-	vector<char> seq1;	//the two sequences we are working with
+	vector<char> seq1;							//the two sequences we are working with
 	vector<char> seq2;
 	
 public:
 
-	void loadSeq();					// read two sequences from a file
-	size_t searchSeq(string) const;	//find the position of subsequence within the bigger sequence
-	vector<int> searchSeq_(string) const; 	//anotther version of searchSeq method
-	void display();					//display the two sequences
+	Sequence() {};								//constructor + destructor
+	~Sequence() {};
+	void loadFile(string) override; 			//a redefinition of the method from the Input class
+	vector<int> searchMotif(string, int) const; //outputs the position of where the motif is found within the sequence
+												//int parameter allows you to switch between sequence, 1 to search the first one, 2 to search the second
+	void display();								//display the two sequences
 	
 };
+
+#endif

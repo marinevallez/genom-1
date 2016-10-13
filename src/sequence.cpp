@@ -3,32 +3,31 @@
 #include "sequence.hpp"
 using namespace std;
 
-
-void Sequence::loadSeq()
+void Sequence::loadFile(string fileName) 
 {
-	const string fileName("promoters.fasta.txt"); //name of the file
-	string seq1_;								  //first and second sequences
-	string seq2_;
 	
-	ifstream file(fileName);	//the file we are reading
+	string seq1_, seq2_;						//first and second sequences;
 	
-	if(file.fail())		// if it didnt open -> show an error 
+	ifstream file;								//the file we are going to read
+	file.open("../test/" + fileName); 			//since out text files are in the test folder, we need to include a path to it
+	
+	if(file.fail())								// if it didnt open -> show an error 
 	{
 		cerr << "File could not be opened!" << endl;
 	}
 	else
 	{
 		string skip; 		//we wanna skip the first line
-		file >> skip;		
+		
+		file >> skip;		//skip the first line
 		file >> seq1_;		//get the first sequence
 		file >> skip;		//skip the second useless part
 		file >> seq2_;		//get the second sequence
 			
-		
 		file.close();
 	}
 	
-	for(char& c : seq1_) 	//now we convert strings into tables of characters to facilitate the work
+	for(char& c : seq1_) 	//now we convert strings into tables of characters to facilitate the work later
 	{
 		seq1.push_back(c);
 	}
@@ -37,7 +36,6 @@ void Sequence::loadSeq()
 	{
 		seq2.push_back(c);
 	}
-	
 	
 };
 
@@ -58,24 +56,8 @@ void Sequence::display()
 	cout << endl << endl;
 };
 
-size_t Sequence::searchSeq(string subStr) const		//so far this method only searches the first sequence and only 4 letters
-{
-	vector<char> subStr_;
-	
-	for(char& c : subStr)	//we convert the substring into a table of characters as well
-	{
-		subStr_.push_back(c);
-	}
-		
-	for(size_t i(0); i < seq1.size() - 3; ++i)	//we check the whole sequence 
-	{
-			if(seq1[i] == subStr_[0] and seq1[i+1]== subStr_[1] and seq1[i+2]== subStr_[2]
-				and seq1[i+3]== subStr_[3]) {return i+1;}		//if the we find that the position where ther sequences match then we return it
-	}
-	
-};
 
-vector<int> Sequence::searchSeq_(string subStr) const
+vector<int> Sequence::searchMotif(string subStr, int seqNb) const
 {
 	vector<int> output; 	//the vector of all matching positions
 	
@@ -86,12 +68,31 @@ vector<int> Sequence::searchSeq_(string subStr) const
 		subStr_.push_back(c);
 	}
 		
-	for(size_t i(0); i < seq1.size() - 3; ++i)	//we check the whole sequence 
+	vector<char> seqCopy; //used to make the method more versatile
+	
+	switch(seqNb)		//we set seqCopy to be the sequence we want to search (either seq1 or seq2) depending on the parameter entered
 	{
-			if(seq1[i] == subStr_[0] and seq1[i+1]== subStr_[1] and seq1[i+2]== subStr_[2]
-				and seq1[i+3]== subStr_[3]) {output.push_back(i+1);}		//if the we find that the position where ther sequences match then we add its value
-																			//to the table
+		case 1: 
+			seqCopy = seq1;
+			break;
+		case 2:			
+			seqCopy = seq2;
+			break;
+		default:
+			break;
 	}
+	
+	for(size_t i(0); i < seqCopy.size() - 6; ++i)	//we check the whole sequence 
+			{
+					bool matchingCondition(seqCopy[i] == subStr_[0] and seqCopy[i+1]== subStr_[1] and seqCopy[i+2]== subStr_[2]
+						and seqCopy[i+3]== subStr_[3] and seqCopy[i+4] == subStr_[4] and seqCopy[i+5] == subStr_[5]
+						and seqCopy[i+6] == subStr_[6]); //we know that 7 nucleotides in a row have to match
+					
+					if(matchingCondition)		//if 7 nucleotides in a row do match then
+					{
+						output.push_back(i+1);	//we add the position OF THE FIRST MATCHING NUCLEOTIDE to the table 
+					}		
+			}
 	
 	return output;
 };
@@ -99,9 +100,9 @@ vector<int> Sequence::searchSeq_(string subStr) const
 int main()
 {
 	Sequence seq_;
-	seq_.loadSeq();
+	seq_.loadFile("promoters.fasta");
 	seq_.display();
-	for(auto c : seq_.searchSeq_("CCCC"))
+	for(auto c : seq_.searchMotif("TTCCCCA", 2))
 	{
 		cout << c << " ";
 	}
