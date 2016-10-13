@@ -27,3 +27,8 @@
 *.exe
 *.out
 *.app
+
+#Qt Creator
+*.pro
+*.pri
+*pro.user
