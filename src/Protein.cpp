@@ -16,16 +16,16 @@ Protein::~Protein()
 
 // ==============================================================================================================METHODES
 
-Protein::fillPattern(double const& bScore, vector<char> const& site)
+void Protein::fillPattern(double const& bScore, vector<char> const& site)
 {
 	pattern.bScore = bScore;
 	pattern.site = site;
 }
 
 
-Protein::fillVectorPatterns(Pattern pattern)					//à revoir en fonction de si on pré remplit le tableau ou pas
+void Protein::fillVectorPatterns(Pattern pattern)					//à revoir en fonction de si on pré remplit le tableau ou pas
 {
-	if (matrix.empty()) {
+    /*if (matrix.empty()) {
 		matrix.push_back(pattern);
 	} else {
 		for(size_t i(0); i < matrix.size() ; ++i) {
@@ -35,6 +35,6 @@ Protein::fillVectorPatterns(Pattern pattern)					//à revoir en fonction de si o
 				++i;
 			}
 		}
-	}	
+    }	*/
 }
 

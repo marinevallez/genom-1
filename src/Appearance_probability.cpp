@@ -12,7 +12,7 @@ double appearance_probability(string sequence, int longueur);
 const double at (0.2); //We know from a research on internet that this is the
 const double gc (0.3); //probabilty of appearance for these nucleic acid
 
-int main()
+/*int main()
 {
 	double a;
 	
@@ -22,7 +22,7 @@ int main()
 	
 	return 0;
 }
-
+*/
 double appearance_probability(string sequence, int longueur)
 {
 	double proba (1.0);

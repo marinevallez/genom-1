@@ -14,9 +14,9 @@ private:
 	
 public:
 
-	Sequence() {};								//constructor + destructor
-	~Sequence() {};
-	void loadFile(string) override; 			//a redefinition of the method from the Input class
+    Sequence() {}								//constructor + destructor
+    virtual ~Sequence() {}
+    virtual void loadFile(string) override; 			//a redefinition of the method from the Input class
 	vector<int> searchMotif(string, int) const; //outputs the position of where the motif is found within the sequence
 												//int parameter allows you to switch between sequence, 1 to search the first one, 2 to search the second
 	void display();								//display the two sequences

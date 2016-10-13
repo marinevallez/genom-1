@@ -1,12 +1,12 @@
 //
-//  matrix reader.cpp
+//  matrix_reader.cpp
 //  readingDNA
 //
 //  Created by Oriane Peter on 05.10.16.
 //  Copyright © 2016 Oriane Peter. All rights reserved.
 //
 
-#include "matrix reader.hpp"
+//#include "matrix_reader.hpp"
 
 
 #include <iostream>
@@ -71,7 +71,7 @@ vector<vector<double>> loadmatrix(string Data)
    
     
 
-int main ()
+/*int main ()
 {
     vector<vector<double>> test (loadmatrix("/Users/oriane/Downloads/DBP_PPM\(1\).mat"));
     cout << "        A       C        G        T" << endl;
@@ -86,4 +86,4 @@ int main ()
         ++nbrline;
     }
     
-}
+}*/

@@ -10,13 +10,13 @@ using namespace std;
 struct Pattern {
 			double bScore;
 			vector<char> site;
-		}
+        };
 
 class Protein 
 {
 	private:
 		//Attributs
-		Matrix matrix;
+        //Matrix matrix;
 		Pattern pattern;
 		vector<Pattern> patterns;
 	
@@ -26,10 +26,10 @@ class Protein
 		~Protein();
 	
 		//Méthodes
-		fillPattern(double const& bScore, vector<char> const& site);   		//à utiliser éventuellement dans le constructeur? const ou pas?
-		fillVectorPatterns(Pattern pattern);								//const ou pas? Comment faire pour mettre directement plusieurs patterns?
+        void fillPattern(double const& bScore, vector<char> const& site);   		//à utiliser éventuellement dans le constructeur? const ou pas?
+        void fillVectorPatterns(Pattern pattern);								//const ou pas? Comment faire pour mettre directement plusieurs patterns?
 	
-}
+};
 
 
 #endif

@@ -97,7 +97,7 @@ vector<int> Sequence::searchMotif(string subStr, int seqNb) const
 	return output;
 };
 
-int main()
+/*int main()
 {
 	Sequence seq_;
 	seq_.loadFile("promoters.fasta");
@@ -108,3 +108,4 @@ int main()
 	}
 	return 0;
 }
+*/
