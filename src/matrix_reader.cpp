@@ -1,10 +1,4 @@
-//
-//  matrix_reader.cpp
-//  readingDNA
-//
-//  Created by Oriane Peter on 05.10.16.
-//  Copyright © 2016 Oriane Peter. All rights reserved.
-//
+
 
 //#include "matrix_reader.hpp"
 
@@ -18,7 +12,7 @@
 
 using namespace std;
 
-double To_double( const string& string ) // permet une convertion des string en double
+double To_double( const string& string ) // allows a convertion from string to double
 {
     istringstream stream(string);
     double dbl;
@@ -27,12 +21,12 @@ double To_double( const string& string ) // permet une convertion des string en 
     return dbl;
 }
 
-vector<vector<double>> loadmatrix(string Data)
+vector<vector<double>> loadmatrix(string Data) // the function stores data from a file containing a PWM or a PSSM assuming that the bases are stored in column and in the ACGT order
 {
     int colmn;
     int row;
     string fichier (Data);
-    vector<double> temp; // stockage dans une matrice 1x1 pour commencer (permet de récuperer le nombre de donnée)
+    vector<double> temp; // stock in a 1x1 Matrix to calculate the number of data
     ifstream file;
     file.open(fichier);
   
@@ -47,7 +41,7 @@ vector<vector<double>> loadmatrix(string Data)
         
         while (!file.eof()) {
             file >> var >> ws;
-            double dbl = To_double(var); // permet d'avoir les donnée en double
+            double dbl = To_double(var); // allows to get the data in double
             temp.push_back(dbl);
         }
     }
@@ -56,9 +50,9 @@ vector<vector<double>> loadmatrix(string Data)
 
     int z(0);
     colmn = 4;
-    row = (temp.size())/4;  // il y a 4 base (A C G T) en partant du principe que tout les fichiers mettent les bases en colonnes
+    row = (temp.size())/4;  // here we make the assumption that the base are stored in column
     vector<double> tmp (colmn,0.0 );
-    vector<vector<double>> Matrix (row,tmp); // tout les cases sont initialiser à 0.0
+    vector<vector<double>> Matrix (row,tmp); // all the case are initialize at 0.0
     for (int i(0); i < row; ++i) {
         for (int j(0); j < colmn; ++j) {
             Matrix[i][j]=temp[z];
