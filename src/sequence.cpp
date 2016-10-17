@@ -97,7 +97,53 @@ vector<int> Sequence::searchMotif(string subStr, int seqNb) const
 	return output;
 };
 
-/*int main()
+//A method giving the REVERSE complementary sequence from one of the two DNA strand
+vector<char> Sequence::giveComplementarySeq(vector<char> seq)
+{
+		vector<char> complementarySequence;    							//the reverse comp. sequence we get 
+		
+		for (size_t position(seq.size()); position !=0; --position)  	//we start from the end (seq.size()) then go upward in the vector (--position) until top is reached
+			{
+				if(seq[position] == 'C')								//conversion of nucleotides
+					{
+						complementarySequence.push_back('G');
+					}
+				else if(seq[position] == 'G')
+					{
+						complementarySequence.push_back('C');
+					}
+				else if(seq[position] == 'A')
+					{
+						complementarySequence.push_back('T');
+					}
+				else if(seq[position] == 'T')
+					{
+						complementarySequence.push_back('A');
+					}					
+			}
+			
+			//TESTING NEW METHOD : displaying but not supposed to ?
+			for (auto c : complementarySequence)
+			{
+				cout << c;
+			}
+			//  cout << complementarySequence.size();    -> we see that the vectors are the same size
+			return complementarySequence;
+};
+
+//Getters for giveComplementarySequence :
+vector <char>  Sequence::getSequence1()
+{
+	return seq1;
+};
+
+vector <char>  Sequence::getSequence2()
+{
+	return seq2;
+};
+
+
+int main()
 {
 	Sequence seq_;
 	seq_.loadFile("promoters.fasta");
@@ -106,6 +152,13 @@ vector<int> Sequence::searchMotif(string subStr, int seqNb) const
 	{
 		cout << c << " ";
 	}
+	cout << endl; //skip a line
+	
+	//TESTING NEW METHOD GIVECOMPLEMENTARYSEQ
+	cout << "Reverse complementary sequence of first sequence in fasta file :" << endl;
+	seq_.giveComplementarySeq(seq_.getSequence1());
+	//END OF TEST
+	
 	return 0;
 }
-*/
+

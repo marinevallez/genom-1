@@ -31,10 +31,10 @@ vector<vector<double>> loadmatrix(string Data) // the function stores data from 
     file.open(fichier);
   
     
-    if (file.fail())
+    /*if (file.fail())
     {
         throw std::runtime_error("Erreur de lecture du fichier de donnée ");
-    }
+    }*/
     
     string var;
     while (!file.eof()) {
