@@ -7,6 +7,14 @@ using namespace std;
 
 int main()
 {
+	//HERE MAIN ENUMERATES WHAT ARE THE POSSIBLE TASKS THAT THE USER CAN ASK
+	//cout << "Hello,..."
+	
+	//MAIN INDICATES TO THE USER WHAT KIND OF FILES NEEDED TO PERFORM CHOSEN TASK(S) (one at a time?)
+		
+	//USER GIVE FILE
+	
+	
 	string fileName; 
 	cout << "Choose a file to work on :" << endl;
 	cin >> fileName;
