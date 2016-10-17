@@ -78,8 +78,3 @@ double get_afinity_score_from_matrix(PSSM matrix,vector<char> sequence) // surch
     }
     return score;
 }
-
-int main()
-{
-    cout <<"hi";
-}
