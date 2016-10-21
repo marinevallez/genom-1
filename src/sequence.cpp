@@ -102,7 +102,7 @@ vector<char> Sequence::giveComplementarySeq(vector<char> seq)
 {
 		vector<char> complementarySequence;    							//the reverse comp. sequence we get 
 		
-		for (size_t position(seq.size()); position !=0; --position)  	//we start from the end (seq.size()) then go upward in the vector (--position) until top is reached
+		for (int position(seq.size()); position !=-1; --position)  	//we start from the end (seq.size()) then go upward in the vector (--position) until top is reached
 			{
 				if(seq[position] == 'C')								//conversion of nucleotides
 					{
