@@ -9,8 +9,10 @@ using namespace std;
 
 struct Pattern {
 			double bScore;
-			vector<char> site;
+			vector<char> lisOfSites;
         };
+
+
 
 class Protein 
 {

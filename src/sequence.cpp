@@ -3,6 +3,110 @@
 #include "sequence.hpp"
 using namespace std;
 
+//Sequence::Sequence() {}
+
+//Sequence::~Sequence() {}
+
+
+string chromosomeNb(const string& str)  //a function that extracts the chromosome number from .fasta
+{
+	string chr;
+	
+	if(str[5] == '|')
+	{
+		chr = str.substr(1,3) + " " + str[4];
+	}
+	else
+	{
+		chr = str.substr(1,3) + " " + str.substr(4,2);
+	}
+	
+	return chr;	
+} 
+
+
+
+void Sequence::outputSites(string motif)	//a method that outputs a file with seq nb and a position where the motif was found
+{
+	ofstream file;
+	file.open("../test/sites.bed");	//we create a file where we will output results
+	if(file.fail())
+	{
+		cerr << "The file couldn't be created!";
+	}
+	else
+	{
+		vector<vector<char>> seq = quickRead("promoters.fasta");	//we get read both sequences from .fasta
+		vector<vector<char>> seqComp = {giveComplementarySeq(seq[0]), giveComplementarySeq(seq[1])};	//then we get their compliments
+		for(size_t i(0); i < 2; ++i)
+		{
+			vector<int> pos = searchMotif(seq[i], motif);	//we find where the motif appears in the provided sequences
+			if(!pos.empty())	//if it appears then we save it to file
+			{
+				file << "seq" << i+1 << " " << pos[0] << " to " << pos[0]+7 <<  " + " << motif << endl;
+			} 
+			pos = searchMotif(seqComp[i], motif);	//then we check the compliment of those sequences
+			if(!pos.empty())	//if it appears there then we also save it
+			{
+				file << "seq" << i+1 << " " << 400 - pos[0]<< " to " << 400 - pos[0] - 7 << " - "<< motif << endl;
+			}
+		}
+		file.close();		//we close the file
+	}
+}
+
+vector<vector<char>> Sequence::quickRead(string fileName) const	//a method that reads .fasta and outputs both sequences instead of saving them
+{
+	vector<vector<char>> output;
+	string seq1_(""), seq2_("");
+	
+	ifstream file;								//the file we are going to read
+	file.open("../test/" + fileName); 			//since out text files are in the test folder, we need to include a path to it
+	
+	if(file.fail())								// if it didnt open -> show an error 
+	{
+		cerr << "File could not be opened!" << endl;
+	}
+	else
+	{
+		
+		
+		string text;
+		string chr(""); 		
+		
+		file >> text;		//skip the first line
+			
+		//cout << chromosomeNb(text) << " ";	
+		
+		file >> seq1_;		//get the first sequence
+		file >> text;		//skip the second useless part
+		
+		//cout << chromosomeNb(text) << " ";
+		
+		file >> seq2_;		//get the second sequence
+			
+		file.close();
+	}
+	
+	vector<char> v1, v2;
+	
+	for(char& c : seq1_) 	//now we convert strings into tables of characters to facilitate the work later
+	{
+		v1.push_back(c);
+	}
+	
+	output.push_back(v1);
+	
+	for(char& c : seq2_)
+	{
+		v2.push_back(c);
+	}
+	
+	output.push_back(v2);
+	
+	return output;
+}
+
 void Sequence::loadFile(string fileName) 
 {
 	
@@ -17,11 +121,19 @@ void Sequence::loadFile(string fileName)
 	}
 	else
 	{
-		string skip; 		//we wanna skip the first line
 		
-		file >> skip;		//skip the first line
+		string text;
+		string chr(""); 		
+		
+		file >> text;		//skip the first line
+			
+		cout << chromosomeNb(text) << " ";	
+		
 		file >> seq1_;		//get the first sequence
-		file >> skip;		//skip the second useless part
+		file >> text;		//skip the second useless part
+		
+		cout << chromosomeNb(text) << " ";
+		
 		file >> seq2_;		//get the second sequence
 			
 		file.close();
@@ -41,52 +153,40 @@ void Sequence::loadFile(string fileName)
 
 void Sequence::display()
 {
-	for(auto c : seq1)	//we display the sequence character by character
+	for(char& c : seq1)	//we display the sequence character by character
 	{
 		cout << c;
 	}
 	
-	cout << endl << endl;
+	cout << endl;
+	cout << endl;
 	
-	for(auto c : seq2)
+	for(char& c : seq2)
 	{
 		cout << c;
 	}
 	
-	cout << endl << endl;
+	cout << endl;
+	cout << endl;
 };
 
 
-vector<int> Sequence::searchMotif(string subStr, int seqNb) const
+vector<int> Sequence::searchMotif(const vector<char>& seq, const string& subStr) const
 {
 	vector<int> output; 	//the vector of all matching positions
 	
 	vector<char> subStr_;	//used to convert a string into a table of char
 	
-	for(char& c : subStr)	//we convert the substring into a table of characters as well
+	for(const char& c : subStr)	//we convert the substring into a table of characters as well
 	{
 		subStr_.push_back(c);
 	}
 		
-	vector<char> seqCopy; //used to make the method more versatile
-	
-	switch(seqNb)		//we set seqCopy to be the sequence we want to search (either seq1 or seq2) depending on the parameter entered
-	{
-		case 1: 
-			seqCopy = seq1;
-			break;
-		case 2:			
-			seqCopy = seq2;
-			break;
-		default:
-			break;
-	}
-	
-	for(size_t i(0); i < seqCopy.size() - 6; ++i)	//we check the whole sequence 
+	for(size_t i(0); i < seq.size() - 6; ++i)	//we check the whole sequence 
 			{
-					bool matchingCondition(seqCopy[i] == subStr_[0] and seqCopy[i+1]== subStr_[1] and seqCopy[i+2]== subStr_[2]
-						and seqCopy[i+3]== subStr_[3] and seqCopy[i+4] == subStr_[4] and seqCopy[i+5] == subStr_[5]
-						and seqCopy[i+6] == subStr_[6]); //we know that 7 nucleotides in a row have to match
+					bool matchingCondition(seq[i] == subStr_[0] and seq[i+1]== subStr_[1] and seq[i+2]== subStr_[2]
+						and seq[i+3]== subStr_[3] and seq[i+4] == subStr_[4] and seq[i+5] == subStr_[5]
+						and seq[i+6] == subStr_[6]); //we know that 7 nucleotides in a row have to match
 					
 					if(matchingCondition)		//if 7 nucleotides in a row do match then
 					{
@@ -96,6 +196,7 @@ vector<int> Sequence::searchMotif(string subStr, int seqNb) const
 	
 	return output;
 };
+
 
 //A method giving the REVERSE complementary sequence from one of the two DNA strand
 vector<char> Sequence::giveComplementarySeq(vector<char> seq)
@@ -143,20 +244,16 @@ vector <char>  Sequence::getSequence2()
 };
 
 
+
+
 int main()
 {
 	Sequence seq_;
-	seq_.loadFile("promoters.fasta");
-	seq_.display();
-	for(auto c : seq_.searchMotif("TTCCCCA", 2))
-	{
-		cout << c << " ";
-	}
-	cout << endl; //skip a line
+	seq_.outputSites("GGATTGG");
 	
 	//TESTING NEW METHOD GIVECOMPLEMENTARYSEQ
-	cout << "Reverse complementary sequence of first sequence in fasta file :" << endl;
-	seq_.giveComplementarySeq(seq_.getSequence1());
+	//cout << "Reverse complementary sequence of first sequence in fasta file :" << endl;
+	//seq_.giveComplementarySeq(seq_.getSequence1());
 	//END OF TEST
 	
 	return 0;

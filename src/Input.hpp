@@ -7,8 +7,9 @@ class Input		//a purely virtual class because we will never have JUST input, it 
 {
 public:
 
+
     Input() {}	//constructor and destructor
-    virtual ~Input() {}
+    virtual ~Input() {};
 	virtual void loadFile(string) = 0;	//a purely virtual method for loading files that requires a file name 
 										//need to be redefined in every sub-class
 
