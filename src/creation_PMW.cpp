@@ -7,17 +7,18 @@ double probas(double n, double tot)
 	return n/tot; 
 }
 
-struct Motif 
+/*
+struct Motif
 {
-	std::vector<char> lettres; 
-	double binding_score; 
-};
+	std::vector<char> site;
+	double Bscore;
+};*/
 
-int main()
+Matrice create_PWM()
 {
-	typedef std::vector< Motif>Tableau; 
+	// typedef std::vector< Motif>Tableau;
 	typedef std::vector<std::vector<double>> Matrice;
-	Tableau sequences;
+	// Tableau sequences;
 	double compteurA(0); 
 	double compteurT(0);
 	double compteurG(0);
@@ -29,7 +30,7 @@ int main()
 	std::vector <double> tabC;
 	Matrice finale; 
 	
-	Motif m1 = {{'A', 'T', 'G', 'C', 'T', 'G', 'T'}, 0.8};
+	/* Motif m1 = {{'A', 'T', 'G', 'C', 'T', 'G', 'T'}, 0.8};
 	sequences.push_back( m1) ;
 	Motif m2 = {{'T', 'C', 'A', 'C', 'T','C','C'}, 0.2};
 	sequences.push_back( m2) ;
@@ -37,30 +38,31 @@ int main()
 	sequences.push_back( m3) ;
 	Motif m4 = {{ 'A' , 'A', 'C', 'G', 'G','T', 'C'}, 0.7};
 	sequences.push_back( m4) ;
+     */
 	
 
 	for (size_t j(0) ; j < 7 ; ++j) 
 	{
 
-		for ( size_t i(0) ; i < sequences.size() ; ++i) 
+		for ( size_t i(0) ; i < patterns.size() ; ++i)
 		{
 			
-			nombreTot = nombreTot + sequences[i].binding_score ;
-		  if ( sequences[i].lettres[j] == 'A')
+			nombreTot = nombreTot + patterns[i].Bscore ;
+		  if ( sequences[i].site[j] == 'A')
 			{ 
-				compteurA = compteurA + sequences[i].binding_score ; 
+				compteurA = compteurA + patterns[i].Bscore ;
 			}
-		  if ( sequences[i].lettres[j] == 'T')
+		  if ( sequences[i].site[j] == 'T')
 			{ 
-				compteurT = compteurT + sequences[i].binding_score ; 
+				compteurT = compteurT + patterns[i].Bscore ;
 			}
-		  if ( sequences[i].lettres[j] == 'G')
+		  if ( sequences[i].site[j] == 'G')
 			{ 
-				compteurG = compteurG + sequences[i].binding_score ; 
+				compteurG = compteurG + patterns[i].Bscore ;
 			}
-		  if ( sequences[i].lettres[j] == 'C')
+		  if ( sequences[i].site[j] == 'C')
 			{ 
-				compteurC = compteurC + sequences[i].binding_score ;  
+				compteurC = compteurC + patterns[i].Bscore ;
 			}
 		}
 		
@@ -79,7 +81,16 @@ int main()
 	finale.push_back(tabT);
 	finale.push_back(tabG);
 	finale.push_back(tabC);
-	
+    
+    return finale;
+    
+}
+
+
+void display_PWM()
+{
+    finale = create_PWM();
+    
 		for ( int i(0); i < finale.size() ; ++i)
 		{
 			
@@ -91,6 +102,5 @@ int main()
 			 
 			std::cout << std::endl; 
 		}
-	return 0;  
 
 }

@@ -30,6 +30,10 @@ class Protein
 		//Méthodes
         void fillPattern(double const& bScore, vector<char> const& site);   		//à utiliser éventuellement dans le constructeur? const ou pas?
         void fillVectorPatterns(Pattern pattern);								//const ou pas? Comment faire pour mettre directement plusieurs patterns?
+    
+        double probas(double n, double tot);
+        Matrice create_PWM();
+        void display_PWM();
 	
 };
 
