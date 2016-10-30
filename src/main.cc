@@ -43,7 +43,14 @@ int main() {
          string name;
          cin >> name;
          cout << name;
-         vector<vector<double>> Matrix(loadmatrix(name));
+         vector<vector<double>> Matrix;
+         try {
+             Matrix = loadmatrix(name);
+         } catch (runtime_error message) {
+             cout << message.what();
+         }
+         
+         
         A: cout << "Sequence: entrer une sequence \n";
          string sequence_;
          cin >> sequence_;
