@@ -51,7 +51,7 @@ int main() {
          }
          
          
-        A: cout << "Sequence: entrer une sequence \n";
+        A: cout << "Sequence: enter a sequence \n";
          string sequence_;
          cin >> sequence_;
          while (sequence_.size() > Matrix.size()) {
