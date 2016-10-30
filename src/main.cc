@@ -4,6 +4,8 @@
 //
 #include <iostream>
 #include <Logo.hpp>
+#include <matrix_reader.cpp>
+#include <get_afinity_score_from_matrix.cpp>
 
 using namespace std;
 
@@ -34,13 +36,45 @@ int main() {
      else if (answer == '2') {
          
             // demander une matrice (et la convertir si nécessaire) et la séquence + fonction calculant et affichant les affinity scores
-            
+         cout << "Is the Matrix a PWM [type 0] or a PSSM[type 1] \n";
+         bool type(0);
+         cin >> type;
+         cout << "Matrix : Enter the name of a file \n";
+         string name;
+         cin >> name;
+         cout << name;
+         vector<vector<double>> Matrix(loadmatrix(name));
+        A: cout << "Sequence: entrer une sequence \n";
+         string sequence_;
+         cin >> sequence_;
+         while (sequence_.size() > Matrix.size()) {
+             cout << "The sequence is longer than the given Matrix allows. The sequence can be up to " <<Matrix.size()<<" base long. Please reenter a sequence \n";
+             cin >> sequence_;
+         }
+         vector<char> sequence;
+         for (size_t w(0); w < sequence_.size() ; ++w) {
+             if ((sequence_[w] != 'A') and (sequence_[w] != 'C') and (sequence_[w] != 'G') and (sequence_[w] != 'T')) {
+                 cout << "The sequence contains incorrect letters, Please check that all letters are bases and capital.\n";
+                 goto A;
+             }
+         }
+         for (size_t w(0); w < sequence_.size() ; ++w) {
+             sequence.push_back(sequence_[w]);
+         }
+         if (type)
+         {
+             cout << "The affinity score for the sequence "<<sequence_<<" is of "<<get_afinity_score_from_matrix(Matrix, sequence, 1)<<"\n";
+         } else {
+             cout << "The affinity score for the sequence "<<sequence_<<" is of "<<get_afinity_score_from_matrix(Matrix, sequence)<<"\n";
+         }
+         
      }
+
             
             
       else if (answer == '3') {
           
-          char choice;
+         char choice;
           int nb(0);
           
           do {
@@ -52,6 +86,7 @@ int main() {
           if(nb > 5) { cout << " Abandon ! " <<endl; }
           
           // demander fichier .mat et liste de sites + fonction qui crée puis affiche la PWM ou PSSM (faire 2 conditions)
+          
           
           
             
