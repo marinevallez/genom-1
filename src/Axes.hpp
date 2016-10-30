@@ -1,10 +1,4 @@
-//
-//  Axes.hpp
-//  partie 5
-//
-//  Created by Oriane Peter on 24.10.16.
-//  Copyright © 2016 Oriane Peter. All rights reserved.
-//
+
 
 #ifndef Axes_hpp
 #define Axes_hpp
@@ -18,7 +12,7 @@ using namespace std;
 class Axes
 {
 public:
-    void draw(sf::RenderTarget& target);
+    void draw(sf::RenderTarget& target); 
     Axes();
 private :
     sf::Texture texture;
