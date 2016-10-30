@@ -3,6 +3,7 @@
 //  GENOM_1
 //
 #include <iostream>
+#include <Logo.hpp>
 
 using namespace std;
 
@@ -59,7 +60,42 @@ int main() {
             
      else if (answer == '4') {
          
-          // demander la séquence et les binding scores + fonction pour afficher le logo
+         // demander la séquence et les binding scores + fonction pour afficher le logo
+         vector<Motif> sequences;
+         
+         int nbr(0);
+         cout << "How many Sequences do you want to enter ?";
+         cin >> nbr;
+         
+         int length(0);
+         cout << "How long are the Sequences ? ";
+         cin >> length;
+         
+         cout << "Enter the list of sequence and for each its binding score :" << endl;
+         for (int j(0); j < nbr; ++j) {
+             Motif motif_;
+             cout << "Sequence "<<j+1;
+             string x;
+             cin >> x;
+             while (x.size() != length)
+             {
+                 cout << "The size of the sequence doesn't correspond to the indicated length, please enter it again";
+                 cin >> x;
+             }
+             for (size_t w(0); w < x.size() ; ++w) {
+                 motif_.lettres.push_back(x[w]);
+             }
+             
+             cout << "Binding Score"<<j+1;
+             cin >> motif_.binding_score;
+             sequences.push_back(motif_);
+         }
+         
+         
+         
+         Logo Logo_;
+         
+         Logo_.afficher_logo(sequences);
          
       }
             
