@@ -12,9 +12,9 @@ using namespace std;
 class Axes
 {
 public:
-    void draw(sf::RenderTarget& target); 
+    void draw(sf::RenderTarget& target);
     Axes();
-private :
+    private :
     sf::Texture texture;
     sf::Sprite sprite;
 };
