@@ -46,10 +46,9 @@ double probas(double n, double tot)
 
 
 
-Matrice create_PWM()
+matrix loadmatrix_fromscore()
 {
     // typedef std::vector< Motif>Tableau;
-    typedef std::vector<std::vector<double>> Matrice;
     // Tableau sequences;
     double compteurA(0);
     double compteurT(0);
@@ -60,7 +59,7 @@ Matrice create_PWM()
     std::vector <double> tabT;
     std::vector <double> tabG;
     std::vector <double> tabC;
-    Matrice finale;
+    matrix finale;
     
     /* Motif m1 = {{'A', 'T', 'G', 'C', 'T', 'G', 'T'}, 0.8};
      sequences.push_back( m1) ;
@@ -119,7 +118,7 @@ Matrice create_PWM()
 }
 
 
-void display_PWM( Matrice finale)
+void display_PWM(matrix finale)
 {
     
     for ( int i(0); i < finale.size() ; ++i)
@@ -134,4 +133,46 @@ void display_PWM( Matrice finale)
         std::cout << std::endl; 
     }
     
+}
+
+matrix Protein::loadmatrix(string Data){ // the function stores data from a file containing a PWM or a PSSM assuming that the bases are stored in column and in the ACGT order
+
+    int colmn;
+    int row;
+    string fichier (Data);
+    vector<double> temp; // stock in a 1x1 Matrix to calculate the number of data
+    ifstream file;
+    file.open(fichier);
+  
+    
+    if (file.fail())
+    {
+        throw std::runtime_error("Erreur de lecture du fichier de donnée ");
+    }
+    
+    string var;
+    while (!file.eof()) 
+    {
+		while (!file.eof()) 
+		{
+            file >> var >> ws;
+            double dbl = To_double(var); // allows to get the data in double
+            temp.push_back(dbl);
+        }
+    }
+    file.close();
+
+    int z(0);
+    colmn = 4;
+    row = (temp.size())/4;  // here we make the assumption that the base are stored in column
+    vector<double> tmp (colmn,0.0 );
+    matrix mtrix (row,tmp); // all the case are initialize at 0.0
+    for (int i(0); i < row; ++i) {
+        for (int j(0); j < colmn; ++j) {
+            mtrix[i][j]=temp[z];
+            ++z;
+        }
+    }
+    setrw(row);
+    return mtrix;
 }
