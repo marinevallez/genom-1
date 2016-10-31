@@ -21,11 +21,12 @@ double To_double( const string& string ){ // allows a convertion from string to 
 }
 
 
-Matrix::~Matrix(){};
+Matrix::Matrix(matrix matrice)
+: mx(matrice) {matrix_generation();}
 
-Matrix::Matrix(){};
+Matrix::~Matrix(){}
 
-//1 if it's a PWM. The function doesn't launch if the matrix is impossible.
+//1 if it's a PWM. T~he function doesn't launch if the matrix is impossible.
 //There's 3 tests, a PSSM can't have a sum of its columns higher than 4
 //because the maximum is (1.0 1.0 1.0 1.0) which would be (0.25 0.25 0.25 0.25)
 //converted to a relative matrix. If it's an absolute matrix a.k.a
@@ -125,8 +126,7 @@ void Matrix::PWM_to_PSSM_2(matrix& matrice)
 //If it's a PSSM it would 100% succeed the first test and probably not the second. If it's a
 //PWM it would probably not pass the first test but it would 100% succeed the second.
 
-bool Matrix::possible(matrix matrice)
-{
+bool Matrix::possible(matrix matrice){
 	
 	bool a1(1);
 	bool a2(1);
@@ -240,31 +240,31 @@ void Matrix::setrw(int value)
 	
 }
 
-//i kept our last idea of class methods
-/*void Matrix::swaptopssm(){
-	
-	if (status){
-		for (unsigned int i(0); i < mx.size() ; ++i){
-			for (unsigned int j(0); j < mx[i].size(); ++j){ 
-				mx[i][j] = log2(mx[i][j]/0.25);
-			}  
-		}
-	}else{
-		cout<<"Already PSSM";
+void Matrix::swaptopssm(matrix& mtx){
+	assert (check_if_pmworpssm(mtx) == 1);
+	for (unsigned int i(0); i < mtx.size() ; ++i)
+	{
+		for (unsigned int j(0); j < mtx[i].size(); ++j)
+		{ 
+			mtx[i][j] = log2(mx[i][j]/0.25);
+		}  
 	}
+
 	
 }
 // same here
-void Matrix::swaptopwm(){
-	
-	if (status){
-		for (unsigned int i(0); i < mx.size() ; ++i){
-			for (unsigned int j(0); j < mx[i].size(); ++j){
-				mx[i][j] = exp2(mx[i][j])*0.25;  
-			}   // we choose 0.25 as a backgroud because each aa has the same probability to appear randomly
-		}	
+void Matrix::swaptopwm(matrix& mtx){
+	assert (check_if_pmworpssm(mtx) == 0);
+	for (unsigned int i(0); i < mx.size() ; ++i)
+	{
+		for (unsigned int j(0); j < mx[i].size(); ++j)
+		{
+			mx[i][j] = exp2(mx[i][j])*0.25;  
+		}   // we choose 0.25 as a backgroud because each aa has the same probability to appear randomly
+	}	
 }
-*/
+
+
 void Matrix::swaptoabsolute(matrix& mtx)
 {
 	
@@ -329,3 +329,56 @@ bool Matrix::which_PWM_to_PSSM(matrix matrice)
 		return 0;
 	}
 }
+
+void Matrix::matrix_generation()
+{
+	std::vector<bool> check(2);
+	assert (possible(mx)==1);
+	check=matrix_status(mx);
+	if( check[0] == 0 & check[1] == 0)
+	{
+		pssm_abs=mx;
+		swaptorelative(mx);
+		pssm_rel = mx;
+		swaptopwm(mx);
+		pwm_rel = mx;
+		mx=pssm_abs;
+		swaptopwm(mx);
+		pwm_abs=mx;
+		
+	}
+	else if ( check[0] == 0 & check[1] == 1)
+	{
+		pssm_rel=mx;
+		swaptoabsolute(mx);
+		pssm_abs = mx;
+		swaptopwm(mx);
+		pwm_abs = mx;
+		mx = pssm_rel;
+		swaptopwm(mx);
+		pwm_rel=mx;
+		
+	}
+	else if ( check[0] == 1 & check[1] == 0)
+	{
+		pwm_abs=mx;
+		swaptopssm(mx);
+		pssm_abs = mx;
+		swaptorelative(mx);
+		pssm_rel = mx;
+		swaptopwm(mx);
+		pwm_rel=mx;		
+	}
+	else 
+	{
+		pwm_rel=mx;
+		swaptopssm(mx);
+		pssm_rel = mx;
+		swaptoabsolute(mx);
+		pssm_abs=mx;
+		swaptopwm(mx);
+		pwm_abs=mx;
+		}	
+};
+
+/* Fonction used in constructor to load all different matrixes, we could need getters in Protein to read them*/

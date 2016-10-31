@@ -4,17 +4,18 @@
 #include <iostream>
 #include <vector>
 
+
 typedef std::vector<std::vector<double> > matrix;
 
 class Matrix {
 	
 	public : 
 	
-	Matrix();
+	Matrix(matrix matrice);
 	~Matrix();
 	void setrw(int value);
-	void loadpssm(); 
-	void loadpwm();
+	void swaptopssm(matrix& mtx); 
+	void swaptopwm(matrix& mtx);
 	void swaptoabsolute(matrix& mtx);
 	void swaptorelative(matrix& mtx);
 	bool absolute(matrix matrice);
@@ -24,6 +25,8 @@ class Matrix {
 	bool check_if_pmworpssm(matrix matrice);
 	bool possible(matrix matrice);
 	std::vector <bool> matrix_status(matrix matrice);
+	void matrix_generation();
+	
 	
 	private :
 	
@@ -36,6 +39,3 @@ class Matrix {
 };
 #endif
 
-
-//Question to myself 
-// constructors, shall i define operator= for matrix;
