@@ -19,7 +19,7 @@ void PWM_to_PSSM_2(vector<vector<double> >& matrice);
 bool which_PWM_to_PSSM(vector<vector<double> > matrice);
 bool PWM(vector<vector<double> > matrice);
 bool possible(vector<vector<double> > matrice);
-void matrix_status(vector<vector<double> > matrice);
+vector <bool> matrix_status(vector<vector<double> > matrice);
 
 
 int main()
@@ -28,7 +28,14 @@ int main()
 		
 	M = creer_matrice();
 	
-	matrix_status(M);
+	vector <bool> a(2);
+	
+	a = matrix_status(M);
+	
+	if (a[0] == 0 and a[1] == 0)
+	{
+		cout<<"ooo";
+	}
 		
 	return 0;
 }
@@ -258,45 +265,31 @@ bool possible(vector<vector<double> > matrice)
 
 //======================================================================
 
-void matrix_status(vector<vector<double> > matrice)
+vector <bool> matrix_status(vector<vector<double> > matrice)
 {
-	if ( possible(matrice) == 0 )
-	{
-		cout<<"La matrice est aberrante";
-	}
-	else
-	{
+	vector <bool> a(2);
+	
+	assert( possible(matrice) == 1 );
 	    if ( PWM(matrice) == true )
 	    {
-			if ( which_PWM_to_PSSM(matrice) == true )
-			{
-		        PWM_to_PSSM(matrice);
-			}
-			else
-			{
-				PWM_to_PSSM_2(matrice);
-			}
-		    if ( absolute(matrice) == 1 )
-		    {
-			    cout<<"It's an absolute PWM";
-		    }
-		    else
-		    {
-			    cout<<"It's a relative PWM";
-		    }
+			a[0] = 1;
+			PWM_to_PSSM(matrice);
 	    }
 	    else
 	    {
-		    if ( absolute(matrice) == 1 )
-		    {
-			    cout<<"It's an absolute PSSM";
-		    }
-		    else
-		    {
-			    cout<<"It's a relative PSSM";
-		    }
+		    a[0] = 0;
 	    }
-    }
+	    if ( absolute(matrice) == true )
+	    {
+			a[1] = 0;
+		}
+		else
+		{
+			a[1] = 1;
+		}
+    
+    
+    return a;
 }
 	
 //======================================================================
