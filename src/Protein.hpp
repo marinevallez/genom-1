@@ -33,7 +33,7 @@ class Protein
     
         double probas(double n, double tot);
         Matrice create_PWM();
-        void display_PWM();
+        void display_PWM(Matrice finale);
 	
 };
 

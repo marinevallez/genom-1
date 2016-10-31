@@ -119,9 +119,8 @@ Matrice create_PWM()
 }
 
 
-void display_PWM()
+void display_PWM( Matrice finale)
 {
-    finale = create_PWM();
     
     for ( int i(0); i < finale.size() ; ++i)
     {
