@@ -17,13 +17,13 @@ class Matrix {
 	void loadpwm();
 	void swaptoabsolute(matrix& mtx);
 	void swaptorelative(matrix& mtx);
-	bool absolute(vector<vector<double> > matrice);
-	void PWM_to_PSSM(vector<vector<double> >& matrice);
-	void PWM_to_PSSM_2(vector<vector<double> >& matrice);
-	bool which_PWM_to_PSSM(vector<vector<double> > matrice);
-	bool PWM(vector<vector<double> > matrice);
-	bool possible(vector<vector<double> > matrice);
-	vector <bool> matrix_status(vector<vector<double> > matrice);
+	bool absolute(matrix matrice);
+	void PWM_to_PSSM(matrix& matrice);
+	void PWM_to_PSSM_2(matrix& matrice);
+	bool which_PWM_to_PSSM(matrix matrice);
+	bool check_if_pmworpssm(matrix matrice);
+	bool possible(matrix matrice);
+	std::vector <bool> matrix_status(matrix matrice);
 	
 	private :
 	
