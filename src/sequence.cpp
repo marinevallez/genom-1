@@ -88,11 +88,13 @@ vector<PosDir> Sequence::motifRecognition(const string& motif) const
 	
 	file.open("../test/promoters.fasta"); 			//since out text files are in the test folder, we need to include a path to it
 	
-	vector<char> motif_;							//used to convert a string into a table of char
+	vector<char> motif_;								//used to convert a string into a table of char, the motif we are looking for
+	vector<char> motifComplementary_;						//instead of checking the complementary strand we check for the reverse complement of the motif which should appear 
 	
 	for(const char& c : motif)	//we convert the substring into a table of characters as well
 	{
 		motif_.push_back(c);
+		motifComplementary_ = motif_.giveComplementarySeq();  		//the method will apply to both strands of theDNA
 	}
 	
 	if(file.fail())								// if it didnt open -> show an error 
@@ -105,13 +107,25 @@ vector<PosDir> Sequence::motifRecognition(const string& motif) const
 		file >> c1 >> c2 >> c3 >> c4 >> c5 >> c6 >> c7;
 		
 		list<char> l = {c1,c2,c3,c4,c5,c6,c7};
-		vector<char> seq = {l.begin(), l.end()};
+		//list<char> lComplement = {c1,c2,c3,c4,c5,c6,c7};
 		
-		bool matchingCondition(compare(seq, motif_));
+		vector<char> seq = {l.begin(), l.end()};
+		//vector<char> seqComplementary =
+		
+		bool matchingCondition(compare(seq, motif_));					// condition is that chain of characters are the same
+		
+		if(matchingCondition)											// if condition veriried					
+		{
+			positions.push_back({compteur,'+'});
+		}
+		
+		//the same operation for the reverse complement :
+	
+		bool matchingCondition(compare(seq, motifComplementary_));
 		
 		if(matchingCondition)
 		{
-			positions.push_back({compteur,'+'});
+			positions.push_back({compteur,'-'});  		// '-' sign because the site is on the complementary strand
 		}
 		
 		while(file >> nucl)
@@ -129,10 +143,16 @@ vector<PosDir> Sequence::motifRecognition(const string& motif) const
 				
 				seq = {begin(l), end(l)};
 				matchingCondition = compare(seq, motif_);
+				matchingCondition = compare(eq, motifComplementary_();
 				
 				if(matchingCondition)
 				{
 					positions.push_back({compteur, '+'});
+				}
+				
+				if(matchingCondition)
+				{
+					position.push_back({compteur, '-'});
 				}
 			}
 		}
