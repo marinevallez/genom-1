@@ -21,6 +21,11 @@ public:
 												//int parameter allows you to switch between sequence, 1 to search the first one, 2 to search the second
 	void display();								//display the two sequences
 	
+/*!
+ * This method outputs a file containing sequence numbers (from a .fasta file) and the position on which a motif is found, 
+ * as well as the direction of the reading frame (+ means forward, - means reverse).
+ */
+ 
 	void outputSites(string);
 	vector<vector<char> > quickRead(string) const;
 	
