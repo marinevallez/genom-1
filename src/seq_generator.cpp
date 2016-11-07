@@ -1,3 +1,4 @@
+//#include "get_afinity_score_from_martix.cpp"
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -19,8 +20,19 @@ char genRandomChar()  					// Generates a random nucleotide
     return nucleotides[rand() % stringLength];
 }
 
+vector<char> seq_generator(double length)
+{
+	vector <char> sequence;
+	    for(int i=0; i < length; i++)      		// creates the sequence
+    {
+        sequence.push_back(genRandomChar());
 
-vector<char> seq_generator()   
+    }
+
+    return sequence;
+}
+
+vector<char> seq_generator()  // surcharge in case of no argument are given
 {
 
 	cout << "Length of the sequence ?" << endl;
@@ -48,6 +60,22 @@ vector<char> seq_generator()
     return sequence;
 }
 
+/*double set_average(PWM Matrix)
+{
+	double total(0);
+	double average(0);
+	for(int i=0; i < length; i++) 
+	{		
+		seq = seq_generator(100);
+		total = get_afinity_score_from_matrix(Matrix, seq);
+		total += total;
+	}
+	
+	average = total/10;
+	return average;
+
+}*/
+
 int main()								// test
 
 {
@@ -55,4 +83,6 @@ int main()								// test
 	
 	return 0;
 }
+
+
 
