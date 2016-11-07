@@ -3,9 +3,9 @@
 //  GENOM_1
 //
 #include <iostream>
-#include <Logo.hpp>
-#include <matrix_reader.cpp>
-#include <get_afinity_score_from_matrix.cpp>
+#include "Logo.hpp"
+#include "matrix_reader.cpp"
+#include "get_afinity_score_from_matrix.cpp"
 
 using namespace std;
 
