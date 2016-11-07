@@ -19,7 +19,7 @@ int main() {
         cout << " - Outputting the list of sites (write '1')" <<endl;
         cout << " - Getting the affinity scores (write '2')" <<endl;
         cout << " - Outputting the motif description : PWM or PSSM (write '3')" <<endl;
-        cout << " - Outputting the motif logo (write '4')" <<endl;
+        cout << " - Outputting the motif logo (write '4') \n" <<endl;
         cin >> answer;
         ++nbr;
     } while ( (answer != '1') and (answer != '2') and (answer != '3') and (answer != '4') and  (nbr <= 10));
@@ -90,7 +90,61 @@ int main() {
               ++nb;
           } while ( (choice != '1') and (choice != '2')  and  (nb <= 5));
           
+          
+          if ( choice == '1' or choice == '2')
+          {
+           vector<Motif> patterns_;
+         
+				 int nbr(0);
+				 cout << "How many Sequences do you want to enter ? \n";
+				 cin >> nbr;
+				 
+				 int length(0);
+				 cout << "How long are the Sequences ? \n";
+				 cin >> length;
+				 
+				 cout << "Enter the list of sequence and for each its binding score : \n" << endl;
+				 for (int j(0); j < nbr; ++j) 
+				 {
+					 Motif motif_;
+					 cout << "Sequence "<<j+1;
+					 string x;
+					 cin >> x;
+					 while (x.size() != length)
+					 {
+						 cout << "The size of the sequence doesn't correspond to the indicated length, please enter it again \n";
+						 cin >> x;
+					 }
+					 for (size_t w(0); w < x.size() ; ++w)
+					 {
+						 motif_.listOfsites.push_back(x[w]);
+					 }
+					 
+					 cout << "Binding Score"<<j+1;
+					 cin >> motif_.bScore;
+					 patterns_.push_back(motif_);
+				 }
+				 
+				 Protein protein_;
+				 protein_.patterns(patterns_);
+				 protein_.loadmatrix_fromscore(); 
+				 
+				 
+				 if (choice == '1')
+				  {
+					protein_.display_PWM(); 
+				  }
+				  
+				  if ( choice == '2')
+				  {
+					  
+				  }
+         }
+          
+          
+          
           if(nb > 5) { cout << " Abandon ! " <<endl; }
+          
           
           // demander fichier .mat et liste de sites + fonction qui crée puis affiche la PWM ou PSSM (faire 2 conditions)
           
@@ -106,14 +160,14 @@ int main() {
          vector<Motif> sequences;
          
          int nbr(0);
-         cout << "How many Sequences do you want to enter ?";
+         cout << "How many Sequences do you want to enter ? \n";
          cin >> nbr;
          
          int length(0);
-         cout << "How long are the Sequences ? ";
+         cout << "How long are the Sequences ? \n";
          cin >> length;
          
-         cout << "Enter the list of sequence and for each its binding score :" << endl;
+         cout << "Enter the list of sequence and for each its binding score : \n" << endl;
          for (int j(0); j < nbr; ++j) {
              Motif motif_;
              cout << "Sequence "<<j+1;
@@ -121,14 +175,14 @@ int main() {
              cin >> x;
              while (x.size() != length)
              {
-                 cout << "The size of the sequence doesn't correspond to the indicated length, please enter it again";
+                 cout << "The size of the sequence doesn't correspond to the indicated length, please enter it again \n";
                  cin >> x;
              }
              for (size_t w(0); w < x.size() ; ++w) {
                  motif_.lettres.push_back(x[w]);
              }
              
-             cout << "Binding Score"<<j+1;
+             cout << "Binding Score \n"<<j+1;
              cin >> motif_.binding_score;
              sequences.push_back(motif_);
          }
