@@ -1,10 +1,8 @@
 #ifndef PROTEIN_HPP
 #define PROTEIN_HPP
 
-//#include "Matrix.hpp"
-
 #include <vector>
-
+#include "matrix.hpp"
 using namespace std;
 
 struct Pattern {
@@ -18,9 +16,9 @@ class Protein
 {
 	private:
 		//Attributs
-        //Matrix matrix;
 		Pattern pattern;
 		vector<Pattern> patterns;
+		Matrix mtrx;
 	
 	public:		
 		//Constructeur et destructeur
@@ -30,6 +28,13 @@ class Protein
 		//Méthodes
         void fillPattern(double const& bScore, vector<char> const& site);   		//à utiliser éventuellement dans le constructeur? const ou pas?
         void fillVectorPatterns(Pattern pattern);								//const ou pas? Comment faire pour mettre directement plusieurs patterns?
+    
+        double probas(double n, double tot);
+		matrix loadmatrix_fromscore();
+        void display_PWM(matrix finale);
+        //Load matrix from a file
+        matrix loadmatrix_fromfile(std::string Data);
+        
 	
 };
 
