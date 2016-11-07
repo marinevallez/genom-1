@@ -19,7 +19,7 @@ Protein::~Protein()
 void Protein::fillPattern(double const& bScore, vector<char> const& site)
 {
 	pattern.bScore = bScore;
-	pattern.site = site;
+	pattern.listOfSites = site;
 }
 
 
@@ -46,10 +46,9 @@ double probas(double n, double tot)
 
 
 
-matrix loadmatrix_fromscore()
+void loadmatrix_fromscore()
 {
-    // typedef std::vector< Motif>Tableau;
-    // Tableau sequences;
+    
     double compteurA(0);
     double compteurT(0);
     double compteurG(0);
@@ -75,23 +74,23 @@ matrix loadmatrix_fromscore()
     for (size_t j(0) ; j < 7 ; ++j)
     {
         
-        for ( size_t i(0) ; i < patterns.size() ; ++i)
+        for ( size_t i(0) ; i < patterns().size() ; ++i)
         {
             
             nombreTot = nombreTot + patterns[i].Bscore ;
-            if ( sequences[i].site[j] == 'A')
+            if ( patterns[i].site[j] == 'A')
             {
                 compteurA = compteurA + patterns[i].Bscore ;
             }
-            if ( sequences[i].site[j] == 'T')
+            if ( patterns[i].listOfSites[j] == 'T')
             {
                 compteurT = compteurT + patterns[i].Bscore ;
             }
-            if ( sequences[i].site[j] == 'G')
+            if ( patterns[i].listOfSites[j] == 'G')
             {
                 compteurG = compteurG + patterns[i].Bscore ;
             }
-            if ( sequences[i].site[j] == 'C')
+            if ( patterns[i].listOfSites[j] == 'C')
             {
                 compteurC = compteurC + patterns[i].Bscore ;
             }
@@ -113,21 +112,22 @@ matrix loadmatrix_fromscore()
     finale.push_back(tabG);
     finale.push_back(tabC);
     
-    return finale;
+    mtrx.mx = finale; 
+    mtrx.matrix_generation(); 
     
 }
 
 
-void display_PWM(matrix finale)
+void display_PWM()
 {
     
-    for ( int i(0); i < finale.size() ; ++i)
+    for ( int i(0); i < mtrx.size() ; ++i)
     {
         
-        for (int j(0) ; j < finale[i].size() ; ++j)
+        for (int j(0) ; j < mtrx[i].size() ; ++j)
         {
             
-            std::cout  << std::setprecision(5) << std::setw(5) << finale[i][j] << " | " ; 
+            cout  << setprecision(5) << setw(5) << mtrx[i][j] << " | " ; 
         } 
         
         std::cout << std::endl; 
@@ -175,4 +175,9 @@ matrix Protein::loadmatrix(string Data){ // the function stores data from a file
     }
     setrw(row);
     return mtrix;
+}
+
+vector<Pattern> getPatterns()
+{
+	return patterns; 
 }
