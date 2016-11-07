@@ -91,11 +91,15 @@ int main() {
           } while ( (choice != '1') and (choice != '2')  and  (nb <= 5));
           
           
+
           if ( choice == '1' or choice == '2')
+
+
           {
            vector<Motif> patterns_;
          
 				 int nbr(0);
+
 				 cout << "How many Sequences do you want to enter ? \n";
 				 cin >> nbr;
 				 
@@ -104,7 +108,7 @@ int main() {
 				 cin >> length;
 				 
 				 cout << "Enter the list of sequence and for each its binding score : \n" << endl;
-				 for (int j(0); j < nbr; ++j) 
+				 for (int j(0); j < nbr; ++j)
 				 {
 					 Motif motif_;
 					 cout << "Sequence "<<j+1;
@@ -112,6 +116,7 @@ int main() {
 					 cin >> x;
 					 while (x.size() != length)
 					 {
+
 						 cout << "The size of the sequence doesn't correspond to the indicated length, please enter it again \n";
 						 cin >> x;
 					 }
@@ -130,12 +135,15 @@ int main() {
 				 protein_.loadmatrix_fromscore(); 
 				 
 				 
+
 				 if (choice == '1')
 				  {
 					protein_.display_PWM(); 
 				  }
 				  
+
 				  if ( choice == '2')
+
 				  {
 					  
 				  }
@@ -199,5 +207,6 @@ int main() {
     
     
     return 0;
+    
     
 }
