@@ -14,14 +14,14 @@ Sequence::~Sequence() {}
 string chromosomeNb(const string& str)  //a function that extracts the chromosome number from .fasta
 {
 	string chr;
-	
-	if(str[5] == '|')
+	 
+	if(str[4] == '|')
 	{
-		chr = str.substr(1,3) + " " + str[4];
+		chr = str.substr(0,3) + str[3];
 	}
 	else
 	{
-		chr = str.substr(1,3) + " " + str.substr(4,2);
+		chr = str.substr(0,3) + str.substr(3,2);
 	}
 	
 	return chr;	
@@ -68,7 +68,7 @@ void Sequence::outputSites(const vector<PosDir>& info) const	//a method that out
 	{
 		for(const PosDir& c : info)
 		{
-			file << "seq1 " << c.pos << " " << c.dir << " " << endl;
+			file << "seq" << c.seqNb << "/" << c.chrNb << " " << c.pos << " " << c.dir << " " << endl;
 		}
 		
 		file.close();		//we close the file
@@ -86,6 +86,8 @@ vector<PosDir> Sequence::motifRecognition(const string& motif) const
 	list<char> l;
 	vector<PosDir> positions;
 	size_t compteur(0);
+	size_t compteurSeq(0);
+	string chrNb_;
 	
 	file.open("../test/promoters.fasta.txt"); 			//since out text files are in the test folder, we need to include a path to it
 	
@@ -117,6 +119,7 @@ vector<PosDir> Sequence::motifRecognition(const string& motif) const
 				if(nucl == '>') 
 				{
 					file >> line;
+					chrNb_ = chromosomeNb(line);
 					break;
 				}
 				else
@@ -127,8 +130,10 @@ vector<PosDir> Sequence::motifRecognition(const string& motif) const
 					if(compteur == 394 or compteur == 0) 
 					{
 						compteur = 0;
+						++compteurSeq; 
 						file >> c1 >> c2 >> c3 >> c4 >> c5 >> c6;
 						l = {nucl,c1,c2,c3,c4,c5,c6};
+						
 					}
 					else
 					{
@@ -144,7 +149,7 @@ vector<PosDir> Sequence::motifRecognition(const string& motif) const
 
 					if(compare(seq, motif_))
 					{
-						positions.push_back({compteur, '+'});
+						positions.push_back({compteur,compteurSeq,chrNb_,'+'});
 					}
 					
 					vector<char> cDNA;				//we get the second strang of DNA from .fasta
@@ -157,7 +162,7 @@ vector<PosDir> Sequence::motifRecognition(const string& motif) const
 					
 					if(compare(cDNA, motifComplementary_))
 					{
-						positions.push_back({400 - compteur - 5, '-'});
+						positions.push_back({400 - compteur - 5, compteurSeq,chrNb_, '-'});
 					}
 				}
 			}

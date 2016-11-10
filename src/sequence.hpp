@@ -8,6 +8,8 @@ using namespace std;
 struct PosDir 	//stands for position and direction; position of the motif on the sequence + direction of the sequence
 {
 	size_t pos;
+	size_t seqNb;
+	string chrNb;
 	char dir;
 };
 
