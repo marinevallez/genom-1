@@ -5,10 +5,11 @@
 #include "matrix.hpp"
 using namespace std;
 
-struct Pattern {
-			double bScore;
-			vector<char> lisOfSites;
-        };
+struct Pattern 
+{
+		double bScore;
+		vector<char> listOfSites;
+};
 
 
 
@@ -21,6 +22,8 @@ class Protein
 		Matrix mtrx;
 	
 	public:		
+	
+	
 		//Constructeur et destructeur
 		Protein();  						//voir ce qu'on veut initialiser et à quelles valeurs?
 		~Protein();
@@ -34,6 +37,7 @@ class Protein
         void display_PWM(matrix finale);
         //Load matrix from a file
         matrix loadmatrix_fromfile(std::string Data);
+        vector<Pattern> getPatterns();
         
 	
 };

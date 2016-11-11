@@ -39,14 +39,14 @@ void Protein::fillVectorPatterns(Pattern pattern)					//à revoir en fonction de
 }
 
 
-double probas(double n, double tot)
+double Protein::probas(double n, double tot)
 {
     return n/tot;
 }
 
 
 
-void loadmatrix_fromscore()
+void Protein::loadmatrix_fromscore()
 {
     
     double compteurA(0);
@@ -74,7 +74,7 @@ void loadmatrix_fromscore()
     for (size_t j(0) ; j < 7 ; ++j)
     {
         
-        for ( size_t i(0) ; i < patterns().size() ; ++i)
+        for ( size_t i(0) ; i < patterns.size() ; ++i)
         {
             
             nombreTot = nombreTot + patterns[i].Bscore ;
@@ -118,7 +118,7 @@ void loadmatrix_fromscore()
 }
 
 
-void display_PWM()
+void Protein::display_PWM()
 {
     
     for ( int i(0); i < mtrx.size() ; ++i)
@@ -177,7 +177,7 @@ matrix Protein::loadmatrix(string Data){ // the function stores data from a file
     return mtrix;
 }
 
-vector<Pattern> getPatterns()
+vector<Pattern> Protein::getPatterns()
 {
 	return patterns; 
 }

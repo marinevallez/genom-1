@@ -3,9 +3,10 @@
 //  GENOM_1
 //
 #include <iostream>
+#include "Sequence.hpp"
 #include "Logo.hpp"
 #include "matrix_reader.cpp"
-#include "get_afinity_score_from_matrix.cpp"
+#include "get_afinity_score_from_martix.cpp"
 
 using namespace std;
 
@@ -24,12 +25,66 @@ int main() {
         ++nbr;
     } while ( (answer != '1') and (answer != '2') and (answer != '3') and (answer != '4') and  (nbr <= 10));
     
-    if(nbr > 10) { cout << " Abandon ! " <<endl; }
+    if(nbr > 10) { cout << " Abort ! " <<endl; }
     
     else if (answer == '1') {
-            
         
-            // demander le .fasta et les motifs + fonctions pour trouver puis afficher les sites
+            // demander le .fasta et les motifs + fonctions pour trouver puis afficher les sites 
+			 Sequence seq;
+			 Protein protein;
+             string fastaFile;
+             string matFile;
+             int nbr(0);
+            do { 
+				cout << "Please type the file name (.fasta format) which you would like to use." << endl;
+				cin >> fastaFile;
+				
+				cout << "Are you interested in finding a particular motif (write '1') or just displaying the list of possibles motifs from a PWM matrix (write '2') ?"
+				char task;
+				cin >> task;
+				
+				if(task == '1')
+				{
+					vector<char> motif;
+					do {
+					
+						cout << "Please type the motif of interest (must be 7 bases long) composed of the A, C, T, G nucleotides : " << endl;
+						cin >> motif;
+					
+						} while (motif.size() != 7);
+					
+					cout << "The " << motif << " motif will be searched in the file's sequences." << endl;
+					
+					vector<PosDir> info = seq.motifRecognition(motif, fastaFile);
+					seq.outputSites(info);
+ 				
+				} else if (task == '2') {
+				
+					cout >> "Please type the file name (.mat format) which you would like to use to obtain several motifs." << endl;
+					cin >> matFile;
+					// HERE WRITE METHOD THAT FINDS THE MOTIFS
+					//
+					//
+					//
+					
+					
+					do {
+						cout >> "Please enter an affinity score as threshold, above which motifs with a higher score will be considered (must be lower than -1)." << endl;
+						cout >> "By default, the programm offers a threshold." << endl; //maybe show the default threshold ?
+						double threshold;
+						cin << threshold;
+					} while ((threshold < 1)); //check definition of score HERE !
+					
+					//motifRecognition is overloaded according to the subtask
+					
+					vector<PosDir> info = seq.motifRecognition(protein.getPatterns(), threshold);
+					seq.outputSites(info);
+				}
+			
+				++nbr
+			} while ((task != '1') and (task != '2') and (nbr <= 10));
+			if (nbr > 10) { cout << " Abort ! " << endl; }			
+            
             
     }
     
