@@ -26,11 +26,11 @@ class Matrix {
 	bool possible(matrix matrice);
 	std::vector <bool> matrix_status(matrix matrice);
 	void matrix_generation();
+	void readjust_values(matrix& mtx);
 	
 	
 	private :
 	
-	int rw;
 	matrix mx;
 	matrix pssm_abs;
 	matrix pwm_abs;

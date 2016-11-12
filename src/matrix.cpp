@@ -22,7 +22,9 @@ double To_double( const string& string ){ // allows a convertion from string to 
 
 
 Matrix::Matrix(matrix matrice)
-: mx(matrice) {matrix_generation();}
+: mx(matrice) {
+	readjust_values(mx);
+	matrix_generation();}
 
 Matrix::~Matrix(){}
 
@@ -35,7 +37,7 @@ Matrix::~Matrix(){}
 
 bool Matrix::check_if_pmworpssm(matrix matrice)
 {
-	assert ( possible(matrice) == 1 );
+	assert (possible(matrice));
 	
 	for(size_t i(0); i<matrice.size(); ++i)
 	{
@@ -70,7 +72,7 @@ bool Matrix::check_if_pmworpssm(matrix matrice)
 
 bool Matrix::absolute(matrix matrice)
 {
-	assert( possible(matrice) == 1 );
+	assert(possible(matrice));
 	
 	size_t b(0);
 	for(size_t i(0); i<matrice.size(); ++i)
@@ -192,7 +194,7 @@ bool Matrix::possible(matrix matrice){
 		
 		double sum(a + b + c + d);
 
-		if ( sum < 0.99 or sum > 4.01 )
+		if ( sum < 0.999 or sum > 4 )
 		{
 			a3 = 0;
 		}
@@ -210,8 +212,8 @@ std::vector <bool> Matrix::matrix_status(matrix matrice)
 	
 	std::vector <bool> a(2);
 	
-	assert( possible(matrice) == 1 );
-	if ( check_if_pmworpssm(matrice) == true )
+	assert(possible(matrice));
+	if (check_if_pmworpssm(matrice))
 		{
 			a[0] = 1;
 			PWM_to_PSSM(matrice);
@@ -220,7 +222,7 @@ std::vector <bool> Matrix::matrix_status(matrix matrice)
 	    {
 		    a[0] = 0;
 	    }
-	    if ( absolute(matrice) == true )
+	    if (absolute(matrice))
 	    {
 			a[1] = 0;
 		}
@@ -233,15 +235,8 @@ std::vector <bool> Matrix::matrix_status(matrix matrice)
     return a;
 }
 
-void Matrix::setrw(int value)
-{
-	
-	rw = value;
-	
-}
-
 void Matrix::swaptopssm(matrix& mtx){
-	assert (check_if_pmworpssm(mtx) == 1);
+	assert (check_if_pmworpssm(mtx));
 	for (unsigned int i(0); i < mtx.size() ; ++i)
 	{
 		for (unsigned int j(0); j < mtx[i].size(); ++j)
@@ -269,8 +264,8 @@ void Matrix::swaptoabsolute(matrix& mtx)
 {
 	
 	assert (absolute(mtx)==0);
-	assert (possible(mtx)==1);
-	for(size_t i(0); i<rw; ++i)
+	assert (possible(mtx));
+	for(size_t i(0); i < mtx.size(); ++i)
 	{	
 		double total(0.0);
 		
@@ -290,9 +285,9 @@ void Matrix::swaptoabsolute(matrix& mtx)
 void Matrix::swaptorelative(matrix& mtx)
 {
 	
-	assert (absolute(mtx)==1);
-	assert (possible(mtx)==1);
-	for(size_t i(0); i<rw; ++i)
+	assert (absolute(mtx));
+	assert (possible(mtx));
+	for(size_t i(0); i < mtx.size(); ++i)
 	{
 		double max(0.0);
 		
@@ -316,11 +311,11 @@ void Matrix::swaptorelative(matrix& mtx)
 
 bool Matrix::which_PWM_to_PSSM(matrix matrice)
 {
-	assert ( possible(matrice) == 1 );
+	assert (possible(matrice));
 
 	PWM_to_PSSM(matrice);
 	
-	if (possible(matrice) == 1)
+	if (possible(matrice))
 	{
 		return 1;
 	}
@@ -330,12 +325,31 @@ bool Matrix::which_PWM_to_PSSM(matrix matrice)
 	}
 }
 
+//Since the computer doesn't like to compute things with -inf, here's a
+//function that replaces these values by -100, 2^-100 will be approximated
+//by 0.
+
+void Matrix::readjust_values(matrix& mtx)
+{
+	for (size_t i(0); i < mtx.size(); ++i)
+	{
+		for (size_t j(0); j < mtx[0].size(); ++j)
+		{
+			if ( mtx[i][j] < -100 )
+			{
+				mtx[i][j] = -100;
+			}
+		}
+	}
+}
+		
+
 void Matrix::matrix_generation()
 {
 	std::vector<bool> check(2);
 	assert (possible(mx)==1);
 	check=matrix_status(mx);
-	if( check[0] == 0 & check[1] == 0)
+	if( (check[0] == 0) & (check[1] == 0))
 	{
 		pssm_abs=mx;
 		swaptorelative(mx);
@@ -347,7 +361,7 @@ void Matrix::matrix_generation()
 		pwm_abs=mx;
 		
 	}
-	else if ( check[0] == 0 & check[1] == 1)
+	else if ( (check[0] == 0) & (check[1] == 1))
 	{
 		pssm_rel=mx;
 		swaptoabsolute(mx);
@@ -359,7 +373,7 @@ void Matrix::matrix_generation()
 		pwm_rel=mx;
 		
 	}
-	else if ( check[0] == 1 & check[1] == 0)
+	else if ( (check[0] == 1) & (check[1] == 0))
 	{
 		pwm_abs=mx;
 		swaptopssm(mx);
