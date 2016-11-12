@@ -241,7 +241,14 @@ void Matrix::swaptopssm(matrix& mtx){
 	{
 		for (unsigned int j(0); j < mtx[i].size(); ++j)
 		{ 
-			mtx[i][j] = log2(mx[i][j]/0.25);
+			if ( mtx[i][j] == 0 )
+			{
+				mtx[i][j] = -100;
+			}
+			else
+			{
+			    mtx[i][j] = log2(mx[i][j]/0.25);
+			}
 		}  
 	}
 
