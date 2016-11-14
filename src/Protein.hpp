@@ -2,7 +2,7 @@
 #define PROTEIN_HPP
 
 #include <vector>
-#include "matrix.hpp"
+
 using namespace std;
 
 struct Pattern 
@@ -17,7 +17,6 @@ class Protein
 {
 	private:
 		//Attributs
-		Pattern pattern;
 		vector<Pattern> patterns;
 		Matrix mtrx;
 	
@@ -30,7 +29,7 @@ class Protein
 	
 		//Méthodes
         void fillPattern(double const& bScore, vector<char> const& site);   		//à utiliser éventuellement dans le constructeur? const ou pas?
-        void fillVectorPatterns(Pattern pattern);								//const ou pas? Comment faire pour mettre directement plusieurs patterns?
+        void fillVectorPatterns(vector<vector<char>> sites, double threshold = 0 ) // fills Patterns from a list of binding sites, if the user doesn't give a threshold it is calculated as the avarage binding score from random sequence (NB this threshold is also used if the user enter 0 since this only filter the random binding)
     
         double probas(double n, double tot);
 		matrix loadmatrix_fromscore();
