@@ -7,6 +7,15 @@
 
 using namespace std;
 
+double To_double( const string& string ) // allows a convertion from string to double
+{
+    istringstream stream(string);
+    double dbl;
+    if (!(stream >> dbl))
+        return 0;
+    return dbl;
+}
+
 // ==============================================================================================================CONSTRUCTEUR ET DESTRUCTEUR
 
 Protein::Protein() 
