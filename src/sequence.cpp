@@ -47,12 +47,17 @@ bool compare(const vector<char>& v1, const vector<char>& v2)
 
 char giveComplementaryBase(const char& nucl)				//it's a function because it has nothing to do with the sequence class, it's a function to convert letters
 {
-	if(nucl == 'A' or nucl == 'T' or nucl == 'C' or nucl == 'G')
+	if(nucl == 'A' or nucl == 'T' or nucl == 'C' or nucl == 'G'
+		or nucl == 'a' or nucl == 't' or nucl == 'c' or nucl == 'g'
+			or nucl == '-' or nucl == '.' or nucl == 'N')
 	{
-		if(nucl == 'A') 	 return 'T';
-		else if(nucl == 'T') return 'A';
-		else if(nucl == 'C') return 'G';
-		else if(nucl == 'G') return 'C';
+		if(nucl == 'A' or nucl == 'a') 	 return 'T';
+		else if(nucl == 'T' or nucl == 't') return 'A';
+		else if(nucl == 'C' or nucl == 'c') return 'G';
+		else if(nucl == 'G' or nucl == 'g') return 'C';
+		else if(nucl == '-') return '-';
+		else if(nucl == '.') return '.';
+		else if(nucl == 'N') return 'N';
 	}
 }
 
@@ -323,4 +328,12 @@ vector<char> Sequence::giveReverseComplementarySeq(const vector<char>& seq) cons
 	seq_.outputSites(info);
 	return 0;
 }*/
+
+/*ACTGTCA
+
+5' TGACAGT 3'
+3' ACTGTCA 5'
+
+GAGCTC
+CTCGAG*/
 
