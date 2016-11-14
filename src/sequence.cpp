@@ -182,105 +182,105 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 
 
 //The motifRecognition method is overloaded
-vector<PosDir> Sequence::motifRecognition(Protein protein, const string& fileName) const
+vector<PosDir> Sequence::motifRecognition(MatrixProtein protein, const string& fileName) const
 {
-	ifstream file;										//the file we are going to read
-	char c1,c2,c3,c4,c5,c6, nucl; 
-	string line("");
-	vector<char> seq;
-	list<char> l;
-	vector<PosDir> positions;
-	size_t compteur(0);
-	size_t compteurSeq(0);
-	string chrNb_;
-	
-	//file.open("../test/promoters.fasta"); 			//since out text files are in the test folder, we need to include a path to it
-	
-	file.open(fileName); 								//how to include the right path to get it ? have to do that ?
-
-	vector<char> motif_;								//used to convert a string into a table of char
-														//used to convert a string into a table of char, the motif we are looking for
-														//instead of checking the complementary strand we check for the reverse complement of the motif which should appear 
-	
-	if(file.fail())										// if it didnt open -> show an error 
-	{
-		cerr << "The file could not be opened!" << endl;
-	}
-	
-	
-		while(!file.eof())
-		{
-			while(file >> nucl)
-			{
-				if(nucl == '>') 
-				{
-					file >> line;
-					chrNb_ = chromosomeNb(line);
-					break;
-				}
-				else
-				{	
-					if(compteur == 394 or compteur == 0) 			//reinitialisaiton of the compteur for a new sequence of the fasta file
-					{
-						compteur = 0;
-						++compteurSeq; 
-						file >> c1 >> c2 >> c3 >> c4 >> c5 >> c6;
-						l = {nucl,c1,c2,c3,c4,c5,c6};
-						
-					}
-					else
-					{
-						l.pop_front();
-						l.push_back(nucl);
-					}
-	
-					++compteur;
-					seq = {begin(l), end(l)};
-					
-					for (size_t motifNb(0); motifNb < protein.getPatterns.size(); ++motifNb)
-					{
-						
-						string motif(protein.getPatterns[motifNb.listOfSites]);
-						for(const char& c : motif)									//we convert the substring into a table of characters as well
-						{
-							motif_.push_back(c);
-						}
-						
-						if(compare(seq, motif_))
-						{
-							positions.push_back({compteur,compteurSeq,chrNb_,'+', protein.getPatterns[motifNb]});
-						}
-					}
-					
-					for (size_t motifNb(0); motifNb < protein.getPatterns.size(); ++motifNb)
-					{	
-						string motif(protein.getPatterns[motifNb.listOfSites]);
-						for(const char& c : motif)									//we convert the substring into a table of characters as well
-						{
-							motif_.push_back(c);
-						}
-						vector<char> motifTemp = motif_;
-						reverse(motifTemp.begin(), motifTemp.end());	
-						vector<char> motifComplementary_ = motifTemp;
-	
-						vector<char> complementaryDNA;				//we get the second strand of DNA from .fasta 				
-						for(const char& c : seq)
-						{
-							complementaryDNA.push_back(giveComplementaryBase(c));
-						}	
-										
-						if(compare(complementaryDNA, motifComplementary_))
-						{
-							positions.push_back({400 - compteur - 5, compteurSeq,chrNb_, '-', getPatterns[motifNb]});
-						}
-					}
-			}
-		}
-	}
-	
-	file.close();
-	for(const PosDir& c : positions) {cout << c.pos << " " << c.dir << " ";}
-	return positions;
+    ifstream file;										//the file we are going to read
+    char c1,c2,c3,c4,c5,c6, nucl;
+    string line("");
+    vector<char> seq;
+    list<char> l;
+    vector<PosDir> positions;
+    size_t compteur(0);
+    size_t compteurSeq(0);
+    string chrNb_;
+    
+    //file.open("../test/promoters.fasta"); 			//since out text files are in the test folder, we need to include a path to it
+    
+    file.open(fileName); 								//how to include the right path to get it ? have to do that ?
+    
+    vector<char> motif_;								//used to convert a string into a table of char
+    //used to convert a string into a table of char, the motif we are looking for
+    //instead of checking the complementary strand we check for the reverse complement of the motif which should appear
+    
+    if(file.fail())										// if it didnt open -> show an error
+    {
+        cerr << "The file could not be opened!" << endl;
+    }
+    
+    
+    while(!file.eof())
+    {
+        while(file >> nucl)
+        {
+            if(nucl == '>')
+            {
+                file >> line;
+                chrNb_ = chromosomeNb(line);
+                break;
+            }
+            else
+            {
+                if(compteur == 394 or compteur == 0) 			//reinitialisaiton of the compteur for a new sequence of the fasta file
+                {
+                    compteur = 0;
+                    ++compteurSeq;
+                    file >> c1 >> c2 >> c3 >> c4 >> c5 >> c6;
+                    l = {nucl,c1,c2,c3,c4,c5,c6};
+                    
+                }
+                else
+                {
+                    l.pop_front();
+                    l.push_back(nucl);
+                }
+                
+                ++compteur;
+                seq = {begin(l), end(l)};
+                
+                for (size_t motifNb(0); motifNb < protein.getPatterns().size(); ++motifNb)
+                {
+                    
+                    vector<char> motif(protein.getPatterns()[motifNb].site);
+                    for(const char& c : motif)									//we convert the substring into a table of characters as well
+                    {
+                        motif_.push_back(c);
+                    }
+                    
+                    if(compare(seq, motif_))
+                    {
+                        positions.push_back({compteur,compteurSeq,chrNb_,'+', protein.getPatterns()[motifNb]});
+                    }
+                }
+                
+                for (size_t motifNb(0); motifNb < protein.getPatterns().size(); ++motifNb)
+                {
+                    vector<char> motif(protein.getPatterns()[motifNb].site);
+                    for(const char& c : motif)									//we convert the substring into a table of characters as well
+                    {
+                        motif_.push_back(c);
+                    }
+                    vector<char> motifTemp = motif_;
+                    reverse(motifTemp.begin(), motifTemp.end());	
+                    vector<char> motifComplementary_ = motifTemp;
+                    
+                    vector<char> complementaryDNA;				//we get the second strand of DNA from .fasta 				
+                    for(const char& c : seq)
+                    {
+                        complementaryDNA.push_back(giveComplementaryBase(c));
+                    }	
+                    
+                    if(compare(complementaryDNA, motifComplementary_))
+                    {
+                        positions.push_back({400 - compteur - 5, compteurSeq,chrNb_, '-', protein.getPatterns()[motifNb]});
+                    }
+                }
+            }
+        }
+    }
+    
+    file.close();
+    for(const PosDir& c : positions) {cout << c.pos << " " << c.dir << " ";}
+    return positions;
 }
 
 
