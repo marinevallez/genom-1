@@ -193,15 +193,16 @@ void Protein::display_PWM()
     
 }
 
-matrix Protein::loadmatrix(string Data){ // the function stores data from a file containing a PWM or a PSSM assuming that the bases are stored in column and in the ACGT order
 
+matrix Protein::loadmatrix_fromfile(std::string Data){ // the function stores data from a file containing a PWM or a PSSM assuming that the bases are stored in column and in the ACGT order
+    
     int colmn;
     int row;
     string fichier (Data);
     vector<double> temp; // stock in a 1x1 Matrix to calculate the number of data
     ifstream file;
     file.open(fichier);
-  
+    
     
     if (file.fail())
     {
@@ -209,17 +210,17 @@ matrix Protein::loadmatrix(string Data){ // the function stores data from a file
     }
     
     string var;
-    while (!file.eof()) 
+    while (!file.eof())
     {
-		while (!file.eof()) 
-		{
+        while (!file.eof())
+        {
             file >> var >> ws;
             double dbl = To_double(var); // allows to get the data in double
             temp.push_back(dbl);
         }
     }
     file.close();
-
+    
     int z(0);
     colmn = 4;
     row = (temp.size())/4;  // here we make the assumption that the base are stored in column
@@ -231,7 +232,7 @@ matrix Protein::loadmatrix(string Data){ // the function stores data from a file
             ++z;
         }
     }
-    setrw(row);
+    //setrw(row);
     return mtrix;
 }
 
