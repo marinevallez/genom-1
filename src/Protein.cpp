@@ -30,6 +30,52 @@ Protein::~Protein()
 
 // ==============================================================================================================METHODES
 
+static const char nucleotides[] =		// list of nucleotides
+"ATCG"
+;
+
+int stringLength = sizeof(nucleotides) - 1;
+
+char Protein::genRandomChar()  					// Generates a random nucleotide
+{
+    
+    return nucleotides[rand() % stringLength];
+}
+
+vector<char> Protein::seq_generator(double length)
+{
+    vector <char> sequence;
+    for(int i=0; i < length; i++)      		// creates the sequence
+    {
+        sequence.push_back(genRandomChar());
+        
+    }
+    
+    return sequence;
+}
+
+double Protein::set_average(matrix Matrice, double size)
+{
+    double total(0);
+    double average(0);
+    
+    for (int i(0); i < 7; ++i) {
+        vector<char> seq = seq_generator(size);
+        try {
+            total += get_afinity_score_from_matrix(Matrice, seq);
+        } catch (runtime_error message) {
+            cout << message.what();
+        }
+        
+        
+    }
+    
+    
+    average = total/7;
+    return average;
+    
+}
+
 
 
 void Protein::fillVectorPatterns(vector<vector<char>> sites, double threshold )// Should we ask if the user rather have a binding score calculated from a relative matrix ? woukd that make a difference (NB this function calculates the BS from a PWM absolute) this takes all the binding site for a given prot(in the fasta file)
