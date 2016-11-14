@@ -1,4 +1,9 @@
 #include "Protein.hpp"
+#include <iomanip>
+#include <iostream>
+#include <cstdlib>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -16,26 +21,34 @@ Protein::~Protein()
 
 // ==============================================================================================================METHODES
 
-void Protein::fillPattern(double const& bScore, vector<char> const& site)
-{
-	pattern.bScore = bScore;
-	pattern.listOfSites = site;
-}
 
 
-void Protein::fillVectorPatterns(Pattern pattern)					//à revoir en fonction de si on pré remplit le tableau ou pas
+void Protein::fillVectorPatterns(vector<vector<char>> sites, double threshold )// Should we ask if the user rather have a binding score calculated from a relative matrix ? woukd that make a difference (NB this function calculates the BS from a PWM absolute) this takes all the binding site for a given prot(in the fasta file)
+
 {
-    /*if (matrix.empty()) {
-		matrix.push_back(pattern);
-	} else {
-		for(size_t i(0); i < matrix.size() ; ++i) {
-			if (matrix[i].empty()) { //comment vérifier empty() pour une seule case?
-				matrix[i] = pattern;
-			} else {
-				++i;
-			}
-		}
-    }	*/
+    double binding_score(0);
+    if (threshold == 0) {
+        threshold = set_average(pwm_abs, sites[0].size());
+    }
+    
+    for (size_t i(0); i < sites.size(); ++i) {
+        
+        try {
+            binding_score = get_afinity_score_from_matrix(pwm_abs, sites[i]);
+        } catch (runtime_error message) {
+            cout << message.what();
+        }
+        
+        
+        if(binding_score > threshold)
+        {
+            Pattern pattern ({binding_score, sites[i]});
+            patterns.push_back(pattern);
+            
+        }
+        
+        
+    }
 }
 
 
