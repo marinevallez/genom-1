@@ -275,5 +275,5 @@ double Protein::get_afinity_score_from_matrix(vector<vector<double>> matrix,vect
         }
     }
     return score;
-    
+}
 
