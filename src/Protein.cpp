@@ -18,14 +18,14 @@ double To_double( const string& string ) // allows a convertion from string to d
 
 // ==============================================================================================================CONSTRUCTEUR ET DESTRUCTEUR
 
-Protein::Protein() 
+Protein::Protein()
 {
-	
+    
 }
 
 Protein::~Protein()
 {
-	
+    
 }
 
 // ==============================================================================================================METHODES
@@ -185,10 +185,10 @@ void Protein::display_PWM()
         for (int j(0) ; j < mtrx[i].size() ; ++j)
         {
             
-            cout  << setprecision(5) << setw(5) << mtrx[i][j] << " | " ; 
-        } 
+            cout  << setprecision(5) << setw(5) << mtrx[i][j] << " | " ;
+        }
         
-        std::cout << std::endl; 
+        std::cout << std::endl;
     }
     
 }
@@ -238,7 +238,8 @@ matrix Protein::loadmatrix_fromfile(std::string Data){ // the function stores da
 
 vector<Pattern> Protein::getPatterns()
 {
-	return patterns; 
+    return patterns;
+    
 }
 
 double Protein::get_afinity_score_from_matrix(vector<vector<double>> matrix,vector<char> sequence) // calculates the binding score (double) of a certain sequence based on a Matrix of type PWM
@@ -274,6 +275,5 @@ double Protein::get_afinity_score_from_matrix(vector<vector<double>> matrix,vect
         }
     }
     return score;
-}
-
+    
 
