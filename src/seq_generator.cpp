@@ -60,7 +60,7 @@ vector<char> seq_generator()  // surcharge in case of no argument are given
     return sequence;
 }
 
-/*double set_average(PWM Matrix)
+double set_average(PWM Matrix)
 {
 	double total(0);
 	double average(0);
@@ -74,7 +74,7 @@ vector<char> seq_generator()  // surcharge in case of no argument are given
 	average = total/10;
 	return average;
 
-}*/
+}
 
 int main()								// test
 
