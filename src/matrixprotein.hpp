@@ -6,61 +6,72 @@ using namespace std;
 typedef vector<vector<double> > matrix;
 
 
-struct Pattern 
+struct Pattern
 {
-		double bScore;
-		vector<char> listOfSites;
+    double bScore;
+    vector<char> site;
 };
 
 
 
-class MatrixProtein 
+class MatrixProtein
 {
-	private:
-	
-		//-----Attributs-----
-		Pattern pattern;
-		vector<Pattern> patterns;
-		//Matrice provisoire grace à laquelle on génère toutes les autres.
-		matrix mx;
-		matrix pssm_abs;
-		matrix pwm_abs;
-		matrix pssm_rel; 
-		matrix pwm_rel;
-	
-	public:		
-	
-	
-		//-----Constructeur&Destructeur------
-		MatrixProtein();  						
-		~MatrixProtein();
-	
-		//-----Méthodes-----
-        void fillPattern(double const& bScore, vector<char> const& site);   		//à utiliser éventuellement dans le constructeur? const ou pas?
-        void fillVectorPatterns(Pattern pattern);								//const ou pas? Comment faire pour mettre directement plusieurs patterns?
+private:
     
-        double probas(double n, double tot);
-        //void display_PWM(matrix finale);
-        void loadmatrix_fromscore();
-        void loadmatrix_fromfile(string Data);
-        vector<Pattern> getPatterns();
-        void setrw(int value);
-		void swaptopssm(matrix& mtx); 
-		void swaptopwm(matrix& mtx);
-		void swaptoabsolute(matrix& mtx);
-		void swaptorelative(matrix& mtx);
-		bool absolute(matrix matrice);
-		void PWM_to_PSSM(matrix& matrice);
-		void PWM_to_PSSM_2(matrix& matrice);
-		bool which_PWM_to_PSSM(matrix matrice);
-		bool check_if_pmworpssm(matrix matrice);
-		bool possible(matrix matrice);
-		vector <bool> matrix_status(matrix matrice);
-		void matrix_generation();
-		void readjust_values(matrix& mtx);
-		double To_double (const string& string );
-        
-	
+    //-----Attributs-----
+    vector<Pattern> patterns;
+    //Matrice provisoire grace à laquelle on génère toutes les autres.
+    matrix mx;
+    matrix pssm_abs;
+    matrix pwm_abs;
+    matrix pssm_rel;
+    matrix pwm_rel;
+    
+public:
+    
+    
+    //-----Constructeur&Destructeur------
+    MatrixProtein();
+    ~MatrixProtein();
+    
+    //-----Méthodes-----
+    // Patterns
+    void fillVectorPatterns(vector<vector<char>> sites, double threshold );
+    vector<Pattern> getPatterns();
+    void setPatterns(vector<Pattern>);
+    
+    //general
+    double probas(double n, double tot);
+    double To_double (const string& string );
+    
+    //Matrix
+    //void display_PWM(matrix finale);
+    void loadmatrix_fromscore();
+    void loadmatrix_fromfile(string Data);
+    void setrw(int value);
+    void swaptopssm(matrix& mtx);
+    void swaptopwm(matrix& mtx);
+    void swaptoabsolute(matrix& mtx);
+    void swaptorelative(matrix& mtx);
+    bool absolute(matrix matrice);
+    void PWM_to_PSSM(matrix& matrice);
+    void PWM_to_PSSM_2(matrix& matrice);
+    bool which_PWM_to_PSSM(matrix matrice);
+    bool check_if_pmworpssm(matrix matrice);
+    bool possible(matrix matrice);
+    vector <bool> matrix_status(matrix matrice);
+    void matrix_generation();
+    void readjust_values(matrix& mtx);
+    double get_affinity_score_from_matrix(vector<vector<double>> matrix,vector<char> sequence);
+    void display_PWM_rel();
+    matrix getpwm_abs();
+    matrix getpssm_abs();
+    
+    //calculation of the default threshold
+    char genRandomChar();
+    vector<char> seq_generator(double length);
+    double set_average(matrix Matrice, double size);
+    
 };
 
 
