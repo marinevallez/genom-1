@@ -82,16 +82,6 @@ void Protein::loadmatrix_fromscore()
     std::vector <double> tabC;
     matrix finale;
     
-    /* Motif m1 = {{'A', 'T', 'G', 'C', 'T', 'G', 'T'}, 0.8};
-     sequences.push_back( m1) ;
-     Motif m2 = {{'T', 'C', 'A', 'C', 'T','C','C'}, 0.2};
-     sequences.push_back( m2) ;
-     Motif m3 = {{'T', 'T', 'G', 'C' , 'C','A', 'C'}, 0.4};
-     sequences.push_back( m3) ;
-     Motif m4 = {{ 'A' , 'A', 'C', 'G', 'G','T', 'C'}, 0.7};
-     sequences.push_back( m4) ;
-     */
-    
     
     for (size_t j(0) ; j < 7 ; ++j)
     {
@@ -99,22 +89,22 @@ void Protein::loadmatrix_fromscore()
         for ( size_t i(0) ; i < patterns.size() ; ++i)
         {
             
-            nombreTot = nombreTot + patterns[i].Bscore ;
+            nombreTot = nombreTot + patterns[i].bScore ;
             if ( patterns[i].site[j] == 'A')
             {
-                compteurA = compteurA + patterns[i].Bscore ;
+                compteurA = compteurA + patterns[i].bScore ;
             }
-            if ( patterns[i].listOfSites[j] == 'T')
+            if ( patterns[i].site[j] == 'T')
             {
-                compteurT = compteurT + patterns[i].Bscore ;
+                compteurT = compteurT + patterns[i].bScore ;
             }
-            if ( patterns[i].listOfSites[j] == 'G')
+            if ( patterns[i].site[j] == 'G')
             {
-                compteurG = compteurG + patterns[i].Bscore ;
+                compteurG = compteurG + patterns[i].bScore ;
             }
-            if ( patterns[i].listOfSites[j] == 'C')
+            if ( patterns[i].site[j] == 'C')
             {
-                compteurC = compteurC + patterns[i].Bscore ;
+                compteurC = compteurC + patterns[i].bScore ;
             }
         }
         
@@ -134,8 +124,8 @@ void Protein::loadmatrix_fromscore()
     finale.push_back(tabG);
     finale.push_back(tabC);
     
-    mtrx.mx = finale; 
-    mtrx.matrix_generation(); 
+    mtrx.mx = finale; // du coup ca remplit quoi ?
+    mtrx.matrix_generation();
     
 }
 
