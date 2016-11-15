@@ -5,6 +5,7 @@
 #include <sstream>
 #include <cmath>
 #include <cassert>
+#include <stdexcept>
 #include <cstdlib>
 #include <iomanip>
 #include <iostream>
@@ -35,7 +36,7 @@ MatrixProtein::~MatrixProtein()
 // ==============================================================================================================METHODES
 
 
-void MatrixProtein::fillVectorPatterns(vector<vector<char>> sites, double threshold )// Should we ask if the user rather have a binding score calculated from a relative matrix ? woukd that make a difference (NB this function calculates the BS from a PWM absolute) this takes all the binding site for a given prot(in the fasta file)
+void MatrixProtein::fillVectorPatterns(vector<vector<char> > sites, double threshold )// Should we ask if the user rather have a binding score calculated from a relative matrix ? woukd that make a difference (NB this function calculates the BS from a PWM absolute) this takes all the binding site for a given prot(in the fasta file)
 
 {
     double binding_score(0);
@@ -47,8 +48,8 @@ void MatrixProtein::fillVectorPatterns(vector<vector<char>> sites, double thresh
         
         try {
             binding_score = get_affinity_score_from_matrix(pwm_abs, sites[i]);
-        } catch (runtime_error message) {
-            cout << message.what();
+        } catch (const runtime_error& error) {
+            cout << error.what();
         }
         
         
@@ -138,10 +139,10 @@ void MatrixProtein::loadmatrix_fromscore()
 void MatrixProtein::display_PWM_rel()
 {
     
-    for ( int i(0); i < pwm_rel.size() ; ++i)
+    for (size_t i(0); i < pwm_rel.size() ; ++i)
     {
         
-        for (int j(0) ; j < pwm_rel[i].size() ; ++j)
+        for (size_t j(0) ; j < pwm_rel[i].size() ; ++j)
         {
             
             cout  << setprecision(5) << setw(5) << pwm_rel[i][j] << " | " ;
@@ -152,25 +153,24 @@ void MatrixProtein::display_PWM_rel()
     
 }
 
-void MatrixProtein::loadmatrix_fromfile(string Data){ // the function stores data from a file containing a PWM or a PSSM assuming that the bases are stored in column and in the ACGT order
+void MatrixProtein::loadmatrix_fromfile(const string& Data){ // the function stores data from a file containing a PWM or a PSSM assuming that the bases are stored in column and in the ACGT order
     
     int colmn;
     int row;
-    string fichier (Data);
     vector<double> temp; // stock in a 1x1 Matrix to calculate the number of data
     ifstream file;
-    file.open(fichier);
+    file.open("../test/" + Data);
     
     
     if (file.fail())
     {
-        throw std::runtime_error("Erreur de lecture du fichier de donnée ");
+        throw runtime_error("Erreur de lecture du fichier de donnée");
     }
     
     string var;
     while (!file.eof())
     {
-        while (!file.eof())
+        while (!file.eof())			//why are you using two while loops that do the same thing?
         {
             file >> var >> ws;
             double dbl = To_double(var); // allows to get the data in double
@@ -183,18 +183,18 @@ void MatrixProtein::loadmatrix_fromfile(string Data){ // the function stores dat
     colmn = 4;
     row = (temp.size())/4;  // here we make the assumption that the base are stored in column
     vector<double> tmp (colmn,0.0 );
-    matrix mtrix (row,tmp); // all the case are initialize at 0.0
+    matrix matrix_ (row,tmp); // all the case are initialize at 0.0
     for (int i(0); i < row; ++i) {
         for (int j(0); j < colmn; ++j) {
-            mtrix[i][j]=temp[z];
+            matrix_[i][j]=temp[z];
             ++z;
         }
     }
-    mx = mtrix;
+    mx = matrix_;
     matrix_generation();
 }
 
-vector<Pattern> MatrixProtein::getPatterns()
+vector<Pattern> MatrixProtein::getPatterns() const
 {
     return patterns;
 }
@@ -249,7 +249,7 @@ void MatrixProtein::matrix_generation()
         swaptopwm(mx);
         pwm_abs=mx;
     }
-};
+}
 
 //Since the computer doesn't like to compute things with -inf, here's a
 //function that replaces these values by -100, 2^-100 will be approximated
@@ -624,8 +624,8 @@ double MatrixProtein::set_average(matrix Matrice, double size)
         vector<char> seq = seq_generator(size);
         try {
             total += get_affinity_score_from_matrix(Matrice, seq);
-        } catch (runtime_error message) {
-            cout << message.what();
+        } catch (const string& errorMessage) {
+            cout << errorMessage;
         }
         
         
@@ -637,15 +637,15 @@ double MatrixProtein::set_average(matrix Matrice, double size)
     
 }
 
-double MatrixProtein::get_affinity_score_from_matrix(vector<vector<double>> matrix,vector<char> sequence) // calculates the binding score (double) of a certain sequence based on a Matrix of type PWM
+double MatrixProtein::get_affinity_score_from_matrix(vector<vector<double> > matrix,vector<char> sequence) // calculates the binding score (double) of a certain sequence based on a Matrix of type PWM
 // the function throws an exception which should be catched !
 {
     if (matrix.size() < sequence.size()) // checks that the sequence is entirly contained in the matrix
     {
-        throw std::runtime_error("Error : The Matrix doesn't fit the sequence"); //throw exeption
+        throw runtime_error("Error : The Matrix doesn't fit the sequence"); //throw exeption
     }
     if (matrix.size()==0) { // checks if the Matrix is configurated
-        throw std::runtime_error("Error : The Matrix isn't configurated "); //throw exeption
+        throw runtime_error("Error : The Matrix isn't configurated "); //throw exeption
     }
     
     double score(1);

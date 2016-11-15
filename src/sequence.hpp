@@ -5,7 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include "Input.hpp"
-#include "Protein.hpp"
+#include "matrixprotein.hpp"
 using namespace std;
 
 struct PosDir 	//stands for position and direction; position of the motif on the sequence + direction of the sequence
@@ -42,7 +42,7 @@ public:
  * The motifRecognition method can also open a .fasta file and, with a list of possible motifs, find which one are present within the sequences of the .fasta file.
  */
 	
-	vector<PosDir> motifRecognition(Protein protein, const string& fileName) const;
+	vector<PosDir> motifRecognition(const MatrixProtein& protein, const string& fileName) const;
 	
 /*!
  * The giveComplementarySeq method gives the reverse complementary sequence of any nucleotidic sequences, whether a motif or a genomic sequence.

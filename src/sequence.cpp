@@ -59,6 +59,11 @@ char giveComplementaryBase(const char& nucl)				//it's a function because it has
 		else if(nucl == '.') return '.';
 		else if(nucl == 'N') return 'N';
 	}
+	else 
+	{
+		cerr << nucl << endl;
+		throw runtime_error("Error: Wrong nucleotide detected in the .fasta: ");
+	}
 }
 
 void Sequence::outputSites(const vector<PosDir>& info) const	//a method that outputs a file with seq nb and a position where the motif was found
@@ -85,7 +90,7 @@ void Sequence::outputSites(const vector<PosDir>& info) const	//a method that out
 vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fileName) const 
 {
 	ifstream file;								//the file we are going to read
-	char c1,c2,c3,c4,c5,c6, nucl; 
+	char c1,c2,c3,c4,c5,c6, c7, nucl; 
 	string line("");
 	vector<char> seq;
 	list<char> l;
@@ -96,7 +101,7 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 	
 	//file.open("../test/promoters.fasta"); 			//since out text files are in the test folder, we need to include a path to it
 	
-	file.open(fileName); //how to include the right path to get it ? have to do that ?
+	file.open("../test/" + fileName); //how to include the right path to get it ? have to do that ?
 
 	vector<char> motif_;							//used to convert a string into a table of char
 													//used to convert a string into a table of char, the motif we are looking for
@@ -117,30 +122,28 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 		cerr << "The file could not be opened!" << endl;
 	}
 	else
-	{
+	{	
 		while(!file.eof())
 		{
-			while(file >> nucl)
+			file >> nucl;
+			if(nucl != '>') {throw runtime_error("Error: missing header in .fasta!");}
+			else
 			{
-				if(nucl == '>') 
+				file >> line;
+				chrNb_ = chromosomeNb(line);
+				
+				++compteurSeq; 
+				file >> c1 >> c2 >> c3 >> c4 >> c5 >> c6 >> c7;
+				l = {c1,c2,c3,c4,c5,c6,c7};
+				
+				while(file >> noskipws >> nucl)
 				{
-					file >> line;
-					chrNb_ = chromosomeNb(line);
-					break;
-				}
-				else
-				{
-					
-					//cout << nucl << "," << compteur << " ";
-					
-					if(compteur == 394 or compteur == 0) 
+					cout << nucl;
+					if(isspace(nucl)) 
 					{
-						compteur = 0;
-						++compteurSeq; 
-						file >> c1 >> c2 >> c3 >> c4 >> c5 >> c6;
-						l = {nucl,c1,c2,c3,c4,c5,c6};
-						
+						throw runtime_error("Error: new lines inside are not allowed!");
 					}
+					else if(nucl == '>') {break;}
 					else
 					{
 						l.pop_front();
@@ -182,7 +185,7 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 
 
 //The motifRecognition method is overloaded
-vector<PosDir> Sequence::motifRecognition(MatrixProtein protein, const string& fileName) const
+/*vector<PosDir> Sequence::motifRecognition(const MatrixProtein& protein, const string& fileName) const
 {
     ifstream file;										//the file we are going to read
     char c1,c2,c3,c4,c5,c6, nucl;
@@ -281,7 +284,7 @@ vector<PosDir> Sequence::motifRecognition(MatrixProtein protein, const string& f
     file.close();
     for(const PosDir& c : positions) {cout << c.pos << " " << c.dir << " ";}
     return positions;
-}
+}*/
 
 
 
@@ -321,13 +324,18 @@ vector<char> Sequence::giveReverseComplementarySeq(const vector<char>& seq) cons
 			return complementarySequence;
 };
 
-/*int main()
+int main()
 {
 	Sequence seq_;
-	vector<PosDir> info = seq_.motifRecognition("ACTGTCA");
-	seq_.outputSites(info);
+	try
+	{
+		vector<PosDir> info = seq_.motifRecognition("ACTGTCA", "SeqFail3.fasta");
+		seq_.outputSites(info);
+	}
+	catch(const runtime_error& e) {cout << e.what() << endl;}
+	
 	return 0;
-}*/
+}
 
 /*ACTGTCA
 

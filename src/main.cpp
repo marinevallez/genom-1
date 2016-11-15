@@ -1,6 +1,6 @@
 #include <iostream>
-
-#include "Sequence.hpp"
+#include "matrixprotein.hpp"
+#include "sequence.hpp"
 #include "Logo.hpp"
 
 
@@ -257,7 +257,7 @@ int main() {
     
     
     
-    
+   
     return 0;
     
     

@@ -36,8 +36,8 @@ public:
     
     //-----Méthodes-----
     // Patterns
-    void fillVectorPatterns(vector<vector<char>> sites, double threshold );
-    vector<Pattern> getPatterns();
+    void fillVectorPatterns(vector<vector<char> > sites, double threshold );
+    vector<Pattern> getPatterns() const;
     void setPatterns(vector<Pattern>);
     
     //general
@@ -47,7 +47,7 @@ public:
     //Matrix
     //void display_PWM(matrix finale);
     void loadmatrix_fromscore();
-    void loadmatrix_fromfile(string Data);
+    void loadmatrix_fromfile(const string& Data);
     void setrw(int value);
     void swaptopssm(matrix& mtx);
     void swaptopwm(matrix& mtx);
@@ -62,7 +62,7 @@ public:
     vector <bool> matrix_status(matrix matrice);
     void matrix_generation();
     void readjust_values(matrix& mtx);
-    double get_affinity_score_from_matrix(vector<vector<double>> matrix,vector<char> sequence);
+    double get_affinity_score_from_matrix(vector<vector<double> > matrix,vector<char> sequence);
     void display_PWM_rel();
     matrix getpwm_abs();
     matrix getpssm_abs();
