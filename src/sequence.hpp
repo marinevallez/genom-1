@@ -17,6 +17,14 @@ struct PosDir 	//stands for position and direction; position of the motif on the
 	Pattern pattern;
 };
 
+struct Coordinate    //numerical position of an unknown motif from a .bed file
+{
+    string chromosome;
+    int start;
+    int end;
+    double score;
+};
+
 class Sequence {
 
 private:
@@ -48,7 +56,20 @@ public:
  * The giveComplementarySeq method gives the reverse complementary sequence of any nucleotidic sequences, whether a motif or a genomic sequence.
  */
 	vector<char> giveReverseComplementarySeq(const vector<char>&) const; //method giving the REVERSE complementary sequence from one of the two DNA strand
-	
+
+/*!
+ * The readBedGraph method lets us read a .bed file to find the start and end positions of a motif on a chromosome, along with a score.
+ * */
+ 
+	vector<Coordinate> readBedGraph(const string& fileName);	
 };
+
+//Conversions
+
+double To_double(const string& string); // allows a convertion from string to double
+
+
+double To_int(const string& string); // allows a convertion from string to int
+
 
 #endif
