@@ -61,7 +61,7 @@ char giveComplementaryBase(const char& nucl)				//it's a function because it has
 	}
 	else 
 	{
-		cerr << nucl << endl;
+		cerr << endl;
 		throw runtime_error("Error: Wrong nucleotide detected in the .fasta: ");
 	}
 }
@@ -90,7 +90,7 @@ void Sequence::outputSites(const vector<PosDir>& info) const	//a method that out
 vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fileName) const 
 {
 	ifstream file;								//the file we are going to read
-	char c1,c2,c3,c4,c5,c6, c7, nucl; 
+	char c1,c2,c3,c4,c5,c6, c7, nucl, extra; 
 	string line("");
 	vector<char> seq;
 	list<char> l;
@@ -126,26 +126,51 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 		while(!file.eof())
 		{
 			file >> nucl;
-			if(nucl != '>') {throw runtime_error("Error: missing header in .fasta!");}
+			if(nucl != '>') 
+			{
+				cout << endl;
+				throw runtime_error("Error: missing header in .fasta!");
+			}
 			else
 			{
 				file >> line;
 				chrNb_ = chromosomeNb(line);
 				
 				++compteurSeq; 
-				file >> c1 >> c2 >> c3 >> c4 >> c5 >> c6 >> c7;
-				l = {c1,c2,c3,c4,c5,c6,c7};
+
+				file >> c1 >> noskipws >> c2 >> noskipws >> c3 >> noskipws >>
+					noskipws >> c4 >> noskipws>> c5 >> c6 >> noskipws >> c7;
 				
+				cout << c1 << c2 << c3 << c4 << c5 << c6 << c7;
+				
+				l = {c1,c2,c3,c4,c5,c6,c7};
+
 				while(file >> noskipws >> nucl)
 				{
 					cout << nucl;
-					if(isspace(nucl)) 
+					file.get(extra);
+					if(nucl == '\n' and extra != '>') 
 					{
-						throw runtime_error("Error: new lines inside are not allowed!");
+						if(!file.eof()) 
+						{
+							cout << endl;
+							throw runtime_error("Error: new lines inside are not allowed!");
+						}
+						if(file.eof()) {file.close();}
 					}
-					else if(nucl == '>') {break;}
+					else if(nucl == '\n') 
+					{
+						file.putback(extra);
+						break;
+					}
+					else if(isspace(nucl)) 
+					{
+						cout << endl;
+						throw runtime_error("Error: no spaces allowed!");
+					}
 					else
 					{
+						file.putback(extra);
 						l.pop_front();
 						l.push_back(nucl);
 					}
@@ -329,7 +354,7 @@ int main()
 	Sequence seq_;
 	try
 	{
-		vector<PosDir> info = seq_.motifRecognition("ACTGTCA", "SeqFail3.fasta");
+		vector<PosDir> info = seq_.motifRecognition("ACTGTCA", "SeqFail2.fasta");
 		seq_.outputSites(info);
 	}
 	catch(const runtime_error& e) {cout << e.what() << endl;}
