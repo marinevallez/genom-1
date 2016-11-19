@@ -65,6 +65,10 @@ class Sequence {
  
 	vector<Coordinate> readBedGraph(const string& fileName);	
 	
+	/*!
+	 * The findMotifs method uses a list of coordinates from a .bedgrah file to scan each chromosome sequence in a .fasta file for the corresponding motifs.
+	 * */
+	
 	vector<string> findMotifs(vector<Coordinate>& coordinates, const string& fileName);
 };
 
