@@ -36,9 +36,10 @@ public:
     
     //-----Méthodes-----
     // Patterns
-    void fillVectorPatterns(vector<vector<char> > sites, double threshold );
+    void fillVectorPatterns(vector<vector<char> > sites, double threshold = 0 ); // takes a list of sites (even size) and set the Patterns attribute with the list of all the site having an affinity score above a certain threshold (can be given or taken by default(the default number isn't 0 this is just a way to assure that if the User gives 0 or nothing the same default threshold will be used (see calculation of the default threshold)))
     vector<Pattern> getPatterns() const;
     void setPatterns(vector<Pattern>);
+    void get_relevent_site(vector<vector<char>> Input, int set, int = 0);//this function takes a list of motif (all the motif don't need to have the same lenght) and return the list of all the site of size 'set' having a affinity score above a certain threshold (this threshold can either be given (last argument) or one will be calculated by default (see calculation of default threshold))
     
     //general
     double probas(double n, double tot);
