@@ -16,11 +16,18 @@ TEST(SequenceTest, MotifSizeComparison)
 	
 }
 
-/*TEST(SequenceTest, MotifLength)
+TEST(SequenceTest, ReverseComplementarySize)
 {
 	
+			vector<char> sequence("ACGTACGTACGT");
+			vector<char> reverse(giveReverseComplementarySeq(sequence));
+			EXPECT_EQ(sequence.size(),reverse.size());	
+}
+
+TEST(SequenceTest, MotifLengthFromBedFile)
+{
 	
-}*/
+}
 
 
 /* TEST(MatrixTest, ) */
