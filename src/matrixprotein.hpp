@@ -41,6 +41,9 @@ class MatrixProtein
     vector<Pattern> getPatterns() const;
     void setPatterns(vector<Pattern>);
     void get_relevent_site(vector<vector<char>> Input, int set, int = 0);//this function takes a list of motif (all the motif don't need to have the same lenght) and return the list of all the site of size 'set' having a affinity score above a certain threshold (this threshold can either be given (last argument) or one will be calculated by default (see calculation of default threshold))
+    /*!
+     * The findPatterns method finds all theoretical motifs from a .mat file. With a given threshold, it calculates all(depending on the size of the .mat, yet assumed seven columns long) motifs and keeps those with a score above the threshold.
+     */
     vector<Pattern> findPatterns(string matFile, double threshold); //finds motifs from a matrix
     
     //General
