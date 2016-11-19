@@ -14,7 +14,7 @@ Logo::Logo()
 
 double Logo::size( double size_b)
 {
-    return pow(6,size_b)*10; // abribtray
+    return pow(6,size_b)*10; //! arbitrary choice of size chosen by random testing
 }
 
 sf::RectangleShape Logo::set_text( double taille, size_t lettre, double emplacement, int largeur)
@@ -131,9 +131,9 @@ int Logo::afficher_logo(vector<Motif> sequences)
     int position_axe_x(348);
     for (size_t j(0); j < Letters_.get_lettre_size().size(); ++j) {
         
-        vector<size_t> position(Letters_order(Letters_, j)); // gets the order of probability for the letter
+        vector<size_t> position(Letters_order(Letters_, j)); //! gets the order of probability for the letter
         
-        //Calculate the position of the letter from the 0 of the Bits axes, taking in account the size of the letter above it, the origine is on the left corner of the window
+        //! Calculate the position of the letter from the 0 of the Bits axes, taking in account the size of the letter above it, the origine is on the left corner of the window
         
         sf::RectangleShape probabilite1(set_text(Letters_.get_lettre_size()[j][position[0]], position[0], position_axe_x - size(Letters_.get_lettre_size()[j][position[0]]) - size(Letters_.get_lettre_size()[j][position[1]]) - size(Letters_.get_lettre_size()[j][position[2]]) - size(Letters_.get_lettre_size()[j][position[3]]), largeur));
         
@@ -151,7 +151,7 @@ int Logo::afficher_logo(vector<Motif> sequences)
         
         window.draw(probabilite4);
         
-        largeur+=75; // spacing of 75 between each column on the axes (arbitary)
+        largeur+=75; //! spacing of 75 between each column on the axes (arbitary) 
     }
     
     //Display
