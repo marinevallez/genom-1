@@ -310,7 +310,7 @@ vector<string> Sequence::findMotifs(vector<Coordinate>& coordinates, const strin
 	string line;
 	string readMotif;
 	int start, end;
-	int compteur;									 //compteur must be an int because we will compare to the start & end positions
+	int compteur(0);									 //compteur must be an int because we will compare to the start & end positions
 	ifstream file;
 	
 //NOT SURE : open file oustide or inside the the for loop ? 

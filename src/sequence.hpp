@@ -43,7 +43,7 @@ class Sequence {
 	void outputSites(const vector<PosDir>&) const;
 	
 /*!
- *The motifRecognition method opens a .fasta file and find a given motif on a sequence (and its complment) in the .fasta file.
+ *The motifRecognition method opens a .fasta file and find a given motif on a sequence (and its complement) in the .fasta file.
  */
 
 	vector<PosDir> motifRecognition(const string&, const string& fileName) const; 
