@@ -8,7 +8,8 @@
 #include "matrixprotein.hpp"
 using namespace std;
 
-struct PosDir 	//stands for position and direction; position of the motif on the sequence + direction of the sequence
+//----Different struct/objects----
+struct PosDir 			//stands for position and direction; position of the motif on the sequence + direction of the sequence
 {
 	size_t pos;
 	size_t seqNb;
@@ -17,7 +18,7 @@ struct PosDir 	//stands for position and direction; position of the motif on the
 	Pattern pattern;
 };
 
-struct Coordinate    //numerical position of an unknown motif from a .bed file
+struct Coordinate  				  //numerical position(beginning and end) of an unknown motif from a .bed file
 {
     string chromosome;
     int start;
@@ -27,11 +28,12 @@ struct Coordinate    //numerical position of an unknown motif from a .bed file
 
 class Sequence {
 
-private:
+	private:
 	
-public:
-
-    Sequence();							//constructor + destructor
+	public:
+	
+	//-----Constructor & Destructor
+    Sequence();							
     virtual ~Sequence();
 	
 /*! 
@@ -50,7 +52,7 @@ public:
  * The motifRecognition method can also open a .fasta file and, with a list of possible motifs, find which one are present within the sequences of the .fasta file.
  */
 	
-	vector<PosDir> motifRecognition(const MatrixProtein& protein, const string& fileName) const;
+	vector<PosDir> motifRecognition(const vector<Coordinate>& coordinates, const string& fileName) const;  //not sure yet
 	
 /*!
  * The giveComplementarySeq method gives the reverse complementary sequence of any nucleotidic sequences, whether a motif or a genomic sequence.
@@ -62,6 +64,8 @@ public:
  * */
  
 	vector<Coordinate> readBedGraph(const string& fileName);	
+	
+	vector<string> findMotifs(vector<Coordinate>& coordinates, const string& fileName);
 };
 
 //Conversions

@@ -100,9 +100,7 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 	size_t compteurSeq(0);
 	string chrNb_;
 	
-	//file.open("../test/promoters.fasta"); 			//since out text files are in the test folder, we need to include a path to it
-	
-	file.open("../test/" + fileName); //how to include the right path to get it ? have to do that ?
+	file.open("../test/" + fileName);
 
 	vector<char> motif_;							//used to convert a string into a table of char
 													//used to convert a string into a table of char, the motif we are looking for
@@ -210,107 +208,8 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 }
 
 
-//The motifRecognition method is overloaded
-/*vector<PosDir> Sequence::motifRecognition(const MatrixProtein& protein, const string& fileName) const
-{
-    ifstream file;										//the file we are going to read
-    char c1,c2,c3,c4,c5,c6, nucl;
-    string line("");
-    vector<char> seq;
-    list<char> l;
-    vector<PosDir> positions;
-    size_t compteur(0);
-    size_t compteurSeq(0);
-    string chrNb_;
-    
-    //file.open("../test/promoters.fasta"); 			//since out text files are in the test folder, we need to include a path to it
-    
-    file.open(fileName); 								//how to include the right path to get it ? have to do that ?
-    
-    vector<char> motif_;								//used to convert a string into a table of char
-    //used to convert a string into a table of char, the motif we are looking for
-    //instead of checking the complementary strand we check for the reverse complement of the motif which should appear
-    
-    if(file.fail())										// if it didnt open -> show an error
-    {
-        cerr << "The file could not be opened!" << endl;
-    }
-    
-    
-    while(!file.eof())
-    {
-        while(file >> nucl)
-        {
-            if(nucl == '>')
-            {
-                file >> line;
-                chrNb_ = chromosomeNb(line);
-                break;
-            }
-            else
-            {
-                if(compteur == 394 or compteur == 0) 			//reinitialisaiton of the compteur for a new sequence of the fasta file
-                {
-                    compteur = 0;
-                    ++compteurSeq;
-                    file >> c1 >> c2 >> c3 >> c4 >> c5 >> c6;
-                    l = {nucl,c1,c2,c3,c4,c5,c6};
-                    
-                }
-                else
-                {
-                    l.pop_front();
-                    l.push_back(nucl);
-                }
-                
-                ++compteur;
-                seq = {begin(l), end(l)};
-                
-                for (size_t motifNb(0); motifNb < protein.getPatterns().size(); ++motifNb)
-                {
-                    
-                    vector<char> motif(protein.getPatterns()[motifNb].site);
-                    for(const char& c : motif)									//we convert the substring into a table of characters as well
-                    {
-                        motif_.push_back(c);
-                    }
-                    
-                    if(compare(seq, motif_))
-                    {
-                        positions.push_back({compteur,compteurSeq,chrNb_,'+', protein.getPatterns()[motifNb]});
-                    }
-                }
-                
-                for (size_t motifNb(0); motifNb < protein.getPatterns().size(); ++motifNb)
-                {
-                    vector<char> motif(protein.getPatterns()[motifNb].site);
-                    for(const char& c : motif)									//we convert the substring into a table of characters as well
-                    {
-                        motif_.push_back(c);
-                    }
-                    vector<char> motifTemp = motif_;
-                    reverse(motifTemp.begin(), motifTemp.end());	
-                    vector<char> motifComplementary_ = motifTemp;
-                    
-                    vector<char> complementaryDNA;				//we get the second strand of DNA from .fasta 				
-                    for(const char& c : seq)
-                    {
-                        complementaryDNA.push_back(giveComplementaryBase(c));
-                    }	
-                    
-                    if(compare(complementaryDNA, motifComplementary_))
-                    {
-                        positions.push_back({400 - compteur - 5, compteurSeq,chrNb_, '-', protein.getPatterns()[motifNb]});
-                    }
-                }
-            }
-        }
-    }
-    
-    file.close();
-    for(const PosDir& c : positions) {cout << c.pos << " " << c.dir << " ";}
-    return positions;
-}*/
+//The motifRecognition method is overloaded to recognise motifs that are not 7 bases long but of various length
+
 
 
 
@@ -339,9 +238,10 @@ vector<char> Sequence::giveReverseComplementarySeq(const vector<char>& seq) cons
 					}					
 			}
 			
-			//TESTING NEW METHOD : displaying but not supposed to ?
+			//TESTING NEW METHOD : displaying but not supposed to !
 			for (auto c : complementarySequence)
 			{
+				cout <<"Generation of reverse complementary sequence :" << endl;
 				cout << c;
 			}
 			
@@ -353,53 +253,125 @@ vector<char> Sequence::giveReverseComplementarySeq(const vector<char>& seq) cons
 vector<Coordinate> Sequence::readBedGraph(const string& fileName) // the function stores data from a file containing a chromosome n°, 2 positions and a score
 {
     
-    string fichier(fileName);
+    vector<Coordinate> coordinates;
     
-    vector<Coordinate> Coordinates;
-    
-    vector<string> temp; // stock in a 1x1 Matrix to calculate the number of data
+    vector<string> temporarySites; // stock in a 1x1 Matrix to calculate the number of data 
     ifstream file;
-    file.open(fichier);
+    file.open(fileName);
     
     
-    if (file.fail()) {
-        cerr << "This file can't be openned" <<endl;
-    }
+    if (file.fail()) 
+		{
+			cerr << "This file could not be opened !" <<endl;
+		}
     
-    else {
+    else 
+    {
         string var;
         
-        while (!file.eof()) {
+        while (!file.eof()) 
+        {
             
-            while (!file.eof()) {
-                file >> var >> ws;
-                temp.push_back(var);
+            while (!file.eof()) 
+            {
+                file >> var >> ws;					//we read while we encounter a white space
+                temporarySites.push_back(var);
             }
-        }
+		}
         
-        file.close();
+        file.close(); 
         
-        
-        unsigned int z(0);
-        
-        while (z < temp.size()) {
-            Coordinate c;
-            c.chromosome = temp[z];
+        size_t z(0);									//need an explanation here
+        while (z < temporarySites.size()) 
+        {
+            Coordinate site;
+            site.chromosome = temporarySites[z];		//we add the chromosome number
             ++z;
-            c.start = To_int(temp[z]);
+            site.start = To_int(temporarySites[z]); 	//then the starting position, etc.
             ++z;
-            c.end = To_int(temp[z]);
+            site.end = To_int(temporarySites[z]);
             ++z;
-            c.score = To_double(temp[z]);
+            site.score = To_double(temporarySites[z]);
             ++z;
-            Coordinates.push_back(c);
-            
+            coordinates.push_back(site);
+    
         }
     }
-    return Coordinates;
+    return coordinates;
     
 };
 
+//The findMotifs method finds all possible motifs from a list in a .fasta file
+vector<string> Sequence::findMotifs(vector<Coordinate>& coordinates, const string& fileName)
+{
+		
+	vector<string> listOfMotifs;
+	char read;
+	string line;
+	string readMotif;
+	int start, end;
+	int compteur;									 //compteur must be an int because we will compare to the start & end positions
+	ifstream file;
+	
+//NOT SURE : open file oustide or inside the the for loop ? 
+	for (auto& coordinate : coordinates)  				//for each coordinate that we are given, we search the fasta file
+	{
+		file.open(fileName);
+	
+		if(file.fail())
+			{
+				cerr << "This file could not be opened !" << endl;
+			}
+		else
+		{	
+			while(!file.eof())
+			{
+				file >> read;
+				if(read != '>') 
+				{
+					cout << endl;						
+					throw runtime_error("Error: missing header in .fasta!");  //will need to catch
+				}
+				else     //else if the first character is a '>'
+				{
+					do  												//check if it is the right chr in the fasta file
+					{
+						file >> line; 
+					} while (coordinate.chromosome == chromosomeNb(line));   
+																						//careful : size of the motif
+					start = coordinate.start;
+					end = coordinate.end;
+					while (compteur != start)  							//while we have not encountered the matching position yet, we read the file
+					{ 
+						file >> read;									//then we start to read	the sequence		
+					}
+						
+					if(compteur == start) 								//if we found it, we read the motif and store it in the coordinate - not sure whether if statement correct here 
+					{   
+						int sizeOfMotif = (start - end); 				//beware reading correction
+						
+						for(int i(0); i < sizeOfMotif; ++i)				 //init at 0 or 1 ?
+						{
+							file >> readMotif;
+							coordinate.chromosome += readMotif; 		//we discover the motif string by string
+						} 
+						
+						listOfMotifs.push_back(coordinate.chromosome);
+					}			
+				}
+			}
+		}
+	}
+	
+	//TEST
+	for( auto& c : listOfMotifs)
+	{
+		cout << c << endl;
+	}
+	
+	file.close();
+	return listOfMotifs;
+}
 
 //Conversions
 
@@ -421,7 +393,7 @@ double To_int(const string& str) // allows a convertion from string to int
     return a;
 };
 
-int main()
+/*int main()
 {
 	Sequence seq_;
 	try
@@ -434,11 +406,4 @@ int main()
 	return 0;
 }
 
-/*ACTGTCA
-
-5' TGACAGT 3'
-3' ACTGTCA 5'
-
-GAGCTC
-CTCGAG*/
-
+*/
