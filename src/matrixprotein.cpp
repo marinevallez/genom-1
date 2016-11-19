@@ -687,3 +687,20 @@ matrix MatrixProtein::getpssm_abs()
     return pssm_abs;
 }
 
+void MatrixProtein::get_relevent_site(vector<vector<char>> Input, int set, int threshold)
+{
+    vector<vector<char>> before_threshold;
+    for (size_t i(0); i < Input.size(); ++i)
+    {
+        for (size_t j(0); j < Input[i].size() - set; ++j) {
+            vector<char> tmp;
+            for (size_t z(0); z < set; ++z)
+            {
+                tmp.push_back(Input[i][j+z]); // construct small vector of size n (given by the User)
+            }
+            before_threshold.push_back(tmp);
+        }
+    }
+    fillVectorPatterns(before_threshold, threshold); //gives all the possible combination of size n to test the affinity score
+}
+
