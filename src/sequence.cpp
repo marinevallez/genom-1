@@ -281,7 +281,7 @@ vector<Coordinate> Sequence::readBedGraph(const string& fileName) // the functio
         
         file.close(); 
         
-        size_t z(0);									//need an explanation here
+        size_t z(0);									//we now store all informations read in an organized vector (in structures Coordinate)
         while (z < temporarySites.size()) 
         {
             Coordinate site;
@@ -300,6 +300,53 @@ vector<Coordinate> Sequence::readBedGraph(const string& fileName) // the functio
     return coordinates;
     
 };
+
+vector<BedCoordinate> ReadBed(const string& fileName) // the function stores data from a file containing a chromosome n°and 2 positions
+{
+    
+    vector<BedCoordinate> BedCoordinates;
+    
+    vector<string> temporarySites; // stock in a 1x1 Matrix to calculate the number of data
+    ifstream file;
+    file.open(fileName);
+    
+    
+    if (file.fail()) {
+        cerr << "This file can't be openned" <<endl;
+    }
+    
+    else {
+        string var;
+        
+        while (!file.eof()) {
+            
+            while (!file.eof()) {
+                file >> var >> ws;
+                temporarySites.push_back(var);
+            }
+        }
+        
+        file.close();
+        
+        
+        unsigned int z(0);     							//we now store all informations read in an organized vector (in strucures BedCoordinate)
+        while (z < temporarySites.size()) {
+            BedCoordinate c;
+            c.chromosome = temporarySites[z];
+            ++z;
+            c.start = To_int(temporarySites[z]);
+            ++z;
+            c.end = To_int(temporarySites[z]);
+            ++z;
+            BedCoordinates.push_back(c);
+            
+        }
+    }
+    return BedCoordinates;
+    
+};
+
+
 
 //The findMotifs method finds all possible motifs from a list in a .fasta file
 vector<string> Sequence::findMotifs(vector<Coordinate>& coordinates, const string& fileName)
@@ -372,6 +419,8 @@ vector<string> Sequence::findMotifs(vector<Coordinate>& coordinates, const strin
 	file.close();
 	return listOfMotifs;
 }
+
+
 
 //Conversions
 

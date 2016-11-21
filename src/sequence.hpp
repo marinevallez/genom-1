@@ -18,12 +18,19 @@ struct PosDir 			//stands for position and direction; position of the motif on t
 	Pattern pattern;
 };
 
-struct Coordinate  				  //numerical position(beginning and end) of an unknown motif from a .bed file
+struct Coordinate  				  //numerical position(beginning and end) and score of an unknown motif from a .bedGraph file
 {
     string chromosome;
     int start;
     int end;
     double score;
+};
+
+struct BedCoordinate         //numerical position(beginning and end) of an unknown motif from a .bed file
+{
+    string chromosome;
+    int start;
+    int end;
 };
 
 class Sequence {
@@ -60,21 +67,27 @@ class Sequence {
 	vector<char> giveReverseComplementarySeq(const vector<char>&) const; //method giving the REVERSE complementary sequence from one of the two DNA strand
 
 /*!
- * The readBedGraph method lets us read a .bed file to find the start and end positions of a motif on a chromosome, along with a score.
+ * The readBedGraph method lets us read a .bedGraph file to find the start and end positions of a motif on a chromosome, along with a score.
  * */
- 
+    
 	vector<Coordinate> readBedGraph(const string& fileName);
+    
+    /*!
+     * The ReadBed method lets us read a .bed file to find the start and end positions of a motif on a chromosome (without any score).
+     * */
+    
+    vector<BedCoordinate> ReadBed(const string& fileName);
+    
+    
     double To_double(const string& string); // allows a convertion from string to double
-	
+
 	/*!
 	 * The findMotifs method uses a list of coordinates from a .bedgrah file to scan each chromosome sequence in a .fasta file for the corresponding motifs.
 	 * */
-	
+    
 	vector<string> findMotifs(vector<Coordinate>& coordinates, const string& fileName);};
 
 //Conversions
-
-
 
 
 double To_int(const string& string); // allows a convertion from string to int
