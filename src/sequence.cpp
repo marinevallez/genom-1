@@ -4,6 +4,7 @@
 #include <list>
 #include <algorithm>		//we want to use std::reverse method from this library 
 #include <sstream>
+#include <iomanip>
 #include "sequence.hpp"
 using namespace std;
 
@@ -456,3 +457,37 @@ double To_int(const string& str) // allows a convertion from string to int
 } */
 
 */
+
+void loadResultsOnFile(const string& fileName, PosDir posdir, double sommeScores)    //fonction that loads on a file (fileName) all the information of a/several sequence(s)
+{
+    ofstream sortie;
+    //sortie.open("../test/" + fileName); //mode écrasement
+    sortie.open("../test/" + fileName, ios::out|ios::app);	//mode append (ajout)
+    
+    if (sortie.fail()) {
+        cerr << "coulnd't open the file" << endl;
+    } else {
+        sortie << "seq" << posdir.seqNb << " "  << posdir.pos << " " << posdir.dir << " " ;
+        sortie << posdir.pattern.site << " "  << posdir.pattern.bScore << " "  << sommeScores << endl;
+        sortie.close();
+    }
+}
+
+void loadMatrixOnFile(const string& fileName, matrix matrice)   //fonction that loads a matrix on a txt file
+{
+    ofstream sortie;
+    //sortie.open("../test/" + fileName); //mode écrasement
+    sortie.open("../test/" + fileName, ios::out|ios::app);	//mode append (ajout)
+    
+    if (sortie.fail()) {
+        cerr << "coulnd't open the file" << endl;
+    } else {
+        for (size_t i(0); i < matrice.size() ; ++i) {
+            for (size_t j(0) ; j < matrice[i].size() ; ++j) {
+                sortie << setprecision(5) << setw(5) << matrice[i][j] << " | " ;
+            }
+            sortie << endl;
+        }
+        sortie.close();
+    }
+}

@@ -87,6 +87,18 @@ class Sequence {
     
 	vector<string> findMotifs(vector<Coordinate>& coordinates, const string& fileName);};
 
+    /*!
+     * loadResultsOnFile method loads on a given file all the informations related to a given sequence/several sequences
+     * */
+
+    void loadResultsOnFile(const string& fileName, PosDir posdir, double sommeScores);
+
+    /*!
+     * loadMatrixOnFile method loads on a given file a given matrix
+     * */
+
+    void loadMatrixOnFile(const string& fileName, matrix matrice);
+
 //Conversions
 
 

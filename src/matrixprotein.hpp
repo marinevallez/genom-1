@@ -10,7 +10,7 @@ typedef vector<vector<double> > matrix;
 struct Pattern
 {
     double bScore;
-    vector<char> site;
+    string site;
 };
 
 
