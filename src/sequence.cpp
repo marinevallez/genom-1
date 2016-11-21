@@ -403,7 +403,7 @@ vector<Coordinate> Sequence::readBedGraph(const string& fileName) // the functio
 
 //Conversions
 
-double To_double(const string& str) // allows a convertion from string to double
+double Sequence::To_double(const string& str) // allows a convertion from string to double
 {
     istringstream stream(str);
     double dbl;
@@ -421,7 +421,7 @@ double To_int(const string& str) // allows a convertion from string to int
     return a;
 };
 
-int main()
+/*int main()
 {
 	Sequence seq_;
 	try
@@ -432,7 +432,7 @@ int main()
 	catch(const runtime_error& e) {cout << e.what() << endl;}
 	
 	return 0;
-}
+} */
 
 /*ACTGTCA
 

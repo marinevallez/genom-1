@@ -61,12 +61,13 @@ public:
  * The readBedGraph method lets us read a .bed file to find the start and end positions of a motif on a chromosome, along with a score.
  * */
  
-	vector<Coordinate> readBedGraph(const string& fileName);	
+	vector<Coordinate> readBedGraph(const string& fileName);
+    double To_double(const string& string); // allows a convertion from string to double
 };
 
 //Conversions
 
-double To_double(const string& string); // allows a convertion from string to double
+
 
 
 double To_int(const string& string); // allows a convertion from string to int
