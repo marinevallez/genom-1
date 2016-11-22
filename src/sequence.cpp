@@ -2,17 +2,63 @@
 #include <fstream>
 #include <stdexcept>
 #include <list>
-#include <algorithm>		//we want to use std::reverse method from this library 
+#include <algorithm>													//use std::reverse 
 #include <sstream>
 #include <iomanip>
 #include "sequence.hpp"
 using namespace std;
 
+//-----SEQUENCE CONVERSION METHODS-----
+
+double Sequence::To_double(const string& str) // allows a convertion from string to double
+{
+    istringstream stream(str);
+    double dbl;
+    if (!(stream >> dbl))
+        return 0;
+    return dbl;
+}
+
+int Sequence::To_int(const string& str) // allows a convertion from string to int
+{
+    istringstream stream(str);
+    int a;
+    if (!(stream >> a))
+        return 0;
+    return a;
+}
+
+vector<char> Sequence::To_vector(string str) 
+{
+	vector<char> vec;
+	for (size_t i(0); i <= str.size(); ++i)
+	{
+		vec.push_back(str[i]);
+	}
+	return vec;
+}
+
+string Sequence::To_string(vector<char> vec)
+{
+	string str;
+	for (size_t i(0); i <= vec.size(); ++i)
+	{
+		str += vec[i];
+	}
+	return str;
+}
+//-----
+
+
+//-----CONSTRUCTOR AND DESTRUCTOR-----
 
 Sequence::Sequence() {}
 
 Sequence::~Sequence() {}
 
+//-----
+
+//-----LOCAL FUNCTIONS-----
 string chromosomeNb(const string& str)  //a function that extracts the chromosome number from .fasta
 {
 	string chr;
@@ -68,6 +114,7 @@ char giveComplementaryBase(const char& nucl)				//it's a function because it has
 	}
 }
 
+//-----SEQUENCE METHODS-----
 void Sequence::outputSites(const vector<PosDir>& info) const	//a method that outputs a file with seq nb and a position where the motif was found
 {
 	ofstream file;
@@ -209,10 +256,6 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 }
 
 
-//The motifRecognition method is overloaded to recognise motifs that are not 7 bases long but of various length
-
-
-
 
 //A method giving the REVERSE complementary sequence from one of the two DNA strand
 vector<char> Sequence::giveReverseComplementarySeq(const vector<char>& seq) const
@@ -330,14 +373,14 @@ vector<BedCoordinate> ReadBed(const string& fileName) // the function stores dat
         file.close();
         
         
-        unsigned int z(0);     							//we now store all informations read in an organized vector (in strucures BedCoordinate)
+        size_t z(0);     							//we now store all informations read in an organized vector (in strucures BedCoordinate)
         while (z < temporarySites.size()) {
             BedCoordinate c;
             c.chromosome = temporarySites[z];
             ++z;
-            c.start = To_int(temporarySites[z]);
+           // c.start = To_int(temporarySites[z]); 	//does not compile here but don't know why ?
             ++z;
-            c.end = To_int(temporarySites[z]);
+          //  c.end = To_int(temporarySites[z]);
             ++z;
             BedCoordinates.push_back(c);
             
@@ -349,119 +392,57 @@ vector<BedCoordinate> ReadBed(const string& fileName) // the function stores dat
 
 
 
-//The findMotifs method finds all possible motifs from a list in a .fasta file
-vector<string> Sequence::findMotifs(vector<Coordinate>& coordinates, const string& fileName)
+vector<string> Sequence::findMotifs(vector<Coordinate>& coordinates, const string& fileName, int nbrOfSeq)
 {
 		
 	vector<string> listOfMotifs;
+	string motif;
 	char read;
-	string line;
 	string readMotif;
-	int start, end;
-	int compteur(0);									 //compteur must be an int because we will compare to the start & end positions
+	long long int start, end;
 	ifstream file;
 	
-//NOT SURE : open file oustide or inside the the for loop ? 
-	for (auto& coordinate : coordinates)  				//for each coordinate that we are given, we search the fasta file
+	file.open(fileName);
+	if(file.fail())
 	{
-		file.open(fileName);
-	
-		if(file.fail())
-			{
-				cerr << "This file could not be opened !" << endl;
-			}
+		cerr << "This file could not be opened !" << endl;
+	}
+	else 
+	{
+		file >> read;
+		if(read != '>') 
+		{
+			cout << endl;						
+			throw runtime_error("Error: missing header in .fasta!");  //will need to catch
+		}
 		else
-		{	
-			while(!file.eof())
+		{ 	
+			//trying for all :
+			for(int i(0); i <= nbrOfSeq - 1 ; ++i)
 			{
-				file >> read;
-				if(read != '>') 
+				start = (coordinates[i]).start;
+				end = (coordinates[i]).end;	
+						
+				file.seekg(start + 6);		//we go directly to that position, beware the first line is the header !
+				long long int sizeOfMotif = (end - start);
+				//cout << sizeOfMotif << endl;
+				for(long long int i(0); i <= sizeOfMotif; ++i)				 //init at 0 or 1 ?
 				{
-					cout << endl;						
-					throw runtime_error("Error: missing header in .fasta!");  //will need to catch
+					file >> read;
+					motif += read; 		//we discover the motif string by string
 				}
-				else     //else if the first character is a '>'
-				{
-					do  												//check if it is the right chr in the fasta file
-					{
-						file >> line; 
-					} while (coordinate.chromosome == chromosomeNb(line));   
-																						//careful : size of the motif
-					start = coordinate.start;
-					end = coordinate.end;
-					while (compteur != start)  							//while we have not encountered the matching position yet, we read the file
-					{ 
-						file >> read;									//then we start to read	the sequence		
-					}
-						
-					if(compteur == start) 								//if we found it, we read the motif and store it in the coordinate - not sure whether if statement correct here 
-					{   
-						int sizeOfMotif = (start - end); 				//beware reading correction
-						
-						for(int i(0); i < sizeOfMotif; ++i)				 //init at 0 or 1 ?
-						{
-							file >> readMotif;
-							coordinate.chromosome += readMotif; 		//we discover the motif string by string
-						} 
-						
-						listOfMotifs.push_back(coordinate.chromosome);
-					}			
-				}
+				listOfMotifs.push_back(motif);
+			
 			}
 		}
-	}
-	
+		}
 	//TEST
-	for( auto& c : listOfMotifs)
-	{
-		cout << c << endl;
-	}
-	
 	file.close();
 	return listOfMotifs;
 }
 
 
 
-//Conversions
-
-double Sequence::To_double(const string& str) // allows a convertion from string to double
-{
-    istringstream stream(str);
-    double dbl;
-    if (!(stream >> dbl))
-        return 0;
-    return dbl;
-};
-
-double Sequence::To_int(const string& str) // allows a convertion from string to int
-{
-    istringstream stream(str);
-    int a;
-    if (!(stream >> a))
-        return 0;
-    return a;
-};
-
-vector<char> Sequence::To_vector(string str)  //to add to hpp
-{
-	vector<char> vec;
-	for (size_t i(0); i <= str.size(); ++i)
-	{
-		vec.push_back(str[i]);
-	}
-	return vec;
-};
-
-string Sequence::To_string(vector<char> vec)
-{
-	string str;
-	for (size_t i(0); i <= vec.size(); ++i)
-	{
-		str += vec[i];
-	}
-	return str;
-};
  
 /*int main()
 {

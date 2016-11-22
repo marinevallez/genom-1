@@ -10,7 +10,8 @@
 using namespace std;
 
 //----Different struct/objects----
-struct PosDir 			//stands for position and direction; position of the motif on the sequence + direction of the sequence
+
+struct PosDir 								//stands for position and direction; position of the motif on the sequence + direction of the sequence
 {
 	size_t pos;
 	size_t seqNb;
@@ -19,7 +20,7 @@ struct PosDir 			//stands for position and direction; position of the motif on t
 	Pattern pattern;
 };
 
-struct Coordinate  				  //numerical position(beginning and end) and score of an unknown motif from a .bedGraph file
+struct Coordinate  						    //numerical position(beginning and end) and score of an unknown motif from a .bedGraph file
 {
     string chromosome;
     int start;
@@ -27,7 +28,7 @@ struct Coordinate  				  //numerical position(beginning and end) and score of an
     double score;
 };
 
-struct BedCoordinate         //numerical position(beginning and end) of an unknown motif from a .bed file
+struct BedCoordinate       				    //numerical position(beginning and end) of an unknown motif from a .bed file
 {
     string chromosome;
     int start;
@@ -40,14 +41,17 @@ class Sequence {
 	
 	public:
 	
-	//-----Constructor & Destructor
+	//---Constructor & Destructor---
     Sequence();							
     virtual ~Sequence();
     
-    double To_double(const string& string); // allows a convertion from string to double
+    //---Conversions---	
+	vector<char> To_vector(string str);
+	string To_string(vector<char> vec);
+    double To_double(const string& string);
+	int To_int(const string& str);
 	
-	double To_int(const string& str);
-	
+	//---Methods---
 /*! 
  * The outputSite method outputs a file containing sequence numbers (from a .fasta file) and the position on which a motif is found, 
  * as well as the direction of the reading frame (+ means forward, - means reverse).
@@ -88,7 +92,7 @@ class Sequence {
 	 * The findMotifs method uses a list of coordinates from a .bedgrah file to scan each chromosome sequence in a .fasta file for the corresponding motifs.
 	 * */
     
-	vector<string> findMotifs(vector<Coordinate>& coordinates, const string& fileName);};
+	vector<string> findMotifs(vector<Coordinate>& coordinates, const string& fileName, int nbrOfSeq);
 
     /*!
      * loadResultsOnFile method loads on a given file all the informations related to a given sequence/several sequences
@@ -102,12 +106,7 @@ class Sequence {
 
     void loadMatrixOnFile(const string& fileName, matrix matrice);
 
-//Conversions	
-	vector<char> To_vector(string str);
-	
-	string To_string(vector<char> vec);
-	
-	double To_int(const string& string); // allows a conversion from string to int
 
+};
 
 #endif
