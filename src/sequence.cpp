@@ -443,7 +443,7 @@ double Sequence::To_int(const string& str) // allows a convertion from string to
     return a;
 };
 
-/*vector<char> Sequence::To_vector(string str)  //to add to hpp
+vector<char> Sequence::To_vector(string str)  //to add to hpp
 {
 	vector<char> vec;
 	for (size_t i(0); i <= str.size(); ++i)
@@ -461,7 +461,7 @@ string Sequence::To_string(vector<char> vec)
 		str += vec[i];
 	}
 	return str;
-};*/
+};
  
 /*int main()
 {

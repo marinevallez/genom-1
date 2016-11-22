@@ -1,5 +1,6 @@
 #ifndef SEQUENCE_H
 #define SEQUENCE_H
+
 #include <vector>
 #include <string>
 #include <iostream>
@@ -101,15 +102,12 @@ class Sequence {
 
     void loadMatrixOnFile(const string& fileName, matrix matrice);
 
+//Conversions	
+	vector<char> To_vector(string str);
 	
-	/*vector<char> To_vector(string str);
+	string To_string(vector<char> vec);
 	
-	string To_string(vector<char> vec);*/
-	
-//Conversions
-
-
-double To_int(const string& string); // allows a convertion from string to int
+	double To_int(const string& string); // allows a conversion from string to int
 
 
 #endif
