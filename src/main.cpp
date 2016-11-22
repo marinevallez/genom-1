@@ -11,7 +11,6 @@ int main()
     char answer;
     int nbr(0);
     
-    cout << "Hello again." << endl;
     cout << "Hello ! Welcome to the Genom-1 DNA binding site analysis package !" << endl;
     cout << "This program provides a few fonctionalities that will help you analyse and work on genomic sequences." << endl;
     //info to documentation
