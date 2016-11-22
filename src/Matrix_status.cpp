@@ -20,22 +20,16 @@ bool which_PWM_to_PSSM(vector<vector<double> > matrice);
 bool PWM(vector<vector<double> > matrice);
 bool possible(vector<vector<double> > matrice);
 vector <bool> matrix_status(vector<vector<double> > matrice);
+vector<vector<double> > creer_matrice();
 
 
 int main()
 {
-	vector <vector<double> > M;
-		
+	vector<vector<double> > M;
+	
 	M = creer_matrice();
 	
-	vector <bool> a(2);
 	
-	a = matrix_status(M);
-	
-	if (a[0] == 0 and a[1] == 0)
-	{
-		cout<<"ooo";
-	}
 		
 	return 0;
 }
@@ -312,7 +306,8 @@ bool which_PWM_to_PSSM(vector<vector<double> > matrice)
 		return 0;
 	}
 }
-	
+
+
 
 
 

@@ -27,6 +27,7 @@ class Matrix {
 	std::vector <bool> matrix_status(matrix matrice);
 	void matrix_generation();
 	void readjust_values(matrix& mtx);
+	bool empty();
 	
 	
 	private :

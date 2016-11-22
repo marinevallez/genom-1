@@ -349,8 +349,12 @@ void Matrix::readjust_values(matrix& mtx)
 		}
 	}
 }
-		
 
+bool Matrix::empty()
+{
+	return(mx.empty());
+}
+		
 void Matrix::matrix_generation()
 {
 	std::vector<bool> check(2);
