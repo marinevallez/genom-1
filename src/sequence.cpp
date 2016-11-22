@@ -392,7 +392,7 @@ vector<BedCoordinate> ReadBed(const string& fileName) // the function stores dat
 
 
 
-vector<string> Sequence::findMotifs(vector<Coordinate>& coordinates, const string& fileName, int nbrOfSeq)
+vector<string> Sequence::scanFasta(vector<Coordinate>& coordinates, const string& fileName, int nbrOfSeq)
 {
 		
 	vector<string> listOfMotifs;
@@ -402,7 +402,7 @@ vector<string> Sequence::findMotifs(vector<Coordinate>& coordinates, const strin
 	long long int start, end;
 	ifstream file;
 	
-	file.open(fileName);
+	file.open("../test/" + fileName);
 	if(file.fail())
 	{
 		cerr << "This file could not be opened !" << endl;

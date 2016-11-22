@@ -89,10 +89,10 @@ class Sequence {
     
 
 	/*!
-	 * The findMotifs method uses a list of coordinates from a .bedgrah file to scan each chromosome sequence in a .fasta file for the corresponding motifs.
+	 * The scanFasta method uses a list of coordinates from a .bedgrah file to scan each chromosome genomic sequence in a .fasta file for regions listed in the .bedgraph.
 	 * */
     
-	vector<string> findMotifs(vector<Coordinate>& coordinates, const string& fileName, int nbrOfSeq);
+	vector<string> scanFasta(vector<Coordinate>& coordinates, const string& fileName, int nbrOfSeq);
 
     /*!
      * loadResultsOnFile method loads on a given file all the informations related to a given sequence/several sequences
