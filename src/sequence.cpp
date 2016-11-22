@@ -378,9 +378,9 @@ vector<BedCoordinate> ReadBed(const string& fileName) // the function stores dat
             BedCoordinate c;
             c.chromosome = temporarySites[z];
             ++z;
-           // c.start = To_int(temporarySites[z]); 	//does not compile here but don't know why ?
+			c.start = To_int(temporarySites[z]); 	//does not compile here but don't know why ?
             ++z;
-          //  c.end = To_int(temporarySites[z]);
+			c.end = To_int(temporarySites[z]);
             ++z;
             BedCoordinates.push_back(c);
             
