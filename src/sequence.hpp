@@ -42,6 +42,10 @@ class Sequence {
 	//-----Constructor & Destructor
     Sequence();							
     virtual ~Sequence();
+    
+    double To_double(const string& string); // allows a convertion from string to double
+	
+	double To_int(const string& str);
 	
 /*! 
  * The outputSite method outputs a file containing sequence numbers (from a .fasta file) and the position on which a motif is found, 
@@ -78,8 +82,6 @@ class Sequence {
     
     vector<BedCoordinate> ReadBed(const string& fileName);
     
-    
-    double To_double(const string& string); // allows a convertion from string to double
 
 	/*!
 	 * The findMotifs method uses a list of coordinates from a .bedgrah file to scan each chromosome sequence in a .fasta file for the corresponding motifs.
@@ -99,6 +101,11 @@ class Sequence {
 
     void loadMatrixOnFile(const string& fileName, matrix matrice);
 
+	
+	/*vector<char> To_vector(string str);
+	
+	string To_string(vector<char> vec);*/
+	
 //Conversions
 
 

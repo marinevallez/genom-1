@@ -434,7 +434,7 @@ double Sequence::To_double(const string& str) // allows a convertion from string
     return dbl;
 };
 
-double To_int(const string& str) // allows a convertion from string to int
+double Sequence::To_int(const string& str) // allows a convertion from string to int
 {
     istringstream stream(str);
     int a;
@@ -443,6 +443,26 @@ double To_int(const string& str) // allows a convertion from string to int
     return a;
 };
 
+/*vector<char> Sequence::To_vector(string str)  //to add to hpp
+{
+	vector<char> vec;
+	for (size_t i(0); i <= str.size(); ++i)
+	{
+		vec.push_back(str[i]);
+	}
+	return vec;
+};
+
+string Sequence::To_string(vector<char> vec)
+{
+	string str;
+	for (size_t i(0); i <= vec.size(); ++i)
+	{
+		str += vec[i];
+	}
+	return str;
+};*/
+ 
 /*int main()
 {
 	Sequence seq_;
@@ -456,7 +476,6 @@ double To_int(const string& str) // allows a convertion from string to int
 	return 0;
 } */
 
-*/
 
 void loadResultsOnFile(const string& fileName, PosDir posdir, double sommeScores)    //fonction that loads on a file (fileName) all the information of a/several sequence(s)
 {
