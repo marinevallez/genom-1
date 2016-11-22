@@ -705,8 +705,8 @@ void MatrixProtein::get_relevent_site(vector<vector<char>> Input, int set, int t
     fillVectorPatterns(before_threshold, threshold); //gives all the possible combination of size n to test the affinity score
 }
 
-
-vector<Pattern> MatrixProtein::findPatterns(string matFile, double threshold) //need to be tested
+//COMMENTED AS DOES NOT WORK YET + IS IT USEFUL ?
+/*vector<Pattern> MatrixProtein::findPatterns(string matFile, double threshold) //need to be tested
 {
 	
 					//we map matrix colums (in the assumed ACGT order) to a character so that we can concatenate a motif
@@ -764,4 +764,4 @@ vector<Pattern> MatrixProtein::findPatterns(string matFile, double threshold) //
 	} while (compteur != pow(4.0, 7.0));  //while we haven't reached all motif possibilites(4^7), we keep trying to find some
 	
 	return listOfMotifs;
-}
+}*/
