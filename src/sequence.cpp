@@ -6,11 +6,12 @@
 #include <sstream>
 #include <iomanip>
 #include "sequence.hpp"
+#include "utilities.cpp"
 using namespace std;
 
 //-----SEQUENCE CONVERSION METHODS-----
 
-double Sequence::To_double(const string& str) // allows a convertion from string to double
+/*double Sequence::toDouble(const string& str) // allows a convertion from string to double
 {
     istringstream stream(str);
     double dbl;
@@ -19,7 +20,7 @@ double Sequence::To_double(const string& str) // allows a convertion from string
     return dbl;
 }
 
-int Sequence::To_int(const string& str) // allows a convertion from string to int
+int Sequence::toInt(const string& str) // allows a convertion from string to int
 {
     istringstream stream(str);
     int a;
@@ -28,7 +29,7 @@ int Sequence::To_int(const string& str) // allows a convertion from string to in
     return a;
 }
 
-vector<char> Sequence::To_vector(string str) 
+vector<char> Sequence::toVector(string str) 
 {
 	vector<char> vec;
 	for (size_t i(0); i <= str.size(); ++i)
@@ -38,7 +39,7 @@ vector<char> Sequence::To_vector(string str)
 	return vec;
 }
 
-string Sequence::To_string(vector<char> vec)
+string Sequence::toString(vector<char> vec)
 {
 	string str;
 	for (size_t i(0); i <= vec.size(); ++i)
@@ -47,7 +48,7 @@ string Sequence::To_string(vector<char> vec)
 	}
 	return str;
 }
-//-----
+//-----*/
 
 
 //-----CONSTRUCTOR AND DESTRUCTOR-----
@@ -331,11 +332,11 @@ vector<Coordinate> Sequence::readBedGraph(const string& fileName) // the functio
             Coordinate site;
             site.chromosome = temporarySites[z];		//we add the chromosome number
             ++z;
-            site.start = To_int(temporarySites[z]); 	//then the starting position, etc.
+            site.start = toInt(temporarySites[z]); 	//then the starting position, etc.
             ++z;
-            site.end = To_int(temporarySites[z]);
+            site.end = toInt(temporarySites[z]);
             ++z;
-            site.score = To_double(temporarySites[z]);
+            site.score = to_Double(temporarySites[z]);
             ++z;
             coordinates.push_back(site);
     
@@ -356,7 +357,7 @@ vector<BedCoordinate> ReadBed(const string& fileName) // the function stores dat
     
     
     if (file.fail()) {
-        cerr << "This file can't be openned" <<endl;
+        cerr << "This file could not be opened !" <<endl;
     }
     
     else {
@@ -374,13 +375,14 @@ vector<BedCoordinate> ReadBed(const string& fileName) // the function stores dat
         
         
         size_t z(0);     							//we now store all informations read in an organized vector (in strucures BedCoordinate)
-        while (z < temporarySites.size()) {
+        while (z < temporarySites.size()) 
+        {
             BedCoordinate c;
             c.chromosome = temporarySites[z];
             ++z;
-			c.start = To_int(temporarySites[z]); 	//does not compile here but don't know why ?
+			c.start = toInt(temporarySites[z]); 	//does not compile here but don't know why ?
             ++z;
-			c.end = To_int(temporarySites[z]);
+			c.end = toInt(temporarySites[z]);
             ++z;
             BedCoordinates.push_back(c);
             

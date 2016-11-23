@@ -45,11 +45,11 @@ class Sequence {
     Sequence();							
     virtual ~Sequence();
     
-    //---Conversions---	
-	vector<char> To_vector(string str);
-	string To_string(vector<char> vec);
-    double To_double(const string& string);
-	int To_int(const string& str);
+    /*//---Conversions---	
+	vector<char> toVector(string str);
+	string toString(vector<char> vec);
+    double toDouble(const string& string);
+	int toInt(const string& str);*/
 	
 	//---Methods---
 /*! 

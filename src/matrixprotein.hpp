@@ -1,5 +1,6 @@
 #ifndef MATRIXPROTEIN_HPP
 #define MATRIXPROTEIN_HPP
+
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -35,6 +36,14 @@ class MatrixProtein
     ~MatrixProtein();
     
     //-----Methods-----
+    
+   /* //Conversions 
+    double To_double(const string& string);
+    int toInt(const string& str); 
+	vector<char> toVector(string str);
+	string toString(vector<char> vec);*/
+
+
   
     // Patterns (i.e Motifs)
     void fillVectorPatterns(vector<vector<char> > sites, double threshold = 0 ); // takes a list of sites (even size) and set the Patterns attribute with the list of all the site having an affinity score above a certain threshold (can be given or taken by default(the default number isn't 0 this is just a way to assure that if the User gives 0 or nothing the same default threshold will be used (see calculation of the default threshold)))
@@ -48,7 +57,6 @@ class MatrixProtein
     
     //General
     double probas(double n, double tot);
-    double To_double (const string& string );
     
     //Matrix
     //void display_PWM(matrix finale);
