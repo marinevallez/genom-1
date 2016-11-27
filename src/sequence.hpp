@@ -105,6 +105,12 @@ class Sequence {
      * */
 
     void loadMatrixOnFile(const string& fileName, matrix matrice);
+    
+    /*!
+     * find method take a matrix, loads it, goes through sequences in fasta and gets all motifs with sufficient scores with their positions and direction
+     * */
+    
+    vector<PosDir> find(MatrixProtein&, const string&, const string&, const double&);
 
 
 };

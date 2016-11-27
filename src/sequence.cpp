@@ -11,7 +11,7 @@ using namespace std;
 
 //-----SEQUENCE CONVERSION METHODS-----
 
-/*double Sequence::toDouble(const string& str) // allows a convertion from string to double
+/*double toDouble(const string& str) // allows a convertion from string to double
 {
     istringstream stream(str);
     double dbl;
@@ -20,7 +20,7 @@ using namespace std;
     return dbl;
 }
 
-int Sequence::toInt(const string& str) // allows a convertion from string to int
+int StoInt(const string& str) // allows a convertion from string to int
 {
     istringstream stream(str);
     int a;
@@ -29,7 +29,7 @@ int Sequence::toInt(const string& str) // allows a convertion from string to int
     return a;
 }
 
-vector<char> Sequence::toVector(string str) 
+vector<char> toVector(string str) 
 {
 	vector<char> vec;
 	for (size_t i(0); i <= str.size(); ++i)
@@ -39,7 +39,7 @@ vector<char> Sequence::toVector(string str)
 	return vec;
 }
 
-string Sequence::toString(vector<char> vec)
+string toString(vector<char> vec)
 {
 	string str;
 	for (size_t i(0); i <= vec.size(); ++i)
@@ -47,8 +47,8 @@ string Sequence::toString(vector<char> vec)
 		str += vec[i];
 	}
 	return str;
-}
-//-----*/
+}*/
+
 
 
 //-----CONSTRUCTOR AND DESTRUCTOR-----
@@ -256,7 +256,174 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 	return positions;
 }
 
-
+vector<PosDir> Sequence::find(MatrixProtein& mtrx, const string& mat, const string& fasta, const double& threshold)
+{
+	ifstream file;								
+	char base, nucl, extra; 
+	string line("");
+	vector<char> seq, cDNA, reverseMotifTemp_;
+	vector<vector<char>> reverseMotifs;	//a table of reverse of ALL motifs in the matrix
+	list<char> l;
+	vector<PosDir> positions;
+	size_t compteur(0);
+	size_t compteurSeq(0);
+	string chrNb_;
+	
+	const vector<Pattern> patterns_(mtrx.findPatterns(mat, threshold));
+	
+	for(const Pattern& ptrn : patterns_)
+	{
+		reverseMotifTemp_.clear(); //we make sure it's clear
+		reverseMotifTemp_ = toVector(ptrn.site);	//we take a motif from the patterns vector
+		reverse(reverseMotifTemp_.begin(), reverseMotifTemp_.end());	//we get its reverse
+		reverseMotifs.push_back(reverseMotifTemp_);		//we store the reverse
+	}
+	
+	file.open("../test/" + fasta);
+	
+	if(file.fail())
+	{
+		cout << endl;
+		throw runtime_error("The file couldn't be opened!");
+	}
+	else
+		while(!file.eof())
+		{
+			file >> nucl;
+			if(nucl != '>')
+			{
+				cout << endl;
+				throw runtime_error("Error: missing header in .fasta!");
+			}
+			else
+			{
+				file >> line >> ws;
+				chrNb_ = chromosomeNb(line);
+				
+				++compteurSeq;
+				compteur = 0;
+				
+				for(size_t i(0); i < reverseMotifs[0].size(); ++i)
+				{
+					
+					if(i == 0)
+					{	
+						l.clear();
+						file >> noskipws >> base;
+						
+						if(isspace(base))
+						{
+							cout << endl;
+							throw runtime_error("Error: no spaces allowed!");
+						}
+						
+						cout << base;
+					}
+					else
+					{
+						file >> noskipws >> base;
+						
+						if(isspace(base))
+						{
+							cout << endl;
+							throw runtime_error("Error: no spaces allowed!");
+						}
+						cout << base;
+					}
+					
+					l.push_back(base);
+				}
+				
+				seq.clear();
+				seq = {begin(l), end(l)};
+				
+				for(const Pattern& ptrn : patterns_)
+				{
+					if(compare(seq, toVector(ptrn.site)))
+					{
+						positions.push_back({compteur + 1, compteurSeq, chrNb_, '+', ptrn});
+					}
+				}
+				
+				cDNA.clear();
+				
+				for(const char& base_ : seq)
+				{
+					cDNA.push_back(giveComplementaryBase(base_));
+				}
+				
+				for(size_t i(0); i < reverseMotifs.size(); ++i)
+				{
+					if(compare(cDNA, reverseMotifs[i]))
+					{
+						positions.push_back({compteur +1, compteurSeq, chrNb_, '-', patterns_[i]});
+					}
+				}
+				
+				while(file >> noskipws >> nucl)
+				{
+					cout << nucl;
+					file.get(extra);
+					if(nucl == '\n' and extra != '>')
+					{
+						if(!file.eof())
+						{
+							cout << endl;
+							throw runtime_error("Error: new lines are not allowed!");
+						}
+					}
+					else if(nucl == '\n')
+					{
+						file.putback(extra);
+						cout << endl;
+						break;
+					}
+					else if(isspace(nucl))
+					{
+						cout << endl;
+						throw runtime_error("Error: no spaces allowed!");
+					}
+					else 
+					{
+						file.putback(extra);
+						l.pop_front();
+						l.push_back(nucl);
+					}
+					
+					++compteur;
+					
+					seq.clear();
+					seq = {begin(l), end(l)};
+					
+					for(const Pattern& ptrn : patterns_)
+				{
+					if(compare(seq, toVector(ptrn.site)))
+					{
+						positions.push_back({compteur + 1, compteurSeq, chrNb_, '+', ptrn});
+					}
+				}
+				
+				cDNA.clear();
+				
+				for(const char& base_ : seq)
+				{
+					cDNA.push_back(giveComplementaryBase(base_));
+				}
+				
+				for(size_t i(0); i < reverseMotifs.size(); ++i)
+				{
+					if(compare(cDNA, reverseMotifs[i]))
+					{
+						positions.push_back({compteur +1, compteurSeq, chrNb_, '-', patterns_[i]});
+					}
+				}
+			}
+		}
+	}
+	
+	file.close();
+	return positions;
+}
 
 //A method giving the REVERSE complementary sequence from one of the two DNA strand
 vector<char> Sequence::giveReverseComplementarySeq(const vector<char>& seq) const
@@ -444,23 +611,7 @@ vector<string> Sequence::scanFasta(vector<Coordinate>& coordinates, const string
 }
 
 
-
- 
-/*int main()
-{
-	Sequence seq_;
-	try
-	{
-		vector<PosDir> info = seq_.motifRecognition("ACTGTCA", "SeqFail2.fasta");
-		seq_.outputSites(info);
-	}
-	catch(const runtime_error& e) {cout << e.what() << endl;}
-	
-	return 0;
-} */
-
-
-void loadResultsOnFile(const string& fileName, PosDir posdir, double sommeScores)    //fonction that loads on a file (fileName) all the information of a/several sequence(s)
+void loadResultsOnFile(const string& fileName, const vector<PosDir>& posdir, double sommeScores)    //fonction that loads on a file (fileName) all the information of a/several sequence(s)
 {
     ofstream sortie;
     //sortie.open("../test/" + fileName); //mode écrasement
@@ -469,11 +620,30 @@ void loadResultsOnFile(const string& fileName, PosDir posdir, double sommeScores
     if (sortie.fail()) {
         cerr << "coulnd't open the file" << endl;
     } else {
-        sortie << "seq" << posdir.seqNb << " "  << posdir.pos << " " << posdir.dir << " " ;
-        sortie << posdir.pattern.site << " "  << posdir.pattern.bScore << " "  << sommeScores << endl;
-        sortie.close();
+        for(const PosDir& entry : posdir)
+        {
+			sortie << "seq" << entry.seqNb << " "  << entry.pos << " " << entry.dir << " " ;
+			sortie << entry.pattern.site << " "  << entry.pattern.bScore << " "  << sommeScores << endl;
+			sortie.close();
+		}
     }
 }
+ 
+int main()
+{
+	Sequence seq_;
+	MatrixProtein mtrx;
+	try
+	{
+		loadResultsOnFile("List of Sites", seq_.find(mtrx, "DBP_PPM.max.txt", "promoters.fasta", 100.0), 0.0);
+	}
+	catch(const runtime_error& e) {cout << e.what() << endl;}
+	
+	return 0;
+} 
+
+
+
 
 void loadMatrixOnFile(const string& fileName, matrix matrice)   //fonction that loads a matrix on a txt file
 {
