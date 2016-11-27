@@ -60,7 +60,7 @@ class MatrixProtein
     
     //Matrix
     //void display_PWM(matrix finale);
-    void loadmatrix_fromscore();
+   // void loadmatrix_fromscore();
     void loadmatrix_fromfile(const string& Data);
     void setrw(int value);
     void swaptopssm(matrix& mtx);
@@ -80,6 +80,15 @@ class MatrixProtein
     void display_PWM_rel();
     matrix getpwm_abs();
     matrix getpssm_abs();
+    void calcul( vector<char> tab_, vector<double>& tabA_, vector<double>& tabT_, vector<double>& tabG_, vector<double>& tabC_);
+
+	// fonctions utilisée pour l'algorithme EM; 
+	void RemetZero( vector<double>& vec_);
+	void calculScore(vector<vector<double>> finale_, vector<double>& score_, int j_, vector<char> tab2_); 
+	void FindMotif(vector<vector<double>> finale_,vector<Pattern> patterns_, int longueur_motif_, vector<vector<vector<char>>>& best_seqs_);
+	
+	// Algorithme EM complet 
+	void EMalgorithm(int longueur_motif);  
     
     //Calculation of the default threshold
     char genRandomChar();
