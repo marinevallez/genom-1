@@ -39,6 +39,8 @@ class Sequence {
 
 	private:
 	
+		vector<PosDir> motifs4output;		//the motifs we are going to export into a .txt file
+	
 	public:
 	
 	//---Constructor & Destructor---
@@ -110,7 +112,13 @@ class Sequence {
      * find method take a matrix, loads it, goes through sequences in fasta and gets all motifs with sufficient scores with their positions and direction
      * */
     
-    vector<PosDir> find(MatrixProtein&, const string&, const string&, const double&);
+    void find(MatrixProtein&, const string&);
+    
+    /*!
+     * a getter method to get information to be exported to a .txt file
+     * */
+     
+     vector<PosDir> getMotifs4Output() const;
 
 
 };

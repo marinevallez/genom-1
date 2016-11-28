@@ -113,6 +113,8 @@ char giveComplementaryBase(const char& nucl)				//it's a function because it has
 		cerr << endl;
 		throw runtime_error("Error: Wrong nucleotide detected in the .fasta: ");
 	}
+	
+	return -1; //added to avoid a warning message
 }
 
 //-----SEQUENCE METHODS-----
@@ -256,12 +258,12 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 	return positions;
 }
 
-vector<PosDir> Sequence::find(MatrixProtein& mtrx, const string& mat, const string& fasta, const double& threshold)
+void Sequence::find(MatrixProtein& mtrx, const string& fasta)
 {
 	ifstream file;								
 	char base, nucl, extra; 
 	string line("");
-	vector<char> seq, cDNA, reverseMotifTemp_;
+	vector<char> seq, secondStrand, reverseMotifTemp_;
 	vector<vector<char>> reverseMotifs;	//a table of reverse of ALL motifs in the matrix
 	list<char> l;
 	vector<PosDir> positions;
@@ -269,7 +271,7 @@ vector<PosDir> Sequence::find(MatrixProtein& mtrx, const string& mat, const stri
 	size_t compteurSeq(0);
 	string chrNb_;
 	
-	const vector<Pattern> patterns_(mtrx.findPatterns(mat, threshold));
+	const vector<Pattern> patterns_(mtrx.getPatterns());
 	
 	for(const Pattern& ptrn : patterns_)
 	{
@@ -341,22 +343,22 @@ vector<PosDir> Sequence::find(MatrixProtein& mtrx, const string& mat, const stri
 				{
 					if(compare(seq, toVector(ptrn.site)))
 					{
-						positions.push_back({compteur + 1, compteurSeq, chrNb_, '+', ptrn});
+						motifs4output.push_back({compteur + 1, compteurSeq, chrNb_, '+', ptrn});
 					}
 				}
 				
-				cDNA.clear();
+				secondStrand.clear();
 				
 				for(const char& base_ : seq)
 				{
-					cDNA.push_back(giveComplementaryBase(base_));
+					secondStrand.push_back(giveComplementaryBase(base_));
 				}
 				
 				for(size_t i(0); i < reverseMotifs.size(); ++i)
 				{
-					if(compare(cDNA, reverseMotifs[i]))
+					if(compare(secondStrand, reverseMotifs[i]))
 					{
-						positions.push_back({compteur +1, compteurSeq, chrNb_, '-', patterns_[i]});
+						motifs4output.push_back({compteur +1, compteurSeq, chrNb_, '-', patterns_[i]});
 					}
 				}
 				
@@ -399,30 +401,28 @@ vector<PosDir> Sequence::find(MatrixProtein& mtrx, const string& mat, const stri
 				{
 					if(compare(seq, toVector(ptrn.site)))
 					{
-						positions.push_back({compteur + 1, compteurSeq, chrNb_, '+', ptrn});
+						motifs4output.push_back({compteur + 1, compteurSeq, chrNb_, '+', ptrn});
 					}
 				}
 				
-				cDNA.clear();
+				secondStrand.clear();
 				
 				for(const char& base_ : seq)
 				{
-					cDNA.push_back(giveComplementaryBase(base_));
+					secondStrand.push_back(giveComplementaryBase(base_));
 				}
 				
 				for(size_t i(0); i < reverseMotifs.size(); ++i)
 				{
-					if(compare(cDNA, reverseMotifs[i]))
+					if(compare(secondStrand, reverseMotifs[i]))
 					{
-						positions.push_back({compteur +1, compteurSeq, chrNb_, '-', patterns_[i]});
+						motifs4output.push_back({compteur +1, compteurSeq, chrNb_, '-', patterns_[i]});
 					}
 				}
 			}
 		}
 	}
-	
 	file.close();
-	return positions;
 }
 
 //A method giving the REVERSE complementary sequence from one of the two DNA strand
@@ -635,7 +635,8 @@ int main()
 	MatrixProtein mtrx;
 	try
 	{
-		loadResultsOnFile("List of Sites", seq_.find(mtrx, "DBP_PPM.max.txt", "promoters.fasta", 100.0), 0.0);
+		seq_.find(mtrx, "promoters.fasta");
+		loadResultsOnFile("List of Sites", seq_.getMotifs4Output() , 0.0);
 	}
 	catch(const runtime_error& e) {cout << e.what() << endl;}
 	
