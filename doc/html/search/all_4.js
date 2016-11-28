@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['fillpattern',['fillPattern',['../class_protein.html#a7da30bc12fad505cad4cd686bd753699',1,'Protein']]],
-  ['fillvectorpatterns',['fillVectorPatterns',['../class_protein.html#a68f83b239679cc921d9a8ee6b9f5395b',1,'Protein']]]
+  ['emalgorithm',['EMalgorithm',['../class_matrix_protein.html#acdbc0eaa76dae8aaa7a7d72d6cebe182',1,'MatrixProtein']]],
+  ['empty',['empty',['../class_matrix.html#af11d77f525aba263b6ddb42e441d844e',1,'Matrix']]],
+  ['end',['end',['../struct_coordinate.html#ab641bdc4a19752e6701f01b540af931d',1,'Coordinate::end()'],['../struct_bed_coordinate.html#a66bc44b02bb4333ebc9919d3c385ee15',1,'BedCoordinate::end()']]]
 ];

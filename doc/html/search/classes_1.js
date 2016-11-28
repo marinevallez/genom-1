@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['input',['Input',['../class_input.html',1,'']]]
+  ['bedcoordinate',['BedCoordinate',['../struct_bed_coordinate.html',1,'']]]
 ];

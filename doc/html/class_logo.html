@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.12"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: Logo Class Reference</title>
+<title>Genom-1: Logo Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,8 +21,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">Genom-1
    </div>
+   <div id="projectbrief">We were given the objective to build a program with an application in actual genomic problems. Several inputs can be given by the user and the idea is to offer different outputs that can help the user to solve his problem. The output can be a list of sites, affinity score for a given sequence, a PWM (or a PSSM), a graphic representation of the PMW (logo), etc.</div>
   </td>
  </tr>
  </tbody>
@@ -71,14 +72,19 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a9d2597f741dbf6721950dfe3a57a3f59"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_logo.html#a9d2597f741dbf6721950dfe3a57a3f59">Logo</a> ()</td></tr>
+<tr class="memdesc:a9d2597f741dbf6721950dfe3a57a3f59"><td class="mdescLeft">&#160;</td><td class="mdescRight">contain the texture of each letter filled with the emplacment of the image by the constructor  <a href="#a9d2597f741dbf6721950dfe3a57a3f59">More...</a><br /></td></tr>
 <tr class="separator:a9d2597f741dbf6721950dfe3a57a3f59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acaeb972e9dc28528df14f64dae6c3da8"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_logo.html#acaeb972e9dc28528df14f64dae6c3da8">afficher_logo</a> (vector&lt; <a class="el" href="struct_motif.html">Motif</a> &gt; sequences)</td></tr>
+<tr class="memdesc:acaeb972e9dc28528df14f64dae6c3da8"><td class="mdescLeft">&#160;</td><td class="mdescRight">fills lettre_texture  <a href="#acaeb972e9dc28528df14f64dae6c3da8">More...</a><br /></td></tr>
 <tr class="separator:acaeb972e9dc28528df14f64dae6c3da8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1bb211dd2948f2ee444cbf34ff98ac9f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_logo.html#a1bb211dd2948f2ee444cbf34ff98ac9f">size</a> (double size_b)</td></tr>
+<tr class="memdesc:a1bb211dd2948f2ee444cbf34ff98ac9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Display the logo.  <a href="#a1bb211dd2948f2ee444cbf34ff98ac9f">More...</a><br /></td></tr>
 <tr class="separator:a1bb211dd2948f2ee444cbf34ff98ac9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5862aedf7a1387474bb6eb74f54a1a5"><td class="memItemLeft" align="right" valign="top">sf::RectangleShape&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_logo.html#ac5862aedf7a1387474bb6eb74f54a1a5">set_text</a> (double taille, size_t lettre, double emplacement, int largeur)</td></tr>
+<tr class="memdesc:ac5862aedf7a1387474bb6eb74f54a1a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">calculates the size that must be displayed based on the calculation of the size depending on its probability (this function calculates a abritrary size and might result in a lost of information !)  <a href="#ac5862aedf7a1387474bb6eb74f54a1a5">More...</a><br /></td></tr>
 <tr class="separator:ac5862aedf7a1387474bb6eb74f54a1a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adcd9611f469df92766ce5e65f45e13ab"><td class="memItemLeft" align="right" valign="top">vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_logo.html#adcd9611f469df92766ce5e65f45e13ab">Letters_order</a> (<a class="el" href="class_letters.html">Letters</a> Letters_, size_t j)</td></tr>
+<tr class="memdesc:adcd9611f469df92766ce5e65f45e13ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">for a given letter gives the appropriate size, texture and emplacment.  <a href="#adcd9611f469df92766ce5e65f45e13ab">More...</a><br /></td></tr>
 <tr class="separator:adcd9611f469df92766ce5e65f45e13ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
@@ -96,6 +102,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>contain the texture of each letter filled with the emplacment of the image by the constructor </p>
 
 </div>
 </div>
@@ -115,6 +123,11 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>fills lettre_texture </p>
+<p>gets the order of probability for the letter</p>
+<p>Calculate the position of the letter from the 0 of the Bits axes, taking in account the size of the letter above it, the origine is on the left corner of the window</p>
+<p>spacing of 75 between each column on the axes (arbitary) </p>
 
 </div>
 </div>
@@ -143,6 +156,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>for a given letter gives the appropriate size, texture and emplacment. </p>
 
 </div>
 </div>
@@ -184,6 +199,8 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>calculates the size that must be displayed based on the calculation of the size depending on its probability (this function calculates a abritrary size and might result in a lost of information !) </p>
+
 </div>
 </div>
 <a id="a1bb211dd2948f2ee444cbf34ff98ac9f"></a>
@@ -202,11 +219,14 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Display the logo. </p>
+<p>arbitrary choice of size chosen by random testing </p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="_logo_8hpp_source.html">Logo.hpp</a></li>
-<li><a class="el" href="_logo_8cpp.html">Logo.cpp</a></li>
+<li>src/<a class="el" href="_logo_8hpp_source.html">Logo.hpp</a></li>
+<li>src/<a class="el" href="_logo_8cpp.html">Logo.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

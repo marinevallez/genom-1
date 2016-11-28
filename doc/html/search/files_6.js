@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['protein_2ecpp',['Protein.cpp',['../_protein_8cpp.html',1,'']]],
-  ['protein_2ehpp',['Protein.hpp',['../_protein_8hpp.html',1,'']]]
+  ['readbedg_2ecpp',['ReadBedG.cpp',['../_read_bed_g_8cpp.html',1,'']]]
 ];

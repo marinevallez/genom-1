@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['pattern',['pattern',['../struct_pos_dir.html#aa31053fc2982b81e69f6d00d158487e7',1,'PosDir']]],
-  ['pos',['pos',['../struct_pos_dir.html#a75888a608e2dc9ed88fa8f4c86607c56',1,'PosDir']]]
+  ['lettres',['lettres',['../struct_motif.html#aa50c6f158995fcf41fc220f01d8db6f2',1,'Motif']]]
 ];

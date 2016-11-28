@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.12"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: File Members</title>
+<title>Genom-1: File Members</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,8 +21,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">Genom-1
    </div>
+   <div id="projectbrief">We were given the objective to build a program with an application in actual genomic problems. Several inputs can be given by the user and the idea is to offer different outputs that can help the user to solve his problem. The output can be a list of sites, affinity score for a given sequence, a PWM (or a PSSM), a graphic representation of the PMW (logo), etc.</div>
   </td>
  </tr>
  </tbody>
@@ -67,6 +68,9 @@ $(function() {
 <li>absolute_matrix()
 : <a class="el" href="_matrix___conversion__relative__absolute_8cpp.html#af7d5dfd7359c7ee7c2a41043f6655cd3">Matrix_Conversion_relative_absolute.cpp</a>
 </li>
+<li>addition_intervalle()
+: <a class="el" href="_read_bed_g_8cpp.html#aedc89a462e6127df1cdcb2a56478c97a">ReadBedG.cpp</a>
+</li>
 <li>afficher_matrice()
 : <a class="el" href="_matrix___conversion__relative__absolute_8cpp.html#a034dac759332c94fd0a84e809101c5ac">Matrix_Conversion_relative_absolute.cpp</a>
 </li>
@@ -80,6 +84,12 @@ $(function() {
 
 
 <h3><a id="index_c"></a>- c -</h3><ul>
+<li>calcul()
+: <a class="el" href="matrixprotein_8cpp.html#a095e6bed460f71cee1a28ba5c4e97d42">matrixprotein.cpp</a>
+</li>
+<li>calculScore()
+: <a class="el" href="matrixprotein_8cpp.html#a8aba1efed7b9b3d8a02a500c8de60e04">matrixprotein.cpp</a>
+</li>
 <li>chromosomeNb()
 : <a class="el" href="sequence_8cpp.html#af6b3992af068b7a32036521b82d5fdc9">sequence.cpp</a>
 </li>
@@ -99,6 +109,13 @@ $(function() {
 <h3><a id="index_d"></a>- d -</h3><ul>
 <li>display_PWM()
 : <a class="el" href="creation___p_m_w_8cpp.html#af4dfbf9b0fe6fe23c41451930dacd392">creation_PMW.cpp</a>
+</li>
+</ul>
+
+
+<h3><a id="index_f"></a>- f -</h3><ul>
+<li>FindMotif()
+: <a class="el" href="matrixprotein_8cpp.html#a06f8ae6bcc8cb78a585e24e6ca765fa4">matrixprotein.cpp</a>
 </li>
 </ul>
 
@@ -123,6 +140,15 @@ $(function() {
 <li>loadmatrix()
 : <a class="el" href="matrix__reader_8cpp.html#a54652b98bf56f4c2aa492f9b5f030b2c">matrix_reader.cpp</a>
 </li>
+<li>LoadMatrixFromListOfSites()
+: <a class="el" href="matrixprotein_8cpp.html#a5ae7a1beeb10beee21b736913cfe4067">matrixprotein.cpp</a>
+</li>
+<li>loadMatrixOnFile()
+: <a class="el" href="sequence_8cpp.html#a73e338380ee088814423b589c3facf17">sequence.cpp</a>
+</li>
+<li>loadResultsOnFile()
+: <a class="el" href="sequence_8cpp.html#a705486c6283f0cb3785ec7afefc04a2a">sequence.cpp</a>
+</li>
 </ul>
 
 
@@ -131,15 +157,16 @@ $(function() {
 : <a class="el" href="main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main.cpp</a>
 , <a class="el" href="_matrix___conversion__relative__absolute_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">Matrix_Conversion_relative_absolute.cpp</a>
 , <a class="el" href="seq__generator_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">seq_generator.cpp</a>
+, <a class="el" href="sequence_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">sequence.cpp</a>
 , <a class="el" href="_matrix__status_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">Matrix_status.cpp</a>
 </li>
 <li>matrix
 : <a class="el" href="matrix_8hpp.html#abdbfe8c3065564355f01ac70dd548716">matrix.hpp</a>
-, <a class="el" href="_protein_8hpp.html#abdbfe8c3065564355f01ac70dd548716">Protein.hpp</a>
+, <a class="el" href="matrixprotein_8hpp.html#a87b059b0368fc2e5423064e9c38e1955">matrixprotein.hpp</a>
 </li>
 <li>matrix_conversion()
-: <a class="el" href="matrix_conversion_8cpp.html#a29b207856864698daff13b7f4ac8ce98">matrixConversion.cpp</a>
-, <a class="el" href="matrix_conversion_8cc.html#a29b207856864698daff13b7f4ac8ce98">matrixConversion.cc</a>
+: <a class="el" href="matrix_conversion_8cc.html#a29b207856864698daff13b7f4ac8ce98">matrixConversion.cc</a>
+, <a class="el" href="matrix_conversion_8cpp.html#a29b207856864698daff13b7f4ac8ce98">matrixConversion.cpp</a>
 </li>
 <li>matrix_status()
 : <a class="el" href="_matrix__status_8cpp.html#af149e4af9e78dffe88ef1ba5c0ac181d">Matrix_status.cpp</a>
@@ -167,8 +194,17 @@ $(function() {
 
 
 <h3><a id="index_r"></a>- r -</h3><ul>
+<li>ReadBed()
+: <a class="el" href="sequence_8cpp.html#ad95a32579c28ab11135ca337b2069b99">sequence.cpp</a>
+</li>
+<li>ReadBedGraph()
+: <a class="el" href="_read_bed_g_8cpp.html#ab13961efcfa548a300b45b161b4a3f93">ReadBedG.cpp</a>
+</li>
 <li>relative_matrix()
 : <a class="el" href="_matrix___conversion__relative__absolute_8cpp.html#a2aa4a50de674ed1ce4e3c60275781e99">Matrix_Conversion_relative_absolute.cpp</a>
+</li>
+<li>RemetZero()
+: <a class="el" href="matrixprotein_8cpp.html#a9d642aa91aa14efde0ad57fa47c7e55a">matrixprotein.cpp</a>
 </li>
 </ul>
 
@@ -181,7 +217,7 @@ $(function() {
 : <a class="el" href="seq__generator_8cpp.html#aa0d107c03b043141f88bf9172c70373d">seq_generator.cpp</a>
 </li>
 <li>stringLength
-: <a class="el" href="_protein_8cpp.html#a5e3388c8976fccb67f81b60117291459">Protein.cpp</a>
+: <a class="el" href="matrixprotein_8cpp.html#a5e3388c8976fccb67f81b60117291459">matrixprotein.cpp</a>
 , <a class="el" href="seq__generator_8cpp.html#a5e3388c8976fccb67f81b60117291459">seq_generator.cpp</a>
 </li>
 </ul>
@@ -191,10 +227,32 @@ $(function() {
 <li>test()
 : <a class="el" href="_letters_8cpp.html#a6df296e4ee8c556d18bbdd4cfc927686">Letters.cpp</a>
 </li>
+<li>to_Double()
+: <a class="el" href="utilities_8cpp.html#a98120c5761a465ec1353de2b6684c6a8">utilities.cpp</a>
+</li>
 <li>To_double()
-: <a class="el" href="_protein_8cpp.html#afdc05d3cd9d4757551f35f5e167f8590">Protein.cpp</a>
-, <a class="el" href="matrix__reader_8cpp.html#afdc05d3cd9d4757551f35f5e167f8590">matrix_reader.cpp</a>
+: <a class="el" href="matrix__reader_8cpp.html#afdc05d3cd9d4757551f35f5e167f8590">matrix_reader.cpp</a>
+, <a class="el" href="_read_bed_g_8cpp.html#afdc05d3cd9d4757551f35f5e167f8590">ReadBedG.cpp</a>
 , <a class="el" href="matrix_8cpp.html#afdc05d3cd9d4757551f35f5e167f8590">matrix.cpp</a>
+</li>
+<li>To_int()
+: <a class="el" href="_read_bed_g_8cpp.html#a09d7ca2f0a7930a4176cfa50d676c260">ReadBedG.cpp</a>
+</li>
+<li>toInt()
+: <a class="el" href="utilities_8cpp.html#aa8445f1a0ef4440cd0c3b2b3a8aaf4fe">utilities.cpp</a>
+</li>
+<li>toString()
+: <a class="el" href="utilities_8cpp.html#addc4b87ea940c9b34d31644b72a8445b">utilities.cpp</a>
+</li>
+<li>toVector()
+: <a class="el" href="utilities_8cpp.html#ad9e6e5084d2eac7ab8500aa1fe9372d8">utilities.cpp</a>
+</li>
+</ul>
+
+
+<h3><a id="index_u"></a>- u -</h3><ul>
+<li>UTILITIES_HPP
+: <a class="el" href="utilities_8cpp.html#a20b2d557363d038c29f842de3a6a947e">utilities.cpp</a>
 </li>
 </ul>
 

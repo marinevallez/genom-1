@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.12"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: Protein.cpp File Reference</title>
+<title>Genom-1: src/matrixprotein.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,8 +21,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">Genom-1
    </div>
+   <div id="projectbrief">We were given the objective to build a program with an application in actual genomic problems. Several inputs can be given by the user and the idea is to offer different outputs that can help the user to solve his problem. The output can be a list of sites, affinity score for a given sequence, a PWM (or a PSSM), a graphic representation of the PMW (logo), etc.</div>
   </td>
  </tr>
  </tbody>
@@ -56,60 +57,45 @@ $(function() {
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+</div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
-<div class="title">Protein.cpp File Reference</div>  </div>
+<div class="title">matrixprotein.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="_protein_8hpp_source.html">Protein.hpp</a>&quot;</code><br />
-<code>#include &lt;iomanip&gt;</code><br />
-<code>#include &lt;iostream&gt;</code><br />
-<code>#include &lt;cstdlib&gt;</code><br />
-<code>#include &lt;fstream&gt;</code><br />
-<code>#include &lt;sstream&gt;</code><br />
-</div><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:afdc05d3cd9d4757551f35f5e167f8590"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_protein_8cpp.html#afdc05d3cd9d4757551f35f5e167f8590">To_double</a> (const string &amp;string)</td></tr>
-<tr class="separator:afdc05d3cd9d4757551f35f5e167f8590"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<div class="textblock"><code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+</div>
+<p><a href="matrixprotein_8hpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_pattern.html">Pattern</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_matrix_protein.html">MatrixProtein</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a5e3388c8976fccb67f81b60117291459"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_protein_8cpp.html#a5e3388c8976fccb67f81b60117291459">stringLength</a> = sizeof(nucleotides) - 1</td></tr>
-<tr class="separator:a5e3388c8976fccb67f81b60117291459"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a87b059b0368fc2e5423064e9c38e1955"><td class="memItemLeft" align="right" valign="top">typedef vector&lt; vector&lt; double &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="matrixprotein_8hpp.html#a87b059b0368fc2e5423064e9c38e1955">matrix</a></td></tr>
+<tr class="separator:a87b059b0368fc2e5423064e9c38e1955"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="afdc05d3cd9d4757551f35f5e167f8590"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afdc05d3cd9d4757551f35f5e167f8590">&sect;&nbsp;</a></span>To_double()</h2>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="a87b059b0368fc2e5423064e9c38e1955"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87b059b0368fc2e5423064e9c38e1955">&sect;&nbsp;</a></span>matrix</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">double To_double </td>
-          <td>(</td>
-          <td class="paramtype">const string &amp;&#160;</td>
-          <td class="paramname"><em>string</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Variable Documentation</h2>
-<a id="a5e3388c8976fccb67f81b60117291459"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e3388c8976fccb67f81b60117291459">&sect;&nbsp;</a></span>stringLength</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int stringLength = sizeof(nucleotides) - 1</td>
+          <td class="memname">typedef vector&lt;vector&lt;double&gt; &gt; <a class="el" href="matrix_8hpp.html#abdbfe8c3065564355f01ac70dd548716">matrix</a></td>
         </tr>
       </table>
 </div><div class="memdoc">

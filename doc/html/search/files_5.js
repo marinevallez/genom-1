@@ -7,5 +7,7 @@ var searchData=
   ['matrix_5freader_2ecpp',['matrix_reader.cpp',['../matrix__reader_8cpp.html',1,'']]],
   ['matrix_5fstatus_2ecpp',['Matrix_status.cpp',['../_matrix__status_8cpp.html',1,'']]],
   ['matrixconversion_2ecc',['matrixConversion.cc',['../matrix_conversion_8cc.html',1,'']]],
-  ['matrixconversion_2ecpp',['matrixConversion.cpp',['../matrix_conversion_8cpp.html',1,'']]]
+  ['matrixconversion_2ecpp',['matrixConversion.cpp',['../matrix_conversion_8cpp.html',1,'']]],
+  ['matrixprotein_2ecpp',['matrixprotein.cpp',['../matrixprotein_8cpp.html',1,'']]],
+  ['matrixprotein_2ehpp',['matrixprotein.hpp',['../matrixprotein_8hpp.html',1,'']]]
 ];

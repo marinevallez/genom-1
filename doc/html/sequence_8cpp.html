@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.12"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: sequence.cpp File Reference</title>
+<title>Genom-1: src/sequence.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,8 +21,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">Genom-1
    </div>
+   <div id="projectbrief">We were given the objective to build a program with an application in actual genomic problems. Several inputs can be given by the user and the idea is to offer different outputs that can help the user to solve his problem. The output can be a list of sites, affinity score for a given sequence, a PWM (or a PSSM), a graphic representation of the PMW (logo), etc.</div>
   </td>
  </tr>
  </tbody>
@@ -56,6 +57,10 @@ $(function() {
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li>  </ul>
+</div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
@@ -69,7 +74,10 @@ $(function() {
 <code>#include &lt;stdexcept&gt;</code><br />
 <code>#include &lt;list&gt;</code><br />
 <code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
+<code>#include &lt;iomanip&gt;</code><br />
 <code>#include &quot;<a class="el" href="sequence_8hpp_source.html">sequence.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="utilities_8cpp.html">utilities.cpp</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -79,6 +87,14 @@ Functions</h2></td></tr>
 <tr class="separator:a0797e16e55101d4849cb55ec456c2ddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17f09080bf287dd14b6907e2946678bc"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sequence_8cpp.html#a17f09080bf287dd14b6907e2946678bc">giveComplementaryBase</a> (const char &amp;nucl)</td></tr>
 <tr class="separator:a17f09080bf287dd14b6907e2946678bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad95a32579c28ab11135ca337b2069b99"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="struct_bed_coordinate.html">BedCoordinate</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sequence_8cpp.html#ad95a32579c28ab11135ca337b2069b99">ReadBed</a> (const string &amp;fileName)</td></tr>
+<tr class="separator:ad95a32579c28ab11135ca337b2069b99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a705486c6283f0cb3785ec7afefc04a2a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sequence_8cpp.html#a705486c6283f0cb3785ec7afefc04a2a">loadResultsOnFile</a> (const string &amp;fileName, const vector&lt; <a class="el" href="struct_pos_dir.html">PosDir</a> &gt; &amp;posdir, double sommeScores)</td></tr>
+<tr class="separator:a705486c6283f0cb3785ec7afefc04a2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sequence_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
+<tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73e338380ee088814423b589c3facf17"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="sequence_8cpp.html#a73e338380ee088814423b589c3facf17">loadMatrixOnFile</a> (const string &amp;fileName, <a class="el" href="matrix_8hpp.html#abdbfe8c3065564355f01ac70dd548716">matrix</a> matrice)</td></tr>
+<tr class="separator:a73e338380ee088814423b589c3facf17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="af6b3992af068b7a32036521b82d5fdc9"></a>
@@ -138,6 +154,103 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">const char &amp;&#160;</td>
           <td class="paramname"><em>nucl</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a73e338380ee088814423b589c3facf17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73e338380ee088814423b589c3facf17">&sect;&nbsp;</a></span>loadMatrixOnFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void loadMatrixOnFile </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>fileName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="matrix_8hpp.html#abdbfe8c3065564355f01ac70dd548716">matrix</a>&#160;</td>
+          <td class="paramname"><em>matrice</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a705486c6283f0cb3785ec7afefc04a2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a705486c6283f0cb3785ec7afefc04a2a">&sect;&nbsp;</a></span>loadResultsOnFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void loadResultsOnFile </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>fileName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const vector&lt; <a class="el" href="struct_pos_dir.html">PosDir</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>posdir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>sommeScores</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">&sect;&nbsp;</a></span>main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad95a32579c28ab11135ca337b2069b99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad95a32579c28ab11135ca337b2069b99">&sect;&nbsp;</a></span>ReadBed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt;<a class="el" href="struct_bed_coordinate.html">BedCoordinate</a>&gt; ReadBed </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>fileName</em></td><td>)</td>
           <td></td>
         </tr>
       </table>

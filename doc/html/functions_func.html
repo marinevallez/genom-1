@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.12"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: Class Members - Functions</title>
+<title>Genom-1: Class Members - Functions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,8 +21,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">Genom-1
    </div>
+   <div id="projectbrief">We were given the objective to build a program with an application in actual genomic problems. Several inputs can be given by the user and the idea is to offer different outputs that can help the user to solve his problem. The output can be a list of sites, affinity score for a given sequence, a PWM (or a PSSM), a graphic representation of the PMW (logo), etc.</div>
   </td>
  </tr>
  </tbody>
@@ -63,6 +64,7 @@ $(function() {
 <h3><a id="index_a"></a>- a -</h3><ul>
 <li>absolute()
 : <a class="el" href="class_matrix.html#afce74f8abf9345f32bfa0385e4a2afec">Matrix</a>
+, <a class="el" href="class_matrix_protein.html#a8eaeaf3ca51b202ffc62c71723370051">MatrixProtein</a>
 </li>
 <li>afficher_logo()
 : <a class="el" href="class_logo.html#acaeb972e9dc28528df14f64dae6c3da8">Logo</a>
@@ -74,15 +76,22 @@ $(function() {
 
 
 <h3><a id="index_c"></a>- c -</h3><ul>
+<li>calcul()
+: <a class="el" href="class_matrix_protein.html#a30033ed2607b695f04a297e6b5754ae3">MatrixProtein</a>
+</li>
+<li>calculScore()
+: <a class="el" href="class_matrix_protein.html#adbff6534b37c8bcf6f52e76d2e3a90ad">MatrixProtein</a>
+</li>
 <li>check_if_pmworpssm()
 : <a class="el" href="class_matrix.html#a9dadbdb5e68297f3725735fce135b5ad">Matrix</a>
+, <a class="el" href="class_matrix_protein.html#af1a67ca7834788e419e6379a6a81e6a5">MatrixProtein</a>
 </li>
 </ul>
 
 
 <h3><a id="index_d"></a>- d -</h3><ul>
-<li>display_PWM()
-: <a class="el" href="class_protein.html#ad82ce20319ce41527afacacb4e5961f7">Protein</a>
+<li>display_PWM_rel()
+: <a class="el" href="class_matrix_protein.html#aca02d9eb39a5a470e09ecef913c69722">MatrixProtein</a>
 </li>
 <li>draw()
 : <a class="el" href="class_axes.html#a9b7fdda29cc6bf086b57dee2cb9a475b">Axes</a>
@@ -91,28 +100,53 @@ $(function() {
 </ul>
 
 
-<h3><a id="index_f"></a>- f -</h3><ul>
-<li>fillPattern()
-: <a class="el" href="class_protein.html#a7da30bc12fad505cad4cd686bd753699">Protein</a>
+<h3><a id="index_e"></a>- e -</h3><ul>
+<li>EMalgorithm()
+: <a class="el" href="class_matrix_protein.html#acdbc0eaa76dae8aaa7a7d72d6cebe182">MatrixProtein</a>
 </li>
+<li>empty()
+: <a class="el" href="class_matrix.html#af11d77f525aba263b6ddb42e441d844e">Matrix</a>
+</li>
+</ul>
+
+
+<h3><a id="index_f"></a>- f -</h3><ul>
 <li>fillVectorPatterns()
-: <a class="el" href="class_protein.html#a68f83b239679cc921d9a8ee6b9f5395b">Protein</a>
+: <a class="el" href="class_matrix_protein.html#ae87925fcf2ab8cc64e7e22d41c47b3d7">MatrixProtein</a>
+</li>
+<li>find()
+: <a class="el" href="class_sequence.html#af79afc5598e60f53d7887800a0e8b680">Sequence</a>
+</li>
+<li>FindMotif()
+: <a class="el" href="class_matrix_protein.html#a67c311f0ea5b3468a36303d37abfc56d">MatrixProtein</a>
+</li>
+<li>findPatterns()
+: <a class="el" href="class_matrix_protein.html#ab28d4e94f445155157c9ceb4b2b990e0">MatrixProtein</a>
 </li>
 </ul>
 
 
 <h3><a id="index_g"></a>- g -</h3><ul>
 <li>genRandomChar()
-: <a class="el" href="class_protein.html#a332d5b8f801035e60cf0f35544979c4a">Protein</a>
+: <a class="el" href="class_matrix_protein.html#af8ef11329e87514251c168915f4f1373">MatrixProtein</a>
 </li>
-<li>get_afinity_score_from_matrix()
-: <a class="el" href="class_protein.html#abec30419d31cb75be1f47357b53be846">Protein</a>
+<li>get_affinity_score_from_matrix()
+: <a class="el" href="class_matrix_protein.html#a193899500878c3e53e607eca10d0acf3">MatrixProtein</a>
 </li>
 <li>get_lettre_size()
 : <a class="el" href="class_letters.html#af76548f226b27bf73fff27545148980a">Letters</a>
 </li>
+<li>get_relevent_site()
+: <a class="el" href="class_matrix_protein.html#a43c5067487c950d015dbfd9ab3278efc">MatrixProtein</a>
+</li>
 <li>getPatterns()
-: <a class="el" href="class_protein.html#a6290d76dcceb649f5cdea7b40bf11223">Protein</a>
+: <a class="el" href="class_matrix_protein.html#a392842016a5b8603d4977248e4442a4d">MatrixProtein</a>
+</li>
+<li>getpssm_abs()
+: <a class="el" href="class_matrix_protein.html#a74c98edb63e266d66080366862d13cad">MatrixProtein</a>
+</li>
+<li>getpwm_abs()
+: <a class="el" href="class_matrix_protein.html#a6679b979cf66808cf2576012e874209c">MatrixProtein</a>
 </li>
 <li>giveReverseComplementarySeq()
 : <a class="el" href="class_sequence.html#a24d22fd157aaecab26f13342b03fe93e">Sequence</a>
@@ -138,10 +172,13 @@ $(function() {
 : <a class="el" href="class_input.html#a2f32f39c680384b455dc555602812e72">Input</a>
 </li>
 <li>loadmatrix_fromfile()
-: <a class="el" href="class_protein.html#a0b67cdd2c9761b62eacf9236b8d312ad">Protein</a>
+: <a class="el" href="class_matrix_protein.html#a752b0a49010a6deb4f6bbc3c38c32788">MatrixProtein</a>
 </li>
-<li>loadmatrix_fromscore()
-: <a class="el" href="class_protein.html#a9d188297714319b6844ee51e7667569a">Protein</a>
+<li>loadMatrixOnFile()
+: <a class="el" href="class_sequence.html#a416ffd3a8a824144fc7696099bcabd96">Sequence</a>
+</li>
+<li>loadResultsOnFile()
+: <a class="el" href="class_sequence.html#ad43e0f0222082991a8ef186c3add8007">Sequence</a>
 </li>
 <li>Logo()
 : <a class="el" href="class_logo.html#a9d2597f741dbf6721950dfe3a57a3f59">Logo</a>
@@ -155,12 +192,17 @@ $(function() {
 </li>
 <li>matrix_generation()
 : <a class="el" href="class_matrix.html#ab462d736ddc19df53cec925325808caa">Matrix</a>
+, <a class="el" href="class_matrix_protein.html#a7fab14a57b59b1f2315f64065c38b662">MatrixProtein</a>
 </li>
 <li>matrix_status()
 : <a class="el" href="class_matrix.html#ae8597f983ecdd83e0196f5555dcce887">Matrix</a>
+, <a class="el" href="class_matrix_protein.html#ae74589f7047f603c08554f4a76c1adf4">MatrixProtein</a>
+</li>
+<li>MatrixProtein()
+: <a class="el" href="class_matrix_protein.html#a93c17b6f8d466a9e57bbb0a985bdbc53">MatrixProtein</a>
 </li>
 <li>motifRecognition()
-: <a class="el" href="class_sequence.html#aa7d40f02696c8e8d25c4fb56220e8ef1">Sequence</a>
+: <a class="el" href="class_sequence.html#a686c72210c48cc00f8a233e051ec3580">Sequence</a>
 </li>
 </ul>
 
@@ -175,48 +217,62 @@ $(function() {
 <h3><a id="index_p"></a>- p -</h3><ul>
 <li>possible()
 : <a class="el" href="class_matrix.html#a1d61c35118d3c9086bf35b49280ae606">Matrix</a>
+, <a class="el" href="class_matrix_protein.html#ac968f32b03c6e23ff6f30dbc4e970726">MatrixProtein</a>
 </li>
 <li>probas()
-: <a class="el" href="class_protein.html#aed470a464aa7984d4d43215abea19fd8">Protein</a>
-</li>
-<li>Protein()
-: <a class="el" href="class_protein.html#a4610c6369d2f7e4bd31481d53e5001a1">Protein</a>
+: <a class="el" href="class_matrix_protein.html#ab23986918a98e634835fe6af825e7942">MatrixProtein</a>
 </li>
 <li>PWM_to_PSSM()
 : <a class="el" href="class_matrix.html#a5e397db812a08cfa028c2102d789fff9">Matrix</a>
+, <a class="el" href="class_matrix_protein.html#a65884bccb162640b9fdfba2f56bc0d8a">MatrixProtein</a>
 </li>
 <li>PWM_to_PSSM_2()
 : <a class="el" href="class_matrix.html#a2e523e40c3217f2baee0d4fc32ae61f1">Matrix</a>
+, <a class="el" href="class_matrix_protein.html#a9ad7db6dbce6eb0375c73043ec898366">MatrixProtein</a>
 </li>
 </ul>
 
 
 <h3><a id="index_r"></a>- r -</h3><ul>
+<li>ReadBed()
+: <a class="el" href="class_sequence.html#a6fb228a42c420eeede32a35925bb7b16">Sequence</a>
+</li>
+<li>readBedGraph()
+: <a class="el" href="class_sequence.html#a308c6c7902f7f587a2d7b2d01643772f">Sequence</a>
+</li>
 <li>readjust_values()
 : <a class="el" href="class_matrix.html#aefaa6267245ebae9f3dee729ebc860c1">Matrix</a>
+, <a class="el" href="class_matrix_protein.html#a4b3456e30d22468d096590f09223945d">MatrixProtein</a>
+</li>
+<li>RemetZero()
+: <a class="el" href="class_matrix_protein.html#ac97ebd8ba12bf5abfcc4b15b0b5d4d85">MatrixProtein</a>
 </li>
 </ul>
 
 
 <h3><a id="index_s"></a>- s -</h3><ul>
+<li>scanFasta()
+: <a class="el" href="class_sequence.html#a8e1e675d608ecaf6a7b99e3def92d1ad">Sequence</a>
+</li>
 <li>seq_generator()
-: <a class="el" href="class_protein.html#af03928b7947703b27c69ba47af0fd94b">Protein</a>
+: <a class="el" href="class_matrix_protein.html#af52d8cd0c9226f65a2bd96b245cf30cc">MatrixProtein</a>
 </li>
 <li>Sequence()
 : <a class="el" href="class_sequence.html#a532b7e8df6ff6b2f990c14ae97859ca2">Sequence</a>
 </li>
 <li>set_average()
-: <a class="el" href="class_protein.html#a1af01e5c88e4f9e95280ab19478e0f42">Protein</a>
+: <a class="el" href="class_matrix_protein.html#afabc7884ea5e2b8264462a6d6ac2c6d1">MatrixProtein</a>
 </li>
 <li>set_text()
 : <a class="el" href="class_letters.html#a535d73cca355fec4fbb8451d54eb4177">Letters</a>
 , <a class="el" href="class_logo.html#ac5862aedf7a1387474bb6eb74f54a1a5">Logo</a>
 </li>
-<li>setpwm_abs()
-: <a class="el" href="class_protein.html#a9ab962dbbb5a9ecd2b7f083272da3118">Protein</a>
+<li>setPatterns()
+: <a class="el" href="class_matrix_protein.html#a6f3ca45366cd6740e3b89db5a2dcc064">MatrixProtein</a>
 </li>
 <li>setrw()
 : <a class="el" href="class_matrix.html#acc1d224b9dc8a3b68c134df2b5cb21d2">Matrix</a>
+, <a class="el" href="class_matrix_protein.html#aa1792ca08775fc5e86338e1888ded5fb">MatrixProtein</a>
 </li>
 <li>size()
 : <a class="el" href="class_letters.html#a9a0eb8b07e68f74986c93ae2aa93752b">Letters</a>
@@ -224,15 +280,19 @@ $(function() {
 </li>
 <li>swaptoabsolute()
 : <a class="el" href="class_matrix.html#a68338b711321042178c1652610d140e1">Matrix</a>
+, <a class="el" href="class_matrix_protein.html#a5ee3f957955486a487714a27a1c804ea">MatrixProtein</a>
 </li>
 <li>swaptopssm()
 : <a class="el" href="class_matrix.html#ac4a028d9c98908d4aa2e3b49e2a3bfcc">Matrix</a>
+, <a class="el" href="class_matrix_protein.html#af4c980011cf19dc730b69c6d020e575c">MatrixProtein</a>
 </li>
 <li>swaptopwm()
 : <a class="el" href="class_matrix.html#aabae4a6d472ee07e2775341784f3576d">Matrix</a>
+, <a class="el" href="class_matrix_protein.html#a64ef42316de11d42e7009c61b088a65b">MatrixProtein</a>
 </li>
 <li>swaptorelative()
 : <a class="el" href="class_matrix.html#a4fa26466d748d722235494f9bfb93dc1">Matrix</a>
+, <a class="el" href="class_matrix_protein.html#aeac28339117f341db30dc4630d62d55e">MatrixProtein</a>
 </li>
 </ul>
 
@@ -240,6 +300,7 @@ $(function() {
 <h3><a id="index_w"></a>- w -</h3><ul>
 <li>which_PWM_to_PSSM()
 : <a class="el" href="class_matrix.html#aa2c4824b929226ee3ade5165141089d7">Matrix</a>
+, <a class="el" href="class_matrix_protein.html#a5877265d58ddf0d1da2756113ad282b5">MatrixProtein</a>
 </li>
 </ul>
 
@@ -251,8 +312,8 @@ $(function() {
 <li>~Matrix()
 : <a class="el" href="class_matrix.html#a9b1c3627f573d78a2f08623fdfef990f">Matrix</a>
 </li>
-<li>~Protein()
-: <a class="el" href="class_protein.html#a86b3ed374eead087b00d556915a584f6">Protein</a>
+<li>~MatrixProtein()
+: <a class="el" href="class_matrix_protein.html#aa83a81ee9dacb2a48895010609876f2b">MatrixProtein</a>
 </li>
 <li>~Sequence()
 : <a class="el" href="class_sequence.html#aee09a7d70c3ab523fed85da94ea1366f">Sequence</a>

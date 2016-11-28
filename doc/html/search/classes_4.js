@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['pattern',['Pattern',['../struct_pattern.html',1,'']]],
-  ['posdir',['PosDir',['../struct_pos_dir.html',1,'']]],
-  ['protein',['Protein',['../class_protein.html',1,'']]]
+  ['letters',['Letters',['../class_letters.html',1,'']]],
+  ['logo',['Logo',['../class_logo.html',1,'']]]
 ];

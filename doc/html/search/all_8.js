@@ -1,18 +1,17 @@
 var searchData=
 [
-  ['main',['main',['../main_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;main.cpp'],['../_matrix___conversion__relative__absolute_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;Matrix_Conversion_relative_absolute.cpp'],['../_matrix__status_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;Matrix_status.cpp'],['../seq__generator_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;seq_generator.cpp']]],
-  ['main_2ecpp',['main.cpp',['../main_8cpp.html',1,'']]],
-  ['matrix',['Matrix',['../class_matrix.html',1,'Matrix'],['../class_matrix.html#a11768ba1d26d7be8a973e6e8e3aeca90',1,'Matrix::Matrix()'],['../matrix_8hpp.html#abdbfe8c3065564355f01ac70dd548716',1,'matrix():&#160;matrix.hpp'],['../_protein_8hpp.html#abdbfe8c3065564355f01ac70dd548716',1,'matrix():&#160;Protein.hpp']]],
-  ['matrix_2ecpp',['matrix.cpp',['../matrix_8cpp.html',1,'']]],
-  ['matrix_2ehpp',['matrix.hpp',['../matrix_8hpp.html',1,'']]],
-  ['matrix_5fconversion',['matrix_conversion',['../matrix_conversion_8cc.html#a29b207856864698daff13b7f4ac8ce98',1,'matrix_conversion(vector&lt; vector&lt; double &gt; &gt; Matrix, bool PMW):&#160;matrixConversion.cc'],['../matrix_conversion_8cpp.html#a29b207856864698daff13b7f4ac8ce98',1,'matrix_conversion(vector&lt; vector&lt; double &gt; &gt; Matrix, bool PMW):&#160;matrixConversion.cpp']]],
-  ['matrix_5fconversion_5frelative_5fabsolute_2ecpp',['Matrix_Conversion_relative_absolute.cpp',['../_matrix___conversion__relative__absolute_8cpp.html',1,'']]],
-  ['matrix_5fgeneration',['matrix_generation',['../class_matrix.html#ab462d736ddc19df53cec925325808caa',1,'Matrix']]],
-  ['matrix_5freader_2ecpp',['matrix_reader.cpp',['../matrix__reader_8cpp.html',1,'']]],
-  ['matrix_5fstatus',['matrix_status',['../class_matrix.html#ae8597f983ecdd83e0196f5555dcce887',1,'Matrix::matrix_status()'],['../_matrix__status_8cpp.html#af149e4af9e78dffe88ef1ba5c0ac181d',1,'matrix_status():&#160;Matrix_status.cpp']]],
-  ['matrix_5fstatus_2ecpp',['Matrix_status.cpp',['../_matrix__status_8cpp.html',1,'']]],
-  ['matrixconversion_2ecc',['matrixConversion.cc',['../matrix_conversion_8cc.html',1,'']]],
-  ['matrixconversion_2ecpp',['matrixConversion.cpp',['../matrix_conversion_8cpp.html',1,'']]],
-  ['motif',['Motif',['../struct_motif.html',1,'']]],
-  ['motifrecognition',['motifRecognition',['../class_sequence.html#aa7d40f02696c8e8d25c4fb56220e8ef1',1,'Sequence::motifRecognition(const string &amp;, const string &amp;fileName) const'],['../class_sequence.html#ad868cf635d5ace9e575dceff51abedac',1,'Sequence::motifRecognition(Protein protein, const string &amp;fileName) const']]]
+  ['letters',['Letters',['../class_letters.html',1,'Letters'],['../class_letters.html#a61c9af31dd9cff4bc1030d493bb59666',1,'Letters::Letters()']]],
+  ['letters_2ecpp',['Letters.cpp',['../_letters_8cpp.html',1,'']]],
+  ['letters_2ehpp',['Letters.hpp',['../_letters_8hpp.html',1,'']]],
+  ['letters_5forder',['Letters_order',['../class_logo.html#adcd9611f469df92766ce5e65f45e13ab',1,'Logo']]],
+  ['lettres',['lettres',['../struct_motif.html#aa50c6f158995fcf41fc220f01d8db6f2',1,'Motif']]],
+  ['loadfile',['loadFile',['../class_input.html#a2f32f39c680384b455dc555602812e72',1,'Input']]],
+  ['loadmatrix',['loadmatrix',['../matrix__reader_8cpp.html#a54652b98bf56f4c2aa492f9b5f030b2c',1,'matrix_reader.cpp']]],
+  ['loadmatrix_5ffromfile',['loadmatrix_fromfile',['../class_matrix_protein.html#a752b0a49010a6deb4f6bbc3c38c32788',1,'MatrixProtein']]],
+  ['loadmatrixfromlistofsites',['LoadMatrixFromListOfSites',['../matrixprotein_8cpp.html#a5ae7a1beeb10beee21b736913cfe4067',1,'matrixprotein.cpp']]],
+  ['loadmatrixonfile',['loadMatrixOnFile',['../class_sequence.html#a416ffd3a8a824144fc7696099bcabd96',1,'Sequence::loadMatrixOnFile()'],['../sequence_8cpp.html#a73e338380ee088814423b589c3facf17',1,'loadMatrixOnFile():&#160;sequence.cpp']]],
+  ['loadresultsonfile',['loadResultsOnFile',['../class_sequence.html#ad43e0f0222082991a8ef186c3add8007',1,'Sequence::loadResultsOnFile()'],['../sequence_8cpp.html#a705486c6283f0cb3785ec7afefc04a2a',1,'loadResultsOnFile():&#160;sequence.cpp']]],
+  ['logo',['Logo',['../class_logo.html',1,'Logo'],['../class_logo.html#a9d2597f741dbf6721950dfe3a57a3f59',1,'Logo::Logo()']]],
+  ['logo_2ecpp',['Logo.cpp',['../_logo_8cpp.html',1,'']]],
+  ['logo_2ehpp',['Logo.hpp',['../_logo_8hpp.html',1,'']]]
 ];

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.12"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>My Project: Sequence Class Reference</title>
+<title>Genom-1: Sequence Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -21,8 +21,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">My Project
+   <div id="projectname">Genom-1
    </div>
+   <div id="projectbrief">We were given the objective to build a program with an application in actual genomic problems. Several inputs can be given by the user and the idea is to offer different outputs that can help the user to solve his problem. The output can be a list of sites, affinity score for a given sequence, a PWM (or a PSSM), a graphic representation of the PMW (logo), etc.</div>
   </td>
  </tr>
  </tbody>
@@ -78,10 +79,22 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9fa615dfb02cbf117604a91dcf9bdd9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7d40f02696c8e8d25c4fb56220e8ef1"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="struct_pos_dir.html">PosDir</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sequence.html#aa7d40f02696c8e8d25c4fb56220e8ef1">motifRecognition</a> (const string &amp;, const string &amp;fileName) const</td></tr>
 <tr class="separator:aa7d40f02696c8e8d25c4fb56220e8ef1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad868cf635d5ace9e575dceff51abedac"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="struct_pos_dir.html">PosDir</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sequence.html#ad868cf635d5ace9e575dceff51abedac">motifRecognition</a> (<a class="el" href="class_protein.html">Protein</a> protein, const string &amp;fileName) const</td></tr>
-<tr class="separator:ad868cf635d5ace9e575dceff51abedac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a686c72210c48cc00f8a233e051ec3580"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="struct_pos_dir.html">PosDir</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sequence.html#a686c72210c48cc00f8a233e051ec3580">motifRecognition</a> (const vector&lt; <a class="el" href="struct_coordinate.html">Coordinate</a> &gt; &amp;coordinates, const string &amp;fileName) const</td></tr>
+<tr class="separator:a686c72210c48cc00f8a233e051ec3580"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24d22fd157aaecab26f13342b03fe93e"><td class="memItemLeft" align="right" valign="top">vector&lt; char &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sequence.html#a24d22fd157aaecab26f13342b03fe93e">giveReverseComplementarySeq</a> (const vector&lt; char &gt; &amp;) const</td></tr>
 <tr class="separator:a24d22fd157aaecab26f13342b03fe93e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a308c6c7902f7f587a2d7b2d01643772f"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="struct_coordinate.html">Coordinate</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sequence.html#a308c6c7902f7f587a2d7b2d01643772f">readBedGraph</a> (const string &amp;fileName)</td></tr>
+<tr class="separator:a308c6c7902f7f587a2d7b2d01643772f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fb228a42c420eeede32a35925bb7b16"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="struct_bed_coordinate.html">BedCoordinate</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sequence.html#a6fb228a42c420eeede32a35925bb7b16">ReadBed</a> (const string &amp;fileName)</td></tr>
+<tr class="separator:a6fb228a42c420eeede32a35925bb7b16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e1e675d608ecaf6a7b99e3def92d1ad"><td class="memItemLeft" align="right" valign="top">vector&lt; string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sequence.html#a8e1e675d608ecaf6a7b99e3def92d1ad">scanFasta</a> (vector&lt; <a class="el" href="struct_coordinate.html">Coordinate</a> &gt; &amp;coordinates, const string &amp;fileName, int nbrOfSeq)</td></tr>
+<tr class="separator:a8e1e675d608ecaf6a7b99e3def92d1ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad43e0f0222082991a8ef186c3add8007"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sequence.html#ad43e0f0222082991a8ef186c3add8007">loadResultsOnFile</a> (const string &amp;fileName, <a class="el" href="struct_pos_dir.html">PosDir</a> posdir, double sommeScores)</td></tr>
+<tr class="separator:ad43e0f0222082991a8ef186c3add8007"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a416ffd3a8a824144fc7696099bcabd96"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sequence.html#a416ffd3a8a824144fc7696099bcabd96">loadMatrixOnFile</a> (const string &amp;fileName, <a class="el" href="matrix_8hpp.html#abdbfe8c3065564355f01ac70dd548716">matrix</a> matrice)</td></tr>
+<tr class="separator:a416ffd3a8a824144fc7696099bcabd96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af79afc5598e60f53d7887800a0e8b680"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="struct_pos_dir.html">PosDir</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sequence.html#af79afc5598e60f53d7887800a0e8b680">find</a> (<a class="el" href="class_matrix_protein.html">MatrixProtein</a> &amp;, const string &amp;, const string &amp;, const double &amp;)</td></tr>
+<tr class="separator:af79afc5598e60f53d7887800a0e8b680"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a532b7e8df6ff6b2f990c14ae97859ca2"></a>
@@ -127,6 +140,47 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="af79afc5598e60f53d7887800a0e8b680"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af79afc5598e60f53d7887800a0e8b680">&sect;&nbsp;</a></span>find()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; <a class="el" href="struct_pos_dir.html">PosDir</a> &gt; Sequence::find </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_matrix_protein.html">MatrixProtein</a> &amp;&#160;</td>
+          <td class="paramname"><em>mtrx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>mat</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>fasta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const double &amp;&#160;</td>
+          <td class="paramname"><em>threshold</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>find method take a matrix, loads it, goes through sequences in fasta and gets all motifs with sufficient scores with their positions and direction </p>
+
+</div>
+</div>
 <a id="a24d22fd157aaecab26f13342b03fe93e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a24d22fd157aaecab26f13342b03fe93e">&sect;&nbsp;</a></span>giveReverseComplementarySeq()</h2>
 
@@ -143,6 +197,70 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>The giveComplementarySeq method gives the reverse complementary sequence of any nucleotidic sequences, whether a motif or a genomic sequence. </p>
+
+</div>
+</div>
+<a id="a416ffd3a8a824144fc7696099bcabd96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a416ffd3a8a824144fc7696099bcabd96">&sect;&nbsp;</a></span>loadMatrixOnFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Sequence::loadMatrixOnFile </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>fileName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="matrix_8hpp.html#abdbfe8c3065564355f01ac70dd548716">matrix</a>&#160;</td>
+          <td class="paramname"><em>matrice</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>loadMatrixOnFile method loads on a given file a given matrix </p>
+
+</div>
+</div>
+<a id="ad43e0f0222082991a8ef186c3add8007"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad43e0f0222082991a8ef186c3add8007">&sect;&nbsp;</a></span>loadResultsOnFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Sequence::loadResultsOnFile </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>fileName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_pos_dir.html">PosDir</a>&#160;</td>
+          <td class="paramname"><em>posdir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>sommeScores</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>loadResultsOnFile method loads on a given file all the informations related to a given sequence/several sequences </p>
 
 </div>
 </div>
@@ -171,21 +289,21 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The motifRecognition method opens a .fasta file and find a given motif on a sequence (and its complment) in the .fasta file. </p>
+<p>The motifRecognition method opens a .fasta file and find a given motif on a sequence (and its complement) in the .fasta file. </p>
 
 </div>
 </div>
-<a id="ad868cf635d5ace9e575dceff51abedac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad868cf635d5ace9e575dceff51abedac">&sect;&nbsp;</a></span>motifRecognition() <span class="overload">[2/2]</span></h2>
+<a id="a686c72210c48cc00f8a233e051ec3580"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a686c72210c48cc00f8a233e051ec3580">&sect;&nbsp;</a></span>motifRecognition() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">vector&lt; <a class="el" href="struct_pos_dir.html">PosDir</a> &gt; Sequence::motifRecognition </td>
+          <td class="memname">vector&lt;<a class="el" href="struct_pos_dir.html">PosDir</a>&gt; Sequence::motifRecognition </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_protein.html">Protein</a>&#160;</td>
-          <td class="paramname"><em>protein</em>, </td>
+          <td class="paramtype">const vector&lt; <a class="el" href="struct_coordinate.html">Coordinate</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>coordinates</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -223,9 +341,82 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a6fb228a42c420eeede32a35925bb7b16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fb228a42c420eeede32a35925bb7b16">&sect;&nbsp;</a></span>ReadBed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt;<a class="el" href="struct_bed_coordinate.html">BedCoordinate</a>&gt; Sequence::ReadBed </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>fileName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The ReadBed method lets us read a .bed file to find the start and end positions of a motif on a chromosome (without any score). </p>
+
+</div>
+</div>
+<a id="a308c6c7902f7f587a2d7b2d01643772f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a308c6c7902f7f587a2d7b2d01643772f">&sect;&nbsp;</a></span>readBedGraph()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; <a class="el" href="struct_coordinate.html">Coordinate</a> &gt; Sequence::readBedGraph </td>
+          <td>(</td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>fileName</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The readBedGraph method lets us read a .bedGraph file to find the start and end positions of a motif on a chromosome, along with a score. </p>
+
+</div>
+</div>
+<a id="a8e1e675d608ecaf6a7b99e3def92d1ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e1e675d608ecaf6a7b99e3def92d1ad">&sect;&nbsp;</a></span>scanFasta()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; string &gt; Sequence::scanFasta </td>
+          <td>(</td>
+          <td class="paramtype">vector&lt; <a class="el" href="struct_coordinate.html">Coordinate</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>coordinates</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const string &amp;&#160;</td>
+          <td class="paramname"><em>fileName</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>nbrOfSeq</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>The scanFasta method uses a list of coordinates from a .bedgrah file to scan each chromosome genomic sequence in a .fasta file for regions listed in the .bedgraph. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="sequence_8hpp_source.html">sequence.hpp</a></li>
-<li><a class="el" href="sequence_8cpp.html">sequence.cpp</a></li>
+<li>src/<a class="el" href="sequence_8hpp_source.html">sequence.hpp</a></li>
+<li>src/<a class="el" href="sequence_8cpp.html">sequence.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
