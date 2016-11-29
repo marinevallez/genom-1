@@ -89,6 +89,12 @@ class Sequence {
     
     vector<BedCoordinate> ReadBed(const string& fileName);
     
+    /*!
+     * Function that add scores on an interval from pos -50 to pos + 50
+     * */
+
+    double interval_addition(int pos, vector<Coordinate> Coordinates);
+    
 
 	/*!
 	 * The scanFasta method uses a list of coordinates from a .bedgrah file to scan each chromosome genomic sequence in a .fasta file for regions listed in the .bedgraph.

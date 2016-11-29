@@ -513,7 +513,7 @@ vector<Coordinate> Sequence::readBedGraph(const string& fileName) // the functio
     
 };
 
-vector<BedCoordinate> ReadBed(const string& fileName) // the function stores data from a file containing a chromosome n°and 2 positions
+vector<BedCoordinate> Sequence::ReadBed(const string& fileName) // the function stores data from a file containing a chromosome n°and 2 positions
 {
     
     vector<BedCoordinate> BedCoordinates;
@@ -558,6 +558,46 @@ vector<BedCoordinate> ReadBed(const string& fileName) // the function stores dat
     return BedCoordinates;
     
 };
+
+double Sequence::interval_addition(int pos, vector<Coordinate> Coordinates)
+{
+    
+    double a(0);
+    size_t i(0);
+    
+    while (Coordinates[i].end < (pos-50))
+    {
+        ++i;
+    }
+    
+    size_t j(i);
+    
+    while (Coordinates[j].end < (pos+50))
+    {
+        ++j;
+    }
+    
+    for (size_t k(i); k <= j; ++k)
+    {
+        int start(Coordinates[k].start);
+        int end(Coordinates[k].end);
+        
+        if (start < (pos-50))
+        {
+            start = (pos-50);
+        }
+        
+        if (end > (pos+50))
+        {
+            end = (pos+50);
+        }
+        
+        a += (end-start+1)*Coordinates[k].score;
+    }
+    
+    return a;
+};
+
 
 
 
