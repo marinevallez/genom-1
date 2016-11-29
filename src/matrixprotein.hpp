@@ -85,10 +85,13 @@ class MatrixProtein
 	// fonctions utilisée pour l'algorithme EM; 
 	void RemetZero( vector<double>& vec_);
 	void calculScore(vector<vector<double>> finale_, vector<double>& score_, int j_, vector<char> tab2_); 
-	void FindMotif(vector<vector<double>> finale_,vector<Pattern> patterns_, int longueur_motif_, vector<vector<vector<char>>>& best_seqs_);
+	void FindMotif(vector<vector<double>> finale_,vector<string> FromFasta_, int longueur_motif_, vector<vector<vector<char>>>& best_seqs_);
+	void fillPattern(vector<vector<vector<char>>> best_seqs_);
+	double calculScoreFinal(string seq);
 	
-	// Algorithme EM complet 
-	void EMalgorithm(int longueur_motif);  
+	
+	// Algorithme EM complet --> Met la matrice PWM dans l'attribut mx + change le pattern
+	void EMalgorithm(int longueur_motif, vector<string> FromFasta);  
     
     //Calculation of the default threshold
     char genRandomChar();
