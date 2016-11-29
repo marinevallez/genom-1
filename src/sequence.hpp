@@ -101,6 +101,12 @@ class Sequence {
 	 * */
     
 	vector<string> scanFasta(vector<Coordinate>& coordinates, const string& fileName, int nbrOfSeq);
+    
+    /*!
+     * Delete genomic sequences that are to small to go in the EM algorithm
+     * */
+    
+    vector<vector<char>> delete_vectors_too_small(size_t n, vector<vector<char>> target);
 
     /*!
      * loadResultsOnFile method loads on a given file all the informations related to a given sequence/several sequences

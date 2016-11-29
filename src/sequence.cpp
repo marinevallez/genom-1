@@ -511,7 +511,7 @@ vector<Coordinate> Sequence::readBedGraph(const string& fileName) // the functio
     }
     return coordinates;
     
-};
+}
 
 vector<BedCoordinate> Sequence::ReadBed(const string& fileName) // the function stores data from a file containing a chromosome n°and 2 positions
 {
@@ -557,7 +557,7 @@ vector<BedCoordinate> Sequence::ReadBed(const string& fileName) // the function 
     }
     return BedCoordinates;
     
-};
+}
 
 double Sequence::interval_addition(int pos, vector<Coordinate> Coordinates)
 {
@@ -596,7 +596,7 @@ double Sequence::interval_addition(int pos, vector<Coordinate> Coordinates)
     }
     
     return a;
-};
+}
 
 
 
@@ -650,6 +650,18 @@ vector<string> Sequence::scanFasta(vector<Coordinate>& coordinates, const string
 	return listOfMotifs;
 }
 
+vector<vector<char>> Sequence::delete_vectors_too_small(size_t n, vector<vector<char>> target)
+{
+    
+    for(size_t i(0); i <target.size(); ++i) {
+        if (target[i].size() < n) {
+            target.erase(target.begin() + i);
+        }
+        
+    }
+    
+    return target;
+}
 
 void loadResultsOnFile(const string& fileName, const vector<PosDir>& posdir, double sommeScores)    //fonction that loads on a file (fileName) all the information of a/several sequence(s)
 {
