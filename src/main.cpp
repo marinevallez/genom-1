@@ -45,7 +45,7 @@ int main()
         
         Protein.EMalgorithm(nbr,sequences_);
         
-        sequence.loadMatrixOnFile("Output", Protein.getmx());
+        sequence.loadMatrixOnFile("Matrix_Output", Protein.getmx());
         cout << "The Matrix has been saved on the Output file on the test folder ";
         
         
