@@ -60,7 +60,6 @@ class MatrixProtein
     
     //Matrix
     //void display_PWM(matrix finale);
-   // void loadmatrix_fromscore();
     void loadmatrix_fromfile(const string& Data);
     void setrw(int value);
     void swaptopssm(matrix& mtx);
@@ -80,6 +79,7 @@ class MatrixProtein
     void display_PWM_rel();
     matrix getpwm_abs();
     matrix getpssm_abs();
+    matrix getmx()
     void calcul( vector<char> tab_, vector<double>& tabA_, vector<double>& tabT_, vector<double>& tabG_, vector<double>& tabC_);
 
 	// fonctions utilisée pour l'algorithme EM; 

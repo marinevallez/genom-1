@@ -1064,3 +1064,8 @@ void MatrixProtein::fillPattern(vector<vector<vector<char>>> best_seqs_)
 		
 	}
 }
+
+matrix MatrixProtein::getmx()
+{
+    return mx;
+}
