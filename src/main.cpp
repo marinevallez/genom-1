@@ -1,5 +1,5 @@
 #include <iostream>
-#include "matrixprotein.hpp"
+
 #include "sequence.hpp"
 #include "Logo.hpp"
 
@@ -8,91 +8,50 @@ using namespace std;
 
 int main() 
 {
-    char answer;
-    int nbr(0);
-    
-    cout << "Hello ! Welcome to the Genom-1 DNA binding site analysis package !" << endl;
-    cout << "This program provides a few fonctionalities that will help you analyse and work on genomic sequences." << endl;
+    cout << "Hello ! Welcome to the Genom-1 DNA binding site analysis package ! \n" << endl;
+    cout << "This program provides a few fonctionalities that will help you analyse and work on genomic sequences. \n" << endl;
     //info to documentation
     
     do {
-        cout << " What would you like to do : " <<endl;
-        cout << " - Outputting the list of sites (write '1')" <<endl;
-        cout << " - Getting the affinity scores (write '2')" <<endl;
-        cout << " - Outputting the motif description : PWM or PSSM (write '3')" <<endl;
-        cout << " - Outputting the motif logo (write '4') \n" <<endl;
+        cout << " What files would you want to work with : \n " <<endl;
+        cout << " - Fasta files (write '1') : this will give you a Position Weight Matrix \n" <<endl;
+        cout << " - Genomic fasta files and Bed files (write '2'): this could give you a Position Weight Matrix or a list of motif \n" <<endl;
+        cout << " -  Genomic fasta files and BedGraph files (write '3') : this could give you a Position Weight Matrix or a list of motif completed with a bedgraph score \n" <<endl;
         cin >> answer;
         ++nbr;
-    } while ( (answer != '1') and (answer != '2') and (answer != '3') and (answer != '4') and  (nbr <= 10));
+    } while ( (answer != '1') and (answer != '2') and (answer != '3') and  (nbr <= 10));
     
-    if(nbr > 10) { cout << " Abort ! " <<endl; }
+    if(nbr > 10) { cout << " A non-sense answer has been entered too many times ! " <<endl; }
     
     else if (answer == '1') {
-    /*    
-        // demander le .fasta et les motifs + fonctions pour trouver puis afficher les sites
-        Sequence seq;
-        MatrixProtein protein;
-        string fastaFile;
-        string matFile;
-        int nbr(0);
-        double threshold(0);
-        char task;
+        cout << "Enter the Fasta files name :" ;
+        string fasta;
+        cin >> fasta;
+        int nbr;
         do {
-            cout << "Please type the file name (.fasta format) which you would like to use." << endl;
-            cin >> fastaFile;
-            
-            cout << "Are you interested in finding a particular motif (write '1') or just displaying the list of possibles motifs from a PWM matrix (write '2') ?" << endl;
-            cin >> task;
-            
-            if(task == '1')
-            {
-                string motif;
-                
-                do {
-                    
-                    cout << "Please type the motif of interest (must be 7 bases long) composed of the A, C, T, G nucleotides : " << endl; //should it be 7 base long?
-                    
-                    cin >> motif;
-                    
-                } while (motif.size() != 7);
-                
-                cout << "The " << &motif << " motif will be searched in the file's sequences." << endl;
-                
-                vector<PosDir> info; 
-                info =seq.motifRecognition(motif, fastaFile);
-                seq.outputSites(info);
-                
-                cout << "The search results can be found in the test folder as ListOfSites.txt" << endl;
-                
-            } else if (task == '2') {
-                
-               cout << "Please type the file name (.mat format) which you would like to use to obtain several motifs and a threshold of selection (double) :" << endl;
-                cin >> matFile;
-                cin >> threshold;
-                // The finding of motifs
-                protein.loadmatrix_fromfile(matFile);
-                protein.matrix_generation(); 
-                protein.findPatterns(matFile, threshold);
-                
-                
-                do {
-                    cout << "Please enter an affinity score as threshold, above which motifs with a higher score will be considered (must be lower than -1)." << endl;
-                    cout << "By default, the programm offers a threshold." << endl; //maybe show the default threshold ?
-                    cin >> threshold;
-                } while ((threshold < 1)); //check definition of score HERE !
-                
-                //motifRecognition is overloaded according to the subtask
-                
-                //vector<PosDir> info = seq.motifRecognition(protein.getPatterns(), threshold);
-                // seq.outputSites(info);
-            }
-            
-            ++nbr;
-        } while ((task != '1') and (task != '2') and (nbr <= 10));
-        if (nbr > 10) { cout << " Abort ! " << endl; }
-       
-        */
+            cout << "How long are the motifs you want ? (between 1 and 15)";
+            cin >> nbr;
+        } while ((nbr < 0) and (nbr > 10));
+        
+        MatrixProtein Protein;
+        Sequence sequence;
+        vector<string> sequences_;
+        try {
+            sequences_ = sequence.loadSeq(fasta);
+        } catch (runtime_error message) {
+            cout << message.what();
+        }
+        cout << sequences_[0];
+        
+        Protein.EMalgorithm(nbr,sequences_);
+        
+        sequence.loadMatrixOnFile("Output", Protein.getmx());
+        cout << "The Matrix has been saved on the Output file on the test folder ";
+        
+        
+        
     }
+    
     
     else if (answer == '2') {
         
@@ -192,8 +151,7 @@ int main()
             }
             
             MatrixProtein protein_;
-            protein_.setPatterns(patterns_);
-            protein_.loadmatrix_fromscore();
+            //protein_.setPatterns(patterns_);getMotifs4Output()
             
             
             
