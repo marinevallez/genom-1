@@ -1,8 +1,7 @@
 #ifndef UTILITIES_HPP
 #define UTILITIES_HPP
 
-#include "matrixprotein.hpp"
-#include "sequence.hpp"
+
 #include <vector>
 #include <fstream>
 #include <stdio.h>
@@ -40,7 +39,7 @@ int toInt(const string& str) // allows a convertion from string to int
 vector<char> toVector(string str) 
 {
 	vector<char> vec;
-	for (size_t i(0); i <= str.size(); ++i)
+	for (size_t i(0); i < str.size(); ++i)
 	{
 		vec.push_back(str[i]);
 	}
@@ -50,7 +49,7 @@ vector<char> toVector(string str)
 string toString(vector<char> vec)
 {
 	string str;
-	for (size_t i(0); i <= vec.size(); ++i)
+	for (size_t i(0); i < vec.size(); ++i)
 	{
 		str += vec[i];
 	}
