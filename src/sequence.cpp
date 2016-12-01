@@ -100,7 +100,7 @@ void Sequence::outputSites(const vector<PosDir>& info) const	//a method that out
 vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fileName) const 
 {
 	ifstream file;								//the file we are going to read
-	char c1,c2,c3,c4,c5,c6, c7, nucl, extra; 
+	char base, nucl, extra; 
 	string line("");
 	vector<char> seq;
 	list<char> l;
@@ -146,12 +146,35 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 				
 				++compteurSeq; 
 
-				file >> c1 >> noskipws >> c2 >> noskipws >> c3 >> noskipws >>
-					noskipws >> c4 >> noskipws>> c5 >> c6 >> noskipws >> c7;
-				
-				cout << c1 << c2 << c3 << c4 << c5 << c6 << c7;
-				
-				l = {c1,c2,c3,c4,c5,c6,c7};
+				for(size_t i(0); i < motif.size(); ++i)
+				{
+					if(i == 0)
+					{	
+						l.clear();
+						file >> noskipws >> base;
+						
+						if(isspace(base))
+						{
+							cout << endl;
+							throw runtime_error("Error: no spaces allowed!");
+						}
+						
+						cout << base;
+					}
+					else
+					{
+						file >> noskipws >> base;
+						
+						if(isspace(base))
+						{
+							cout << endl;
+							throw runtime_error("Error: no spaces allowed!");
+						}
+						cout << base;
+					}
+					
+					l.push_back(base);
+				}
 
 				while(file >> noskipws >> nucl)
 				{
@@ -191,7 +214,7 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 
 					if(compare(seq, motif_))
 					{
-						positions.push_back({compteur,compteurSeq,chrNb_,'+'});
+						positions.push_back({compteur +1,compteurSeq,chrNb_,'+'});
 					}
 					
 					vector<char> cDNA;				//we get the second strand of DNA from .fasta 
@@ -204,7 +227,7 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 					
 					if(compare(cDNA, motifComplementary_))
 					{
-						positions.push_back({400 - compteur - 5, compteurSeq,chrNb_, '-'});
+						positions.push_back({compteur +1, compteurSeq,chrNb_, '-'});
 					}
 				}
 			}
