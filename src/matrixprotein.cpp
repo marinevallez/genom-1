@@ -10,50 +10,10 @@
 #include <cstdlib>
 #include <iomanip>
 #include <iostream>
-#include "utilities.cpp"
+#include "utilities.hpp"
 
 using namespace std;
 
-/*//-----Converions-----
-
-double MatrixProtein::To_double( const string& string ) // allows a convertion from string to double
-{
-    istringstream stream(string);
-    double dbl;
-    if (!(stream >> dbl))
-        return 0;
-    return dbl;
-}
-
-
-int MatrixProtein::toInt(const string& str) // allows a convertion from string to int
-{
-    istringstream stream(str);
-    int a;
-    if (!(stream >> a))
-        return 0;
-    return a;
-}
-
-vector<char> MatrixProtein::toVector(string str) 
-{
-	vector<char> vec;
-	for (size_t i(0); i <= str.size(); ++i)
-	{
-		vec.push_back(str[i]);
-	}
-	return vec;
-}
-
-string MatrixProtein::toString(vector<char> vec)
-{
-	string str;
-	for (size_t i(0); i <= vec.size(); ++i)
-	{
-		str += vec[i];
-	}
-	return str;
-}*/
 // ==============================================================================================================CONSTRUCTEUR ET DESTRUCTEUR
 
 MatrixProtein::MatrixProtein()

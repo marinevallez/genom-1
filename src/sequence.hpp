@@ -5,7 +5,6 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "Input.hpp"
 #include "matrixprotein.hpp"
 using namespace std;
 

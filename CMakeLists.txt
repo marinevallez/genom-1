@@ -10,8 +10,8 @@ option(test "Build tests." ON)
 
 set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -pedantic -std=c++11")
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
-set(CMAKE_CXX_FLAGS "-W -Wall -pedantic -std=c++11")
+#set(CMAKE_INCLUDE_CURRENT_DIR ON)
+#set(CMAKE_CXX_FLAGS "-W -Wall -pedantic -std=c++11")
 
 include_directories(src)
 link_directories("/usr/local/lib")

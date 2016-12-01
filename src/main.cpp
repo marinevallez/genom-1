@@ -193,7 +193,7 @@ int main()
             
             MatrixProtein protein_;
             protein_.setPatterns(patterns_);
-            protein_.loadmatrix_fromscore();
+            //protein_.loadmatrix_fromscore();
             
             
             

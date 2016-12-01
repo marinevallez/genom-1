@@ -6,50 +6,8 @@
 #include <sstream>
 #include <iomanip>
 #include "sequence.hpp"
-#include "utilities.cpp"
+#include "utilities.hpp"
 using namespace std;
-
-//-----SEQUENCE CONVERSION METHODS-----
-
-/*double toDouble(const string& str) // allows a convertion from string to double
-{
-    istringstream stream(str);
-    double dbl;
-    if (!(stream >> dbl))
-        return 0;
-    return dbl;
-}
-
-int StoInt(const string& str) // allows a convertion from string to int
-{
-    istringstream stream(str);
-    int a;
-    if (!(stream >> a))
-        return 0;
-    return a;
-}
-
-vector<char> toVector(string str) 
-{
-	vector<char> vec;
-	for (size_t i(0); i <= str.size(); ++i)
-	{
-		vec.push_back(str[i]);
-	}
-	return vec;
-}
-
-string toString(vector<char> vec)
-{
-	string str;
-	for (size_t i(0); i <= vec.size(); ++i)
-	{
-		str += vec[i];
-	}
-	return str;
-}*/
-
-
 
 //-----CONSTRUCTOR AND DESTRUCTOR-----
 
@@ -82,7 +40,7 @@ bool compare(const vector<char>& v1, const vector<char>& v2)
 	{
 		for(size_t i(0); i < v1.size(); ++i)
 		{
-			if(v1[i] != v2[i]) {return false;}
+			if(v1[i] != v2[i] and v1[i] != 'N'){return false;}
 		}
 		
 		return true;
@@ -681,7 +639,7 @@ void loadResultsOnFile(const string& fileName, const vector<PosDir>& posdir, dou
     }
 }
  
-int main()
+/*int main()
 {
 	Sequence seq_;
 	MatrixProtein mtrx;
@@ -693,7 +651,7 @@ int main()
 	catch(const runtime_error& e) {cout << e.what() << endl;}
 	
 	return 0;
-} 
+} */
 
 
 
