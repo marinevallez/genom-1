@@ -151,7 +151,7 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 					if(i == 0)
 					{	
 						l.clear();
-						file >> noskipws >> base;
+						file >> ws >> base;
 						
 						if(isspace(base))
 						{
@@ -235,7 +235,7 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 	}
 	
 	file.close();
-	for(const PosDir& c : positions) {cout << c.pos << " " << c.dir << " ";}
+	for(const PosDir& c : positions) {cout << c.pos << " " << c.dir << " //// ";}
 	return positions;
 }
 
@@ -292,7 +292,7 @@ void Sequence::find(MatrixProtein& mtrx, const string& fasta)
 					if(i == 0)
 					{	
 						l.clear();
-						file >> noskipws >> base;
+						file >> ws >> base;
 						
 						if(isspace(base))
 						{
@@ -450,12 +450,12 @@ vector<Coordinate> Sequence::readBedGraph(const string& fileName) // the functio
     
     vector<string> temporarySites; // stock in a 1x1 Matrix to calculate the number of data 
     ifstream file;
-    file.open(fileName);
+    file.open("../test/" + fileName);
     
     
     if (file.fail()) 
 		{
-			cerr << "This file could not be opened !" <<endl;
+			cerr << "This file could not be opened in readBedGraph!" <<endl;
 		}
     
     else 
@@ -494,14 +494,14 @@ vector<Coordinate> Sequence::readBedGraph(const string& fileName) // the functio
     
 }
 
-vector<BedCoordinate> Sequence::ReadBed(const string& fileName) // the function stores data from a file containing a chromosome n°and 2 positions
+vector<Coordinate> Sequence::ReadBed(const string& fileName) // the function stores data from a file containing a chromosome n°and 2 positions
 {
     
-    vector<BedCoordinate> BedCoordinates;
+    vector<Coordinate> Coordinates_;
     
     vector<string> temporarySites; // stock in a 1x1 Matrix to calculate the number of data
     ifstream file;
-    file.open(fileName);
+    file.open("../test" + fileName);
     
     
     if (file.fail()) {
@@ -525,18 +525,19 @@ vector<BedCoordinate> Sequence::ReadBed(const string& fileName) // the function 
         size_t z(0);     							//we now store all informations read in an organized vector (in strucures BedCoordinate)
         while (z < temporarySites.size()) 
         {
-            BedCoordinate c;
+            Coordinate c;
             c.chromosome = temporarySites[z];
             ++z;
 			c.start = toInt(temporarySites[z]); 	//does not compile here but don't know why ?
             ++z;
 			c.end = toInt(temporarySites[z]);
             ++z;
-            BedCoordinates.push_back(c);
+            Coordinates_.push_back(c);
             
         }
     }
-    return BedCoordinates;
+
+    return Coordinates_;
     
 }
 
@@ -595,7 +596,7 @@ vector<string> Sequence::scanFasta(vector<Coordinate>& coordinates, const string
 	file.open("../test/" + fileName);
 	if(file.fail())
 	{
-		cerr << "This file could not be opened !" << endl;
+		cerr << "This file could not be opened (in scanFasta)!" << endl;
 	}
 	else 
 	{
@@ -622,13 +623,44 @@ vector<string> Sequence::scanFasta(vector<Coordinate>& coordinates, const string
 					motif += read; 		//we discover the motif string by string
 				}
 				listOfMotifs.push_back(motif);
-			
+				motif.clear();
 			}
 		}
 		}
 	//TEST
+
 	file.close();
+	makeFasta(listOfMotifs, coordinates);
 	return listOfMotifs;
+}
+
+void Sequence::makeFasta(const vector<string>& regions, const vector<Coordinate>& coordinates) const
+{
+	unsigned int fileNb(1);
+	string newFastaName("../test/sites" + std::to_string(fileNb) + ".fasta"), header;
+	ofstream newFasta;
+	while(ifstream(newFastaName))
+	{
+		++fileNb;
+		newFastaName = "../test/sites" + std::to_string(fileNb) + ".fasta";
+	}
+	
+	
+	newFasta.open(newFastaName);
+	
+	if(newFasta.fail()) {throw runtime_error("File could not be created (makeFasta method)!");}
+	else
+	{
+		for(size_t i(0); i < regions.size(); ++i)
+		{
+			header = ">" + coordinates[i].chromosome + "|" + coordinates[i].chromosome + ":" 
+				+ std::to_string(coordinates[i].start) + "-" + std::to_string(coordinates[i].end);
+			string addition(regions[i]);
+			newFasta << header << endl << addition << endl;
+		}
+		
+	}
+	
 }
 
 vector<vector<char>> Sequence::delete_vectors_too_small(size_t n, vector<vector<char>> target)
@@ -662,23 +694,6 @@ void loadResultsOnFile(const string& fileName, const vector<PosDir>& posdir, dou
     }
 }
  
-/*int main()
-{
-	Sequence seq_;
-	MatrixProtein mtrx;
-	try
-	{
-		seq_.find(mtrx, "promoters.fasta");
-		loadResultsOnFile("List of Sites", seq_.getMotifs4Output() , 0.0);
-	}
-	catch(const runtime_error& e) {cout << e.what() << endl;}
-	
-	return 0;
-} */
-
-
-
-
 void loadMatrixOnFile(const string& fileName, matrix matrice)   //fonction that loads a matrix on a txt file
 {
     ofstream sortie;
@@ -697,3 +712,20 @@ void loadMatrixOnFile(const string& fileName, matrix matrice)   //fonction that 
         sortie.close();
     }
 }
+
+int main()
+{
+	Sequence seq_;
+	MatrixProtein mtrx;
+	try
+	{
+		//seq_.find(mtrx, "promoters.fasta");
+		//loadResultsOnFile("List of Sites", seq_.getMotifs4Output() , 0.0);
+		vector<Coordinate> asd = seq_.readBedGraph("BMAL1_ZT06_selection.bedgraph");
+		seq_.scanFasta(asd, "chr11.fa", 1000);
+		seq_.motifRecognition("TTCAAAAATA", "sites1.fasta");
+	}
+	catch(const runtime_error& e) {cout << e.what() << endl;}
+	
+	return 0;
+} 

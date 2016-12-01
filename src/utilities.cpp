@@ -52,3 +52,4 @@ string toString(const vector<char>& vec)
 	}
 	return str;
 }
+

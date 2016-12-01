@@ -86,7 +86,7 @@ class Sequence {
      * The ReadBed method lets us read a .bed file to find the start and end positions of a motif on a chromosome (without any score).
      * */
     
-    vector<BedCoordinate> ReadBed(const string& fileName);
+    vector<Coordinate> ReadBed(const string& fileName);
     
     /*!
      * Function that add scores on an interval from pos -50 to pos + 50
@@ -130,6 +130,12 @@ class Sequence {
      * */
      
      vector<PosDir> getMotifs4Output() const;
+     
+     /*!
+     * a method that makes a new fasta file composed of the sequences from the .bedgraph file
+     * */
+     
+     void makeFasta(const vector<string>&, const vector<Coordinate>&) const;
 
 
 };

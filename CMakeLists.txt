@@ -18,7 +18,7 @@ link_directories("/usr/local/lib")
 
 
 #Here we indicate the executables of interest
-add_executable(Main src/main.cpp src/sequence.cpp src/matrixprotein.cpp src/Logo.cpp src/Letters.cpp src/Axes.cpp src/utilities.cpp)
+add_executable(Main src/main.cpp src/sequence.cpp src/utilities.cpp src/matrixprotein.cpp src/Letters.cpp src/Axes.cpp src/Logo.cpp)
 
 
 
