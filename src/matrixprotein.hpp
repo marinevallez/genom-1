@@ -88,6 +88,7 @@ class MatrixProtein
 	void FindMotif(vector<vector<double>> finale_,vector<string> FromFasta_, int longueur_motif_, vector<vector<vector<char>>>& best_seqs_);
 	void fillPattern(vector<vector<vector<char>>> best_seqs_);
 	double calculScoreFinal(string seq);
+	void enleveZero(vector<vector<double>>& mx, double somme_); 
 	
 	
 	// Algorithme EM complet --> Met la matrice PWM dans l'attribut mx + change le pattern

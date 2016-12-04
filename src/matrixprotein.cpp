@@ -986,7 +986,7 @@ void MatrixProtein::EMalgorithm(int longueur_motif, vector<string> FromFasta)
 		tabpos.clear(); 
 	}
 	
-	
+	enleveZero(PWMfinale, somme); 
 	mx = PWMfinale; 
 	fillPattern(best_seqs); // normalement, ici patterns est rempli
 
@@ -1059,3 +1059,17 @@ void MatrixProtein::fillPattern(vector<vector<vector<char>>> best_seqs_)
 		
 	}
 }
+
+void MatrixProtein::enleveZero(vector<vector<double>>& mx, double somme_) 
+{
+	for ( size_t i(0); i < mx.size() ; ++i)
+	{
+		for ( size_t j(0); j < mx[i].size() ; ++j)
+		{
+			mx[i][j] = (mx[i][j]* somme_ +  0.25)/ (somme_+ 1); 
+			
+		}
+	}
+}
+
+
