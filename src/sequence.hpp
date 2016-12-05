@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "Input.hpp"
 #include "matrixprotein.hpp"
 using namespace std;
 
@@ -38,7 +39,7 @@ class Sequence {
 
 	private:
 	
-		vector<PosDir> motifs4output;		//the motifs we are going to export into a .txt file
+	vector<string> chrIdentifiers;
 	
 	public:
 	
@@ -46,16 +47,14 @@ class Sequence {
     Sequence();							
     virtual ~Sequence();
     
-    /*//---Conversions---	
-	vector<char> toVector(string str);
-	string toString(vector<char> vec);
-    double toDouble(const string& string);
-	int toInt(const string& str);*/
+    //---Conversions---	
+
 	
 	//---Methods---
-/*! 
- * The outputSite method outputs a file containing sequence numbers (from a .fasta file) and the position on which a motif is found, 
- * as well as the direction of the reading frame (+ means forward, - means reverse).
+	
+/*!
+ *The outputSite method outputs a file containing sequence numbers (from a .fasta file) and the position on which a motif is found, 
+ *as well as the direction of the reading frame (+ means forward, - means reverse).
  */
 	void outputSites(const vector<PosDir>&) const;
 	
@@ -86,13 +85,7 @@ class Sequence {
      * The ReadBed method lets us read a .bed file to find the start and end positions of a motif on a chromosome (without any score).
      * */
     
-    vector<Coordinate> ReadBed(const string& fileName);
-    
-    /*!
-     * Function that add scores on an interval from pos -50 to pos + 50
-     * */
-
-    double interval_addition(int pos, vector<Coordinate> Coordinates);
+    vector<BedCoordinate> ReadBed(const string& fileName);
     
 
 	/*!
@@ -100,12 +93,6 @@ class Sequence {
 	 * */
     
 	vector<string> scanFasta(vector<Coordinate>& coordinates, const string& fileName, int nbrOfSeq);
-    
-    /*!
-     * Delete genomic sequences that are to small to go in the EM algorithm
-     * */
-    
-    vector<vector<char>> delete_vectors_too_small(size_t n, vector<vector<char>> target);
 
     /*!
      * loadResultsOnFile method loads on a given file all the informations related to a given sequence/several sequences
@@ -118,26 +105,10 @@ class Sequence {
      * */
 
     void loadMatrixOnFile(const string& fileName, matrix matrice);
-    
-    /*!
-     * find method take a matrix, loads it, goes through sequences in fasta and gets all motifs with sufficient scores with their positions and direction
-     * */
-    
-    void find(MatrixProtein&, const string&);
-    
-    /*!
-     * a getter method to get information to be exported to a .txt file
-     * */
-     
-     vector<PosDir> getMotifs4Output() const;
-     
-     /*!
-     * a method that makes a new fasta file composed of the sequences from the .bedgraph file
-     * */
-     
-     void makeFasta(const vector<string>&, const vector<Coordinate>&) const;
 
 
 };
+
+char giveComplementaryBase(const char&);
 
 #endif
