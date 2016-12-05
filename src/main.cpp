@@ -159,7 +159,12 @@ int main()
         } while ((nbr < 0) and (nbr > 10));
         
         
-        vector<Coordinate> Coordinate_ (sequence.readBedGraph(Bed, chr));
+        vector<Coordinate> Coordinate_ ;
+        try {
+            Coordinate_ = sequence.readBedGraph(Bed, chr);
+        } catch (runtime_error message) {
+            cout << message.what();
+        }
         vector<Coordinate> relevantCoordinate;
         for (auto& n : Coordinate_) {
             if (n.score >= 2) {

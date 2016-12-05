@@ -142,7 +142,7 @@ int Logo::afficher_logo(vector<Pattern> sequences, vector<vector<double>> MX)
     
     //Creation axes
     sf::Font font;
-    if (!font.loadFromFile("../res/arial.ttf")) return EXIT_FAILURE;
+    if (!font.loadFromFile("../res/Arial.ttf")) return EXIT_FAILURE;
     window.clear(sf::Color(250,250,250));
     Axes Axes_;
     Axes_.draw(window);

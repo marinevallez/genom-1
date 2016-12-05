@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "Input.hpp"
 #include "matrixprotein.hpp"
 using namespace std;
 
@@ -36,6 +37,7 @@ struct BedCoordinate       				    //numerical position(beginning and end) of an
 };
 
 class Sequence {
+
     
 private:
     
@@ -59,6 +61,7 @@ public:
      * as well as the direction of the reading frame (+ means forward, - means reverse).
      */
     void outputSites(const vector<PosDir>&) const;
+
     
     /*!
      *The motifRecognition method opens a .fasta file and find a given motif on a sequence (and its complement) in the .fasta file.
@@ -87,6 +90,7 @@ public:
      * The ReadBed method lets us read a .bed file to find the start and end positions of a motif on a chromosome (without any score).
      * */
     
+
     vector<BedCoordinate> ReadBed(const string& fileName, string);
     
     /*!
@@ -94,8 +98,10 @@ public:
      * */
     
     double interval_addition(int pos, vector<Coordinate> Coordinates);
+
     
     
+
     /*!
      * The scanFasta method uses a list of coordinates from a .bedgrah file to scan each chromosome genomic sequence in a .fasta file for regions listed in the .bedgraph.
      * */
@@ -108,6 +114,7 @@ public:
     
     vector<vector<char>> delete_vectors_too_small(size_t n, vector<vector<char>> target);
     
+
     /*!
      * loadResultsOnFile method loads on a given file all the informations related to a given sequence/several sequences
      There is one version for the Bedgraph output and one for the Bed Output
@@ -121,6 +128,7 @@ public:
      * */
     
     void loadMatrixOnFile(const string& fileName, matrix matrice);
+
     
     /*!
      * find method take a matrix, loads it, goes through sequences in fasta and gets all motifs with sufficient scores with their positions and direction
@@ -151,8 +159,9 @@ public:
     vector<char> toVector(string str);
     
     string toString(vector<char> vec);
-    
-    
+
 };
+
+char giveComplementaryBase(const char&);
 
 #endif
