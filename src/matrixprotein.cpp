@@ -10,10 +10,10 @@
 #include <cstdlib>
 #include <iomanip>
 #include <iostream>
-#include "utilities.cpp"
+//#include "utilities.cpp"
+
 
 using namespace std;
-
 
 
 MatrixProtein::MatrixProtein()
@@ -50,7 +50,7 @@ void MatrixProtein::fillVectorPatterns(vector<vector<char> > sites, double thres
         if(binding_score > threshold)
         {
             Pattern pattern;
-            pattern.bScore = binding_score; 
+            pattern.bScore = binding_score;
             pattern.site = toString(sites[i]);
             patterns.push_back(pattern);
             
@@ -572,7 +572,7 @@ double MatrixProtein::get_affinity_score_from_matrix(vector<vector<double> > mat
     }
     
     double score(1);
-    for (unsigned int i(0); i <= sequence.size(); ++i) {
+    for (unsigned int i(0); i < sequence.size(); ++i) {
         switch (sequence[i]) {
             case 'A':
                 score *= matrix[i][0];
@@ -629,15 +629,15 @@ void MatrixProtein::get_relevent_site(vector<vector<char>> Input, int set, int t
 
 //COMMENTED AS DOES NOT WORK YET + IS IT USEFUL ?
 /*vector<Pattern> MatrixProtein::findPatterns(string matFile, double threshold) //need to be tested
-{
+ {
 	
-					//we map matrix colums (in the assumed ACGT order) to a character so that we can concatenate a motif
-		map<char, size_t> column2nuc{{0,'A'}, {0, 'a'},
-									{1,'C'}, {1, 'c'},
-									{2,'G'}, {2, 'g'},
-									{3,'T'}, {3, 't'},
-									};
-
+ //we map matrix colums (in the assumed ACGT order) to a character so that we can concatenate a motif
+ map<char, size_t> column2nuc{{0,'A'}, {0, 'a'},
+ {1,'C'}, {1, 'c'},
+ {2,'G'}, {2, 'g'},
+ {3,'T'}, {3, 't'},
+ };
+ 
 	loadmatrix_fromfile(matFile);
 	vector<Pattern> listOfMotifs;
 	Pattern motif;
@@ -645,226 +645,228 @@ void MatrixProtein::get_relevent_site(vector<vector<char>> Input, int set, int t
 	double temporaryScore;
 	double score(1.0);
 	vector<char> buildingMotif;
-	double compteur(0.0); 
+	double compteur(0.0);
 	
 	
 	do {
-		//startagain and keeplooking are two labels
-		startagain:
-		
-		for(size_t row(0); row < pwm_abs.size(); ++row)				//for each row we look for a maximum value...
-		{
-			keeplooking:
-			
-			temporaryScore = pwm_abs[row][0];						//...to find score that is first the first value encountered
-			for(size_t column(0); column < (pwm_abs[row]).size(); ++column)  // careful here : here column is an int as we used it in the map
-			{
-				if (temporaryScore < pwm_abs[row][column])
-				{
-					temporaryScore = pwm_abs[row][column];	
-				} 
-				
-				score *=temporaryScore;
-				buildingMotif.push_back(column2nuc[column]);
-				
-				if(score < threshold) 
-				{
-					score = 1.0;
-					goto startagain;					//if we reached a score that is below the threshold, we break the loop to start again
-				} else
-				{
-					goto keeplooking;					//question : will it increment row with ++row ? do I have to add before goto ?
-				}
-			
-			}
-		}
-		motif.bScore = score;							//we set a newfound motif
-		motif.site = buildingMotif;
-		listOfMotifs.push_back(motif);					//we had this motif to the list
-		++compteur;
+ //startagain and keeplooking are two labels
+ startagain:
+ 
+ for(size_t row(0); row < pwm_abs.size(); ++row)				//for each row we look for a maximum value...
+ {
+ keeplooking:
+ 
+ temporaryScore = pwm_abs[row][0];						//...to find score that is first the first value encountered
+ for(size_t column(0); column < (pwm_abs[row]).size(); ++column)  // careful here : here column is an int as we used it in the map
+ {
+ if (temporaryScore < pwm_abs[row][column])
+ {
+ temporaryScore = pwm_abs[row][column];
+ }
+ 
+ score *=temporaryScore;
+ buildingMotif.push_back(column2nuc[column]);
+ 
+ if(score < threshold)
+ {
+ score = 1.0;
+ goto startagain;					//if we reached a score that is below the threshold, we break the loop to start again
+ } else
+ {
+ goto keeplooking;					//question : will it increment row with ++row ? do I have to add before goto ?
+ }
+ 
+ }
+ }
+ motif.bScore = score;							//we set a newfound motif
+ motif.site = buildingMotif;
+ listOfMotifs.push_back(motif);					//we had this motif to the list
+ ++compteur;
 	
 	} while (compteur != pow(4.0, 7.0));  //while we haven't reached all motif possibilites(4^7), we keep trying to find some
 	
 	return listOfMotifs;
-}*/
+ }*/
 
 
 
 void MatrixProtein::calcul( vector<char> tab_, vector<double>& tabA_, vector<double>& tabT_, vector<double>& tabG_, vector<double>& tabC_)
 {
-	
-	for ( size_t w(0) ; w < tab_.size() ; ++w) // la je compte le nombre de A, T, G, C à chaque position
-			{
-					
-				if ( tab_[w] == 'A')
-				{
-					++ tabA_[w] ;
-				}
-				
-				if ( tab_[w] == 'T')
-				{
-					++ tabT_[w] ;
-				}
-				
-				if ( tab_[w] == 'G')
-				{	
-					++ tabG_[w];
-				}	
-				
-				if ( tab_[w]  == 'C')
-				{
-					++ tabC_[w] ;
-				}
-			}
+    
+    for ( size_t w(0) ; w < tab_.size() ; ++w) // la je compte le nombre de A, T, G, C à chaque position
+    {
+        
+        if (( tab_[w] == 'A') or ( tab_[w] == 'a'))
+        {
+            ++ tabA_[w] ;
+        }
+        
+        if (( tab_[w] == 'T') or ( tab_[w] == 't'))
+        {
+            ++ tabT_[w] ;
+        }
+        
+        if (( tab_[w] == 'G') or ( tab_[w] == 'g'))
+        {
+            ++ tabG_[w];
+        }
+        
+        if (( tab_[w] == 'C') or ( tab_[w] == 'c'))
+        {
+            ++ tabC_[w] ;
+        }
+    }
 }
 
 void MatrixProtein::RemetZero( vector<double>& vec_)
 {
-	for ( size_t i(0); i < vec_.size(); ++i)
-	{
-		vec_[i] = 0; 
-	}
+    for ( size_t i(0); i < vec_.size(); ++i)
+    {
+        vec_[i] = 0;
+    }
 }
 
 void MatrixProtein::calculScore(vector<vector<double>> finale_, vector<double>& score_, int j_, vector<char> tab2_)
 {
-		int indice(0); 
-		for (size_t l(0) ; l < finale_[0].size() ; ++l) // on traduit la lettre du tableau temporaire en indice du tableau finale
-			{ 
-				if (tab2_[l] == 'A')
-				{
-					indice = 0; 
-				} 
-		
-				else if (tab2_[l] == 'T')
-				{
-					indice = 1; 
-				}
-						
-				else if (tab2_[l] == 'G')
-				{
-					indice = 2; 
-				}
-							
-				else if (tab2_[l] == 'C')
-				{
-					indice = 3; 
-				}
-							
-							
-				score_[j_] += finale_[indice][l]; // on calcul le "score" pour chaque combinaison de taille longueur_motif possible
-			}
+    int indice(0);
+    for (size_t l(0) ; l < finale_[0].size() ; ++l) // on traduit la lettre du tableau temporaire en indice du tableau finale
+    {
+        if ((tab2_[l] == 'A') or (tab2_[l] == 'a'))
+        {
+            indice = 0;
+        }
+        
+        else if ((tab2_[l] == 'T') or (tab2_[l] == 't'))
+        {
+            indice = 1;
+        }
+        
+        else if ((tab2_[l] == 'G') or (tab2_[l] == 'g'))
+        {
+            indice = 2;
+        }
+        
+        else if ((tab2_[l] == 'C') or (tab2_[l] == 'c'))
+        {
+            indice = 3;
+        }
+        
+        
+        score_[j_] += finale_[indice][l]; // on calcul le "score" pour chaque combinaison de taille longueur_motif possible
+    }
 }
 
 
-void MatrixProtein::FindMotif(vector<vector<double>> finale_ , vector<string> FromFasta_, int longueur_motif_, vector<vector<vector<char>>>& best_seqs_)
+void MatrixProtein::FindMotif(vector<vector<double>> finale_ , vector<string> FromFasta_, int longueur_motif_, vector<vector<SeqPos>>& best_seqs_)
 {
-	 int index(0);
-	 int b(0);
-	 double nf(0); 
-	 vector<char> tab2(longueur_motif_);
-	 
-	for( size_t i(0) ; i < FromFasta_.size() ; ++i) // on va dans chaque motif de la liste
-		{
-			b = FromFasta_[i].size() - longueur_motif_ + 1; // nombre de combinaison dans la séquence de taille  "longueur_motif". 
-			vector<double> score(b, 0);
-			vector<int> indices(0); 
-			vector<vector<char>> vec1(0);
-			for (size_t j(0) ; j < b ; ++j) 
-				{
-					if (j == 0) // soit je remplit le tableau temporaire pour la premiere fois 
-					{
-						for ( size_t k(0) ; k < longueur_motif_ ; ++k) 
-						{
-							tab2[k] = FromFasta_[i][k]; 
-						}
-					}
-					
-					else { // soit j'enleve la premiere case du tableu temporaire et je rajoute la derniere. On décale le motif  
-							tab2.erase(tab2.begin()); 
-							tab2.push_back(FromFasta_[i][longueur_motif_ + j - 1]); 
-						 }
-						 
-						 
-						 
-						calculScore(finale_, score, j, tab2); 
-						
-					
-					 if( score[j] == nf) // pour rajouter un autre indice si y en a dejà un avec le même score
-						{  
-							indices.push_back(j); 
-						}
-				 
-					 if( score[j] > nf) // si le score est plus grand, enlever les autres dans le vecteur d'indice et mettre celui la à la place
-						{
-							nf = score[j]; 
-							indices.clear(); 	
-							indices.push_back(j);
-						}
-						
-				}
-				
-			for (size_t t(0); t < indices.size() ; ++t)
-			{ 
-				index = indices[t]; 
-				vector<char>vec2(0); 
-				for ( size_t d(index) ; d < index + longueur_motif_ ; ++d)
-				{
-					vec2.push_back(FromFasta_[i][d]);  // on met dans un tableau les bases du motif de la position retrnue par indice de longueur "longueur_mtif"
-				}
-				vec1.push_back(vec2); // on le met dans le tableau pour chaque motif séparement 
-				  
-			}
-			
-			best_seqs_.push_back(vec1); // tous les motifs ensemble
-			nf = 0;  
-		}
+    int index(0);
+    int b(0);
+    double nf(0);
+    vector<char> tab2(longueur_motif_);
+    
+    for( size_t i(0) ; i < FromFasta_.size() ; ++i) // on va dans chaque motif de la liste
+    {
+        b = FromFasta_[i].size() - longueur_motif_ + 1; // nombre de combinaison dans la séquence de taille  "longueur_motif".
+        vector<double> score(b, 0);
+        vector<int> indices(0);
+        vector<SeqPos> vec1(0);
+        for (size_t j(0) ; j < b ; ++j)
+        {
+            if (j == 0) // soit je remplit le tableau temporaire pour la premiere fois
+            {
+                for ( size_t k(0) ; k < longueur_motif_ ; ++k)
+                {
+                    tab2[k] = FromFasta_[i][k];
+                }
+            }
+            
+            else { // soit j'enleve la premiere case du tableu temporaire et je rajoute la derniere. On décale le motif
+                tab2.erase(tab2.begin());
+                tab2.push_back(FromFasta_[i][longueur_motif_ + j - 1]);
+            }
+            
+            
+            
+            calculScore(finale_, score, j, tab2);
+            
+            
+            if( score[j] == nf) // pour rajouter un autre indice si y en a dejà un avec le même score
+            {
+                indices.push_back(j);
+            }
+            
+            if( score[j] > nf) // si le score est plus grand, enlever les autres dans le vecteur d'indice et mettre celui la à la place
+            {
+                nf = score[j];
+                indices.clear();
+                indices.push_back(j);
+            }
+        }
+        
+        for (size_t t(0); t < indices.size() ; ++t)
+        {
+            index = indices[t];
+            vector<char>vec2(0);
+            SeqPos TMP;
+            TMP.position = index;
+            for ( size_t d(index) ; d < index + longueur_motif_ ; ++d)
+            {
+                vec2.push_back(FromFasta_[i][d]);  // on met dans un tableau les bases du motif de la position retrnue par indice de longueur "longueur_mtif"
+            }
+            TMP.sequence = vec2;
+            vec1.push_back(TMP); // on le met dans le tableau pour chaque motif séparement
+            
+        }
+        
+        best_seqs_.push_back(vec1); // tous les motifs ensemble
+        nf = 0;
+    }
 }
 
 
 
-void MatrixProtein::EMalgorithm(int longueur_motif, vector<string> FromFasta)
+void MatrixProtein::EMalgorithm(int longueur_motif, vector<string> FromFasta, vector<int> start = {0,0}, int sizeint = 0)
 {
-//--------------------------------------------------------------------------------------------------------------------- 
+    //---------------------------------------------------------------------------------------------------------------------
     // LISTE D'INITIALISATION
     
     vector<char> tab(longueur_motif); // les tableaux temporaires
-    int somme(0); 
+    int somme(0);
     std::vector <double> tabA(longueur_motif,0);
     std::vector <double> tabT(longueur_motif,0);
     std::vector <double> tabG(longueur_motif,0);
     std::vector <double> tabC(longueur_motif,0);
     vector < vector<double> > finale; // premiere matrice de l'algorithme
     vector <vector<double> > PWM; // La matrice à renvoyé au final
-    int a(0); 
-	vector<vector<vector<char>>> best_seqs(0); 
-	
-//---------------------------------------------------------------------------------------------------------------------
-	//REMPLIR MATRICE FINALE
+    int a(0);
+    vector<vector<SeqPos>> best_seqs(0);
+    
+    //---------------------------------------------------------------------------------------------------------------------
+    //REMPLIR MATRICE FINALE
     
     for( size_t i(0) ; i < FromFasta.size() ; ++i) // on va dans chaque motif de la liste
     {
-		a = FromFasta[i].size() - longueur_motif + 1; // nombre de combinaison dans la séquence de taille  "longueur_motif". 
-		
-		somme = somme + a; // pour calculer le nombre total (dans toute la liste de site) de combinaison de taille  "longueur_motif".
-		
-		for (size_t j(0) ; j < a ; ++j) 
-		{
-			if (j == 0) // soit je remplit le tableau temporaire pour la premiere fois 
-			{
-				for ( size_t k(0) ; k < longueur_motif ; ++k) 
-				{
-					tab[k] = FromFasta[i][k]; 
-				}
-			}
-			
-			else { // soit j'enleve la premiere case du tableu temporaire et je rajoute la derniere. On décale le motif  
-					tab.erase(tab.begin()); 
-					tab.push_back(FromFasta[i][longueur_motif + j - 1]); 
-				 }
-					
-			calcul(tab, tabA, tabT, tabG ,tabC); 
-		}
+        a = FromFasta[i].size() - longueur_motif + 1; // nombre de combinaison dans la séquence de taille  "longueur_motif".
+        
+        somme = somme + a; // pour calculer le nombre total (dans toute la liste de site) de combinaison de taille  "longueur_motif".
+        
+        for (size_t j(0) ; j < a ; ++j)
+        {
+            if (j == 0) // soit je remplit le tableau temporaire pour la premiere fois
+            {
+                for ( size_t k(0) ; k < longueur_motif ; ++k)
+                {
+                    tab[k] = FromFasta[i][k];
+                }
+            }
+            
+            else { // soit j'enleve la premiere case du tableu temporaire et je rajoute la derniere. On décale le motif
+                tab.erase(tab.begin());
+                tab.push_back(FromFasta[i][longueur_motif + j - 1]);
+            }
+            
+            calcul(tab, tabA, tabT, tabG ,tabC);
+        }
         
     }
     
@@ -875,197 +877,251 @@ void MatrixProtein::EMalgorithm(int longueur_motif, vector<string> FromFasta)
     finale.push_back(tabC);
     
     
-//---------------------------------------------------------------------------------------------------------------------    
-    // DIVISION PAR LA SOMME   
-    for ( size_t i(0) ; i < finale.size() ; ++i) 
+    //---------------------------------------------------------------------------------------------------------------------
+    // DIVISION PAR LA SOMME
+    for ( size_t i(0) ; i < finale.size() ; ++i)
     {
-		for (size_t j(0); j < longueur_motif; ++j)
-		{
-			finale[i][j] = finale[i][j]/somme; 
-		}
-	}
-	
-//---------------------------------------------------------------------------------------------------------------------
-	//TROUVER LE MEILLEUR MOTIF DE CHAQUE SITE
-	
-	FindMotif(finale, FromFasta, longueur_motif, best_seqs); 
-	
-//----------------------------------
-
-	somme = 0; 
-	vector<vector<double>> copiePWM (4, vector<double>(longueur_motif)); 
-	
-	RemetZero(tabA); 
-	RemetZero(tabT);
-	RemetZero(tabG);
-	RemetZero(tabC);
-	
-	for ( size_t i(0); i < best_seqs.size() ; ++i)
-	{
-		for ( size_t j(0); j < best_seqs[i].size() ; ++j)
-		{
-			calcul(best_seqs[i][j], tabA, tabT, tabG, tabC); 
-			++somme; 
-		}
-	}
-	PWM.clear(); 
-	PWM.push_back(tabA);//pour A
+        for (size_t j(0); j < longueur_motif; ++j)
+        {
+            finale[i][j] = finale[i][j]/somme;
+        }
+    }
+    
+    //---------------------------------------------------------------------------------------------------------------------
+    //TROUVER LE MEILLEUR MOTIF DE CHAQUE SITE
+    
+    FindMotif(finale, FromFasta, longueur_motif, best_seqs);
+    
+    //----------------------------------
+    
+    somme = 0;
+    vector<vector<double>> copiePWM (4, vector<double>(longueur_motif));
+    
+    RemetZero(tabA);
+    RemetZero(tabT);
+    RemetZero(tabG);
+    RemetZero(tabC);
+    
+    for ( size_t i(0); i < best_seqs.size() ; ++i)
+    {
+        for ( size_t j(0); j < best_seqs[i].size() ; ++j)
+        {
+            calcul(best_seqs[i][j].sequence, tabA, tabT, tabG, tabC);
+            ++somme;
+        }
+    }
+    PWM.clear();
+    PWM.push_back(tabA);//pour A
     PWM.push_back(tabT);//pour T
     PWM.push_back(tabG);//...
-    PWM.push_back(tabC);  
-	
+    PWM.push_back(tabC);
     
-	for ( size_t i(0) ; i < PWM.size() ; ++i) 
+    
+    for ( size_t i(0) ; i < PWM.size() ; ++i)
     {
-		for (size_t j(0); j < longueur_motif; ++j)
-		{
-			PWM[i][j] = PWM[i][j]/somme; 
-			// on divise par la somme pour avoir la probabilité 
-		}
-	} 
-	// Iteration sur la derniere étape. 
-	do{
-		
-		copiePWM = PWM;  
-		best_seqs.clear(); 
-		FindMotif(PWM, FromFasta, longueur_motif, best_seqs);   // recalcul du meilleur motif 
-		somme = 0; 
-		RemetZero(tabA); 
-		RemetZero(tabT);
-		RemetZero(tabG);
-		RemetZero(tabC);
-		
-		for ( size_t i(0); i < best_seqs.size() ; ++i)
-		{
-			for ( size_t j(0); j < best_seqs[i].size() ; ++j)
-			{
-				calcul(best_seqs[i][j], tabA, tabT, tabG, tabC); // remodification de tabA, tabT, tabG, tabC; 
-				++ somme; 
-			}
-		}
-		
-		PWM.clear(); 
-		PWM.push_back(tabA);//pour A
-		PWM.push_back(tabT);//pour T
-		PWM.push_back(tabG);//...
-		PWM.push_back(tabC); 
-		
-		 for ( size_t i(0) ; i < 4 ; ++i) 
-		{
-			
-			for (size_t j(0); j < longueur_motif; ++j)
-			{
-				PWM[i][j] = PWM[i][j]/somme; 
-			}
-		}
-	} while (PWM != copiePWM); 
-	
-	
-	
-	// Ma matrice est pour l'instant sous la forme: 1 2 3 ....
-												//A
-												//T
-												//G
-												//C
-												
-	// je dois encore remettre PWM dans l'affichage que je veux: A C G T
-															//1
-															//2
-															//3
-															//...
-
-	vector <vector<double> > PWMfinale(0); 
-	for ( size_t i(0); i < longueur_motif ; ++i)
-	{
-		vector<double> tabpos; 
-		tabpos.push_back(PWM[0][i]);
-		tabpos.push_back(PWM[3][i]);
-		tabpos.push_back(PWM[2][i]);
-		tabpos.push_back(PWM[1][i]);
-		PWMfinale.push_back(tabpos); 
-		tabpos.clear(); 
-	}
-	
-	
-	mx = PWMfinale; 
-	fillPattern(best_seqs); // normalement, ici patterns est rempli
-
-	 	
+        for (size_t j(0); j < longueur_motif; ++j)
+        {
+            PWM[i][j] = PWM[i][j]/somme;
+            // on divise par la somme pour avoir la probabilité
+        }
+    }
+    // Iteration sur la derniere étape.
+    int compte(0);
+    do{
+        
+        copiePWM = PWM;
+        best_seqs.clear();
+        FindMotif(PWM, FromFasta, longueur_motif, best_seqs);   // recalcul du meilleur motif
+        somme = 0;
+        RemetZero(tabA);
+        RemetZero(tabT);
+        RemetZero(tabG);
+        RemetZero(tabC);
+        
+        for ( size_t i(0); i < best_seqs.size() ; ++i)
+        {
+            for ( size_t j(0); j < best_seqs[i].size() ; ++j)
+            {
+                calcul(best_seqs[i][j].sequence, tabA, tabT, tabG, tabC); // remodification de tabA, tabT, tabG, tabC;
+                ++ somme;
+            }
+        }
+        
+        PWM.clear();
+        PWM.push_back(tabA);//pour A
+        PWM.push_back(tabT);//pour T
+        PWM.push_back(tabG);//...
+        PWM.push_back(tabC);
+        
+        for ( size_t i(0) ; i < 4 ; ++i)
+        {
+            
+            for (size_t j(0); j < longueur_motif; ++j)
+            {
+                PWM[i][j] = PWM[i][j]/somme;
+            }
+        }
+        ++compte;
+    } while ((compte < 100  or (PWM != copiePWM)));
+    
+    
+    
+    // Ma matrice est pour l'instant sous la forme: 1 2 3 ....
+    //A
+    //T
+    //G
+    //C
+    
+    // je dois encore remettre PWM dans l'affichage que je veux: A C G T
+    //1
+    //2
+    //3
+    //...
+    
+    vector <vector<double> > PWMfinale(0);
+    for ( size_t i(0); i < longueur_motif ; ++i)
+    {
+        vector<double> tabpos;
+        tabpos.push_back(PWM[0][i]);
+        tabpos.push_back(PWM[3][i]);
+        tabpos.push_back(PWM[2][i]);
+        tabpos.push_back(PWM[1][i]);
+        PWMfinale.push_back(tabpos);
+        tabpos.clear();
+    }
+    
+    
+    mx = PWMfinale;
+    fillPattern(best_seqs,sizeint, start); // normalement, ici patterns est rempli
+    
+    
 }
 
 
 
 double MatrixProtein::calculScoreFinal(string seq)
 {
-    double MatrixProtein::calculScoreFinal(string seq)
+    double score(0);
+    int indice(4);
+    for ( size_t i(0) ; i < seq.size() ; ++i)
     {
-        double score(0);
-        int indice(4);
-        for ( size_t i(0) ; i < mx.size() ; ++i)
+        if ( (seq[i] == 'A') or (seq[i] == 'a'))
         {
-            if ( seq[i] == 'A')
-            {
-                indice = 0;
-            }
-            
-            if ( seq[i] == 'C')
-            {
-                indice = 1;
-            }
-            
-            if ( seq[i] == 'G')
-            {
-                indice = 2;
-            }
-            
-            if ( seq[i] == 'T')
-            {
-                indice = 3;
-            }
-            if (indice != 4)
-            {
-                score += mx[i][indice];
-            }
+            indice = 0;
         }
         
-        return score; 	
+        if ( (seq[i] == 'C') or (seq[i] == 'c'))
+        {
+            indice = 1;
+        }
+        
+        if (( seq[i] == 'G') or (seq[i] == 'g'))
+        {
+            indice = 2;
+        }
+        
+        if ( (seq[i] == 'T') or (seq[i] == 't'))
+        {
+            indice = 3;
+        }
+        if (indice != 4)
+        {
+            score += mx[i][indice];
+        }
     }
-} 
+    
+    return score;
+}
 
 
 
 // Normalement le toString est dans utilitaire
 
-void MatrixProtein::fillPattern(vector<vector<vector<char>>> best_seqs_)
+void MatrixProtein::fillPattern(vector<vector<SeqPos>> best_seqs_, int sizeint, vector<int> start)
 {
-	
-	for (size_t i(0); i < best_seqs_.size() ; ++i) 
-	{
-		for (size_t j(0); j < best_seqs_[i].size() ; ++j) 
-		{
-			bool same(false); 
-			
-			for (size_t l(0); l < patterns.size() ; ++l) 
-			{
-				if ( toString(best_seqs_[i][j]) == patterns[l].site)
-				{
-					same  = true; 
-				}
-			} 
-				
-			if ( same == false) 
-			{
-					
-				Pattern p { calculScoreFinal(toString(best_seqs_[i][j])) , toString(best_seqs_[i][j])}; 
-				patterns.push_back(p); 
-			}
-				
-		}
-		
-	}
+    
+    for (size_t i(0); i < best_seqs_.size() ; ++i)
+    {
+        for (size_t j(0); j < best_seqs_[i].size() ; ++j)
+        {
+            bool same(false);
+            
+            for (size_t l(0); l < patterns.size() ; ++l)
+            {
+                if ( toString(best_seqs_[i][j].sequence) == patterns[l].site)
+                {
+                    same  = true;
+                }
+            }
+            
+            if ( same == false)
+            {
+                char dir;
+                int Position (static_cast<int>(best_seqs_[i][j].position));
+                if (i  < sizeint) {
+                    dir = '+';
+                    Position += start[i];
+                } else { //Sizeint is the size of the forward DNA seq
+                    dir = '-';
+                    Position += start[i - sizeint];
+                }
+                double bs (calculScoreFinal(toString(best_seqs_[i][j].sequence)));
+                string site( toString(best_seqs_[i][j].sequence));
+                Pattern p;
+                p.bScore = bs;
+                p.site = site;
+                p.pos =  Position;
+                p.chrNb = "chr0";
+                p.dir = dir;
+                patterns.push_back(p);
+            }
+            
+        }
+        
+    }
 }
 
 matrix MatrixProtein::getmx()
 {
     return mx;
 }
+double MatrixProtein::to_Double(const string& str) // allows a convertion from string to double
+{
+    istringstream stream(str);
+    double dbl;
+    if (!(stream >> dbl))
+        return 0;
+    return dbl;
+}
+
+int MatrixProtein::toInt(const string& str) // allows a convertion from string to int
+{
+    istringstream stream(str);
+    int a;
+    if (!(stream >> a))
+        return 0;
+    return a;
+}
+
+vector<char> MatrixProtein::toVector(string str)
+{
+    vector<char> vec;
+    for (size_t i(0); i < str.size(); ++i)
+    {
+        vec.push_back(str[i]);
+    }
+    return vec;
+}
+
+string MatrixProtein::toString(vector<char> vec)
+{
+    string str;
+    for (size_t i(0); i < vec.size(); ++i)
+    {
+        str += vec[i];
+    }
+    return str;
+}
+
+
+

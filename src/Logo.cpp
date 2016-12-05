@@ -14,7 +14,11 @@ Logo::Logo()
 
 double Logo::size( double size_b)
 {
-    return pow(6,size_b)*10; //! arbitrary choice of size chosen by random testing
+    double taille(pow(13,size_b)*10);
+    if (taille < 0.01) {
+        taille = 0.01;
+    }
+    return taille; // abribtray
 }
 
 sf::RectangleShape Logo::set_text( double taille, size_t lettre, double emplacement, int largeur)
@@ -59,7 +63,7 @@ sf::RectangleShape Logo::set_text( double taille, size_t lettre, double emplacem
             break;
     }
     sf::RectangleShape rectangle;
-    rectangle.setSize(sf::Vector2f(100,pow(6,taille)*10));
+    rectangle.setSize(sf::Vector2f(100,size(taille)));
     rectangle.setFillColor(sf::Color(250,250,250,250));
     rectangle.setPosition(largeur, emplacement);
     rectangle.setTexture(ptexture);
@@ -79,39 +83,60 @@ vector<size_t> Logo::Letters_order(Letters Letters_, size_t j)
     size_t lt3 (0);
     double nbr4(0.0);
     size_t lt4 (0);
+    double sizea(Letters_.get_lettre_size()[j][0]);
+    double sizet(Letters_.get_lettre_size()[j][3]);
+    double sizeg(Letters_.get_lettre_size()[j][2]);
+    double sizec(Letters_.get_lettre_size()[j][1]);
+    
+    if (sizea == 0) {
+        sizea = 0.00000000000001;
+    }
+    if (sizet == 0) {
+        sizet = 0.00000000000001;
+    }
+    if (sizec == 0) {
+        sizec = 0.00000000000001;
+    }
+    if (sizeg == 0) {
+        sizeg = 0.00000000000001;
+    }
+    vector<double> tmp ({sizea, sizec, sizeg, sizet});
     for (size_t i(0); i < 4; ++i) {
-        if (Letters_.get_lettre_size()[j][i] > nbr1) {
+        if (tmp[i] > nbr1) {
             nbr4 = nbr3;
             lt4 = lt3;
             nbr3 = nbr2;
             lt3 = lt2;
             nbr2 = nbr1;
             lt2 = lt1;
-            nbr1 = Letters_.get_lettre_size()[j][i];
+            nbr1 = tmp[i];
             lt1 = i;
-        } else if (Letters_.get_lettre_size()[j][i] > nbr2) {
+        } else if (tmp[i] > nbr2) {
             nbr4 = nbr3;
             lt4 = lt3;
             nbr3 = nbr2;
             lt3 = lt2;
-            nbr2 = Letters_.get_lettre_size()[j][i];
+            nbr2 = tmp[i];
             lt2 = i;
-        } else if (Letters_.get_lettre_size()[j][i] > nbr3)
+        } else if (tmp[i] > nbr3)
         {
             nbr4 = nbr3;
             lt4 = lt3;
-            nbr3 = Letters_.get_lettre_size()[j][i];
+            nbr3 = tmp[i];
             lt3 = i;
         } else  {
-            nbr4 = Letters_.get_lettre_size()[j][i];
+            nbr4 = tmp[i];
             lt4 = i;
         }
     }
-    return {lt1,lt2,lt3,lt4};
+    vector<size_t> retour ({lt1,lt2,lt3,lt4});
+    
+    
+    return retour;
 }
 
 
-int Logo::afficher_logo(vector<Motif> sequences)
+int Logo::afficher_logo(vector<Pattern> sequences, vector<vector<double>> MX)
 {
     sf::RenderWindow window(sf::VideoMode(1400, 500), "PWM logo");
     
@@ -126,14 +151,14 @@ int Logo::afficher_logo(vector<Motif> sequences)
     
     Letters Letters_(sequences);
     int largeur(95);
+    Letters_.set_lettre_size(MX);
     
-    
-    int position_axe_x(348);
+    int position_axe_x(350);
     for (size_t j(0); j < Letters_.get_lettre_size().size(); ++j) {
         
-        vector<size_t> position(Letters_order(Letters_, j)); //! gets the order of probability for the letter
+        vector<size_t> position(Letters_order(Letters_, j)); // gets the order of probability for the letter
         
-        //! Calculate the position of the letter from the 0 of the Bits axes, taking in account the size of the letter above it, the origine is on the left corner of the window
+        //Calculate the position of the letter from the 0 of the Bits axes, taking in account the size of the letter above it, the origine is on the left corner of the window
         
         sf::RectangleShape probabilite1(set_text(Letters_.get_lettre_size()[j][position[0]], position[0], position_axe_x - size(Letters_.get_lettre_size()[j][position[0]]) - size(Letters_.get_lettre_size()[j][position[1]]) - size(Letters_.get_lettre_size()[j][position[2]]) - size(Letters_.get_lettre_size()[j][position[3]]), largeur));
         
@@ -151,7 +176,7 @@ int Logo::afficher_logo(vector<Motif> sequences)
         
         window.draw(probabilite4);
         
-        largeur+=75; //! spacing of 75 between each column on the axes (arbitary) 
+        largeur += 75; // spacing of 75 between each column on the axes (arbitary)
     }
     
     //Display

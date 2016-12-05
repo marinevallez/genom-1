@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
 
@@ -12,13 +13,22 @@ struct Pattern
 {
     double bScore;
     string site;
+    int pos;
+    string chrNb;
+    char dir;
+    
+};
+
+struct SeqPos {
+    vector<char> sequence;
+    size_t position;
 };
 
 
 class MatrixProtein
 {
-	
-	private:
+    
+private:
     
     //-----Attributes-----
     vector<Pattern> patterns;
@@ -26,10 +36,10 @@ class MatrixProtein
     matrix mx;
     matrix pssm_abs;
     matrix pwm_abs;
-    matrix pssm_rel;  
+    matrix pssm_rel;
     matrix pwm_rel;
     
-	public:
+public:
     
     //-----Constructor & Destructor-----
     MatrixProtein();
@@ -37,14 +47,14 @@ class MatrixProtein
     
     //-----Methods-----
     
-   /* //Conversions 
-    double To_double(const string& string);
-    int toInt(const string& str); 
-	vector<char> toVector(string str);
-	string toString(vector<char> vec);*/
-
-
-  
+    /* //Conversions
+     double To_double(const string& string);
+     int toInt(const string& str);
+     vector<char> toVector(string str);
+     string toString(vector<char> vec);*/
+    
+    
+    
     // Patterns (i.e Motifs)
     void fillVectorPatterns(vector<vector<char> > sites, double threshold = 0 ); // takes a list of sites (even size) and set the Patterns attribute with the list of all the site having an affinity score above a certain threshold (can be given or taken by default(the default number isn't 0 this is just a way to assure that if the User gives 0 or nothing the same default threshold will be used (see calculation of the default threshold)))
     vector<Pattern> getPatterns() const;
@@ -79,25 +89,33 @@ class MatrixProtein
     void display_PWM_rel();
     matrix getpwm_abs();
     matrix getpssm_abs();
-    matrix getmx()
+    matrix getmx();
     void calcul( vector<char> tab_, vector<double>& tabA_, vector<double>& tabT_, vector<double>& tabG_, vector<double>& tabC_);
-
-	// fonctions utilisée pour l'algorithme EM; 
-	void RemetZero( vector<double>& vec_);
-	void calculScore(vector<vector<double>> finale_, vector<double>& score_, int j_, vector<char> tab2_); 
-	void FindMotif(vector<vector<double>> finale_,vector<string> FromFasta_, int longueur_motif_, vector<vector<vector<char>>>& best_seqs_);
-	void fillPattern(vector<vector<vector<char>>> best_seqs_);
-	double calculScoreFinal(string seq);
-	
-	
-	// Algorithme EM complet --> Met la matrice PWM dans l'attribut mx + change le pattern
-	void EMalgorithm(int longueur_motif, vector<string> FromFasta);  
+    
+    // fonctions utilisée pour l'algorithme EM;
+    void RemetZero( vector<double>& vec_);
+    void calculScore(vector<vector<double>> finale_, vector<double>& score_, int j_, vector<char> tab2_);
+    void FindMotif(vector<vector<double>> finale_,vector<string> FromFasta_, int longueur_motif_, vector<vector<SeqPos>>& best_seqs_);
+    void fillPattern(vector<vector<SeqPos>> best_seqs_, int sizeint, vector<int>);
+    /*This fills the Pattern with the relevant information : The position given for a reverse seq is the position of it's foward seq */
+    double calculScoreFinal(string seq);
+    
+    
+    // Algorithme EM complet --> Met la matrice PWM dans l'attribut mx + change le pattern
+    void EMalgorithm(int longueur_motif, vector<string> FromFasta, vector<int>, int);
     
     //Calculation of the default threshold
     char genRandomChar();
     vector<char> seq_generator(double length);
     double set_average(matrix Matrice, double size);
+    //tmp
+    double to_Double(const string& str);
     
+    int toInt(const string& str);
+    
+    vector<char> toVector(string str);
+    
+    string toString(vector<char> vec);
 };
 
 #endif
