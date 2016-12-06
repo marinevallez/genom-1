@@ -1,6 +1,6 @@
 #include <iostream>
-
 #include "sequence.hpp"
+#include "utilities.hpp"
 #include "Logo.hpp"
 
 
@@ -99,18 +99,18 @@ int main()
         } while ((nbr < 0) and (nbr > 10));
         
         
-        vector<BedCoordinate> Bedcoordinates;
-        Bedcoordinates = sequence.ReadBed(Bed, chr);
-        vector<Coordinate> Coordinate_ (sequence.Convert_BedCToC(Bedcoordinates));
-        vector<string> fasta_seq (sequence.scanFasta(Coordinate_, Genom, nbr));
+        vector<Coordinate> coordinates;
+        coordinates = sequence.ReadBed(Bed, chr);
+        //vector<Coordinate> Coordinate_ (sequence.Convert_BedCToC(coordinates));
+        vector<string> fasta_seq (sequence.scanFasta(coordinates, Genom, nbr));
         size_t sizein(fasta_seq.size());
-        for (int k(0); k < sizein; ++k) {
-            vector<char> vect (Protein.toVector(fasta_seq[k]));
-            fasta_seq.push_back(sequence.toString(sequence.giveReverseComplementarySeq(vect)));
+        for (size_t k(0); k < sizein; ++k) {
+            vector<char> vect (toVector(fasta_seq[k]));
+            fasta_seq.push_back(toString(sequence.giveReverseComplementarySeq(vect)));
         }
         vector<int> debut;
-        for (int z(0); z < Coordinate_.size(); ++z) {
-            debut.push_back(Coordinate_[z].start);
+        for (size_t z(0); z < coordinates.size(); ++z) {
+            debut.push_back(coordinates[z].start);
         }
         
         Protein.EMalgorithm(nbr,fasta_seq, debut, sizein );
@@ -173,12 +173,12 @@ int main()
         }
         vector<string> fasta_seq (sequence.scanFasta(relevantCoordinate, Genom, nbr));
         size_t sizein(fasta_seq.size());
-        for (int k(0); k < sizein; ++k) {
-            vector<char> vect (Protein.toVector(fasta_seq[k]));
-            fasta_seq.push_back(sequence.toString(sequence.giveReverseComplementarySeq(vect)));
+        for (size_t k(0); k < sizein; ++k) {
+            vector<char> vect (toVector(fasta_seq[k]));
+            fasta_seq.push_back(toString(sequence.giveReverseComplementarySeq(vect)));
         }
         vector<int> debut;
-        for (int z(0); z < relevantCoordinate.size(); ++z) {
+        for (size_t z(0); z < relevantCoordinate.size(); ++z) {
             debut.push_back(relevantCoordinate[z].start);
         }
         
@@ -187,7 +187,7 @@ int main()
         cout << "The Matrix has been saved on the Matrix_Output file on the test folder \n The List of site has been saved on the Motif_Output on the test folder";
         sequence.fillPosDir(Protein, chr);
         vector<double> Sommes;
-        for (int x(0); x < sequence.getMotifs4Output().size(); ++x) {
+        for (size_t x(0); x < sequence.getMotifs4Output().size(); ++x) {
             double tmp (sequence.interval_addition(sequence.getMotifs4Output()[x].pos, Coordinate_));
             Sommes.push_back(tmp);
         }

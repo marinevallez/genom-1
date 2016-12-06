@@ -10,7 +10,7 @@
 #include <cstdlib>
 #include <iomanip>
 #include <iostream>
-//#include "utilities.cpp"
+#include "utilities.hpp"
 
 
 using namespace std;
@@ -128,10 +128,10 @@ void MatrixProtein::loadmatrix_fromfile(const string& Data){ // the function sto
     matrix_generation();
 }
 
-vector<Pattern> MatrixProtein::getPatterns() const
+/*vector<Pattern> MatrixProtein::getPatterns() const
 {
     return patterns;
-}
+}*/
 
 
 void MatrixProtein::matrix_generation()
@@ -1084,43 +1084,6 @@ void MatrixProtein::fillPattern(vector<vector<SeqPos>> best_seqs_, int sizeint, 
 matrix MatrixProtein::getmx()
 {
     return mx;
-}
-double MatrixProtein::to_Double(const string& str) // allows a convertion from string to double
-{
-    istringstream stream(str);
-    double dbl;
-    if (!(stream >> dbl))
-        return 0;
-    return dbl;
-}
-
-int MatrixProtein::toInt(const string& str) // allows a convertion from string to int
-{
-    istringstream stream(str);
-    int a;
-    if (!(stream >> a))
-        return 0;
-    return a;
-}
-
-vector<char> MatrixProtein::toVector(string str)
-{
-    vector<char> vec;
-    for (size_t i(0); i < str.size(); ++i)
-    {
-        vec.push_back(str[i]);
-    }
-    return vec;
-}
-
-string MatrixProtein::toString(vector<char> vec)
-{
-    string str;
-    for (size_t i(0); i < vec.size(); ++i)
-    {
-        str += vec[i];
-    }
-    return str;
 }
 
 

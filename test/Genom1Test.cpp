@@ -12,7 +12,7 @@ const vector<char> seq1Complement({'T','G','A','A','G','C','T','A','G'});
 const vector<char> reverseSeq1({'G','A','T','C','G','A','A','G','T'});
 
 
-const vector<PosDir> goodVec({{5,1,"chrT",'+',{0.0,"CCCTTTG"}},{40,1,"chrT",'-',{0.0,"CCCTTTG"}}});
+const vector<PosDir> goodVec({{6,1,"chrT",'+',"CCCTTTG",0.0},{38,1,"chrT",'-',"CCCTTTG",0.0}});
 
 bool isEqual(const vector<char>& v1, const vector<char>& v2);
 bool isEqual(const vector<PosDir>& v1, const vector<PosDir>& v2);
@@ -72,12 +72,12 @@ bool isEqual(const vector<PosDir>& v1, const vector<PosDir>& v2)
 	{
 		for(size_t i(0); i < v1.size(); ++i)
 		{
-			if((v1[i].pos != v2[i].pos) 
-				or (v1[i].seqNb != v2[i].seqNb)
-				or (v1[i].chrNb != v2[i].chrNb) 
-				or (v1[i].dir != v2[i].dir)
-				or ((v1[i].pattern).bScore != (v2[i].pattern).bScore)
-				or ((v1[i].pattern).site != (v2[i].pattern).site))
+			if(v1[i].pos != v2[i].pos
+				or v1[i].seqNb != v2[i].seqNb
+				or v1[i].chrNb != v2[i].chrNb 
+				or v1[i].dir != v2[i].dir
+				or v1[i].sequence != v2[i].sequence
+				or v1[i].bindingscore != v2[i].bindingscore)
 				{
 					return false;
 				} 

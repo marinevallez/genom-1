@@ -1,24 +1,4 @@
-/* <<<<<<< HEAD
-#ifndef UTILITIES_HPP
-#define UTILITIES_HPP
-
-
-=======
->>>>>>> 17ee29c8018f1f6b8446625d9e60aa842c9fe48e
-#include <vector>
-#include <fstream>
-#include <stdio.h>
-#include <sstream>
-#include <cmath>
-#include <map>
-#include <cassert>
-#include <stdexcept>
-#include <cstdlib>
-#include <iomanip>
-#include <iostream>
 #include "utilities.hpp"
-//using namespace std;
-
 
 //Conversions methods
 
@@ -31,7 +11,7 @@ double to_Double(const string& str) // allows a convertion from string to double
     return dbl;
 }
 
-int toInt(const string& str) // allows a convertion from string to int
+int toInt(const string& str)  // allows a convertion from string to int
 {
     istringstream stream(str);
     int a;
@@ -40,7 +20,7 @@ int toInt(const string& str) // allows a convertion from string to int
     return a;
 }
 
-vector<char> toVector(const string& str) 
+vector<char> toVector(const string& str)  
 {
 	vector<char> vec;
 	for (size_t i(0); i < str.size(); ++i)
@@ -50,7 +30,7 @@ vector<char> toVector(const string& str)
 	return vec;
 }
 
-string toString(const vector<char>& vec)
+string toString(const vector<char>& vec) 
 {
 	string str;
 	for (size_t i(0); i < vec.size(); ++i)
@@ -58,5 +38,5 @@ string toString(const vector<char>& vec)
 		str += vec[i];
 	}
 	return str;
-} */
+} 
 

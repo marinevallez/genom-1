@@ -6,8 +6,7 @@
 #include <sstream>
 #include <iomanip>
 #include "sequence.hpp"
-//#include "utilities.cpp"
-
+#include "utilities.hpp"
 using namespace std;
 
 
@@ -91,7 +90,7 @@ char giveComplementaryBase(const char& nucl)				//it's a function because it has
 
 vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fileName) const
 {
-	/*ifstream file;								//the file we are going to read
+	ifstream file;								//the file we are going to read
 	char base, nucl, extra; 
 	string line("");
 	vector<char> seq;
@@ -187,11 +186,11 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 					seq = {begin(l), end(l)};
 					
 					/*for(auto& c : seq) {cout << c;}
-					cout << " ";*//*
+					cout << " ";*/
 
 					if(compare(seq, motif_))
 					{
-						positions.push_back({compteur +1,compteurSeq,chrNb_,'+',{0.0, toString(motif_)}});
+						positions.push_back({compteur +1,compteurSeq,chrNb_,'+', toString(motif_), 0.0});
 					}
 					
 					vector<char> secondStrand;				//we get the second strand of DNA from .fasta 
@@ -204,18 +203,18 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 					
 					if(compare(secondStrand, motifReverse_))
 					{
-						positions.push_back({compteur+1, compteurSeq,chrNb_, '-',{0.0,toString(motif_)}});
+						positions.push_back({compteur+1, compteurSeq,chrNb_, '-',toString(motif_), 0.0});
 					}
 				}
 			}
-		}*//*
+		}
 	}
 	
 	file.close();
 	for(const PosDir& c : positions) {cout << "pos:" <<c.pos << " ,seqNb:" << c.seqNb << " ,chrNb:"
-			<< c.chrNb << " ,dir:" << c.dir << " ,bScore:" << c.pattern.bScore << " ,site:" 
-			<< c.pattern.site << endl;}
-	return positions; */
+			<< c.chrNb << " ,dir:" << c.dir << " ,bScore:" << c.bindingscore << " ,site:" 
+			<< c.sequence << endl;}
+	return positions; 
 }
 
 
@@ -251,7 +250,7 @@ vector<char> Sequence::giveReverseComplementarySeq(const vector<char>& seq) cons
     
     //  cout << complementarySequence.size();    -> we see that the vectors are the same size
     return complementarySequence;
-};
+}
 
 
 vector<Coordinate> Sequence::readBedGraph(const string& fileName, string chrsought) // the function stores data from a file containing a chromosome n°, 2 positions and a score
@@ -261,7 +260,7 @@ vector<Coordinate> Sequence::readBedGraph(const string& fileName, string chrsoug
     
     vector<string> temporarySites; // stock in a 1x1 Matrix to calculate the number of data
     ifstream file;
-    file.open(fileName);
+    file.open("../test/" + fileName);
     
     
 
@@ -307,19 +306,20 @@ vector<Coordinate> Sequence::readBedGraph(const string& fileName, string chrsoug
 }
 
 
-vector<BedCoordinate> Sequence::ReadBed(const string& fileName, string chrsought) // the function stores data from a file containing a chromosome n°and 2 positions
+vector<Coordinate> Sequence::ReadBed(const string& fileName, string chrsought) // the function stores data from a file containing a chromosome n°and 2 positions
 {
     
-    vector<BedCoordinate> BedCoordinates;
+    vector<Coordinate> Coordinates;
 
     
     vector<string> temporarySites; // stock in a 1x1 Matrix to calculate the number of data
     ifstream file;
-    file.open(fileName);
+    file.open("../test/" + fileName);
     
     
     if (file.fail()) {
-        cerr << "This file could not be opened ! Bed " <<endl;
+        throw runtime_error("This file could not be opened!");
+        
     }
     
     else {
@@ -340,7 +340,7 @@ vector<BedCoordinate> Sequence::ReadBed(const string& fileName, string chrsought
         while (z < temporarySites.size())
         {
 
-            BedCoordinate c;
+            Coordinate c;
             if (temporarySites[z] == chrsought) {
                 c.chromosome = temporarySites[z];
                 ++z;
@@ -348,7 +348,7 @@ vector<BedCoordinate> Sequence::ReadBed(const string& fileName, string chrsought
                 ++z;
                 c.end = toInt(temporarySites[z]);
                 ++z;
-                BedCoordinates.push_back(c);
+                Coordinates.push_back(c);
             } else {
                 z += 3;
             }
@@ -356,7 +356,7 @@ vector<BedCoordinate> Sequence::ReadBed(const string& fileName, string chrsought
             
         }
     }
-    return BedCoordinates;
+    return Coordinates;
     
 }
 
@@ -462,17 +462,45 @@ vector<string> Sequence::scanFasta(vector<Coordinate>& coordinates, const string
                     
                 }
                 
-                
+                motif.clear();
                 
             }
         }
     }
     //TEST
     file.close();
+    makeFasta(listOfMotifs, coordinates);
     return listOfMotifs;
 }
 
-
+void Sequence::makeFasta(const vector<string>& regions, const vector<Coordinate>& coordinates) const
+{
+	unsigned int fileNb(1);
+	string newFastaName("../test/sites" + std::to_string(fileNb) + ".fasta"), header;
+	ofstream newFasta;
+	while(ifstream(newFastaName))
+	{
+		++fileNb;
+		newFastaName = "../test/sites" + std::to_string(fileNb) + ".fasta";
+	}
+	
+	
+	newFasta.open(newFastaName);
+	
+	if(newFasta.fail()) {throw runtime_error("File could not be created (makeFasta method)!");}
+	else
+	{
+		for(size_t i(0); i < regions.size(); ++i)
+		{
+			header = ">" + coordinates[i].chromosome + "|" + coordinates[i].chromosome + ":" 
+				+ std::to_string(coordinates[i].start) + "-" + std::to_string(coordinates[i].end);
+			string addition(regions[i]);
+			newFasta << header << endl << addition << endl;
+		}
+		
+	}
+	
+}
 
 
 void Sequence::loadResultsOnFile(const string& fileName, const vector<PosDir>& posdir, vector <double> sommeScores )    //fonction that loads on a file (fileName) all the information of a/several sequence(s)
@@ -570,7 +598,7 @@ vector<string> Sequence::loadSeq( string fileName )
     
     if(file.fail())        // if it didnt open -> show an error
     {
-        throw runtime_error("The Fasta file name is invalide");
+        throw runtime_error("The Fasta file name is invalid.");
     }
     else
     {
@@ -589,11 +617,12 @@ vector<string> Sequence::loadSeq( string fileName )
 }
 
 
-void Sequence::fillPosDir(MatrixProtein MX, string chrn)
+void Sequence::fillPosDir(MatrixProtein& MX, string chrn)
 {
-    for (size_t i(0); i < MX.getPatterns().size(); ++i) {
-        
-        motifs4output.push_back({static_cast<size_t>(MX.getPatterns()[i].pos),2, chrn, MX.getPatterns()[i].dir, MX.getPatterns()[i].site, MX.getPatterns()[i].bScore});
+    vector<Pattern> patterns_ = MX.getPatterns();
+    for(size_t i(0); i < patterns_.size(); ++i) 
+    {
+		motifs4output.push_back({static_cast<size_t>(patterns_[i].pos),2, chrn, patterns_[i].dir, patterns_[i].site, patterns_[i].bScore}); 
     }
     
 }
@@ -611,44 +640,5 @@ vector<Coordinate> Sequence::Convert_BedCToC(vector<BedCoordinate> BedC)
 vector<PosDir> Sequence::getMotifs4Output() const
 {
     return motifs4output;
-}
-
-
-double Sequence::to_Double(const string& str) // allows a convertion from string to double
-{
-    istringstream stream(str);
-    double dbl;
-    if (!(stream >> dbl))
-        return 0;
-    return dbl;
-}
-
-int Sequence::toInt(const string& str) // allows a convertion from string to int
-{
-    istringstream stream(str);
-    int a;
-    if (!(stream >> a))
-        return 0;
-    return a;
-}
-
-vector<char> Sequence::toVector(string str)
-{
-    vector<char> vec;
-    for (size_t i(0); i < str.size(); ++i)
-    {
-        vec.push_back(str[i]);
-    }
-    return vec;
-}
-
-string Sequence::toString(vector<char> vec)
-{
-    string str;
-    for (size_t i(0); i < vec.size(); ++i)
-    {
-        str += vec[i];
-    }
-    return str;
 }
 

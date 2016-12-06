@@ -5,7 +5,6 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include "Input.hpp"
 #include "matrixprotein.hpp"
 using namespace std;
 
@@ -91,7 +90,7 @@ public:
      * */
     
 
-    vector<BedCoordinate> ReadBed(const string& fileName, string);
+    vector<Coordinate> ReadBed(const string& fileName, string);
     
     /*!
      * Function that add scores on an interval from pos -50 to pos + 50
@@ -150,15 +149,9 @@ public:
     
     void Clean_Motif_Output(const string& fileName);
     
-    void fillPosDir(MatrixProtein MX, string chrn);
-    //tmp
-    double to_Double(const string& str);
-    
-    int toInt(const string& str);
-    
-    vector<char> toVector(string str);
-    
-    string toString(vector<char> vec);
+    void fillPosDir(MatrixProtein& MX, string chrn);
+
+	void makeFasta(const vector<string>&, const vector<Coordinate>&) const;
 
 };
 
