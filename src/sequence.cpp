@@ -195,10 +195,7 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 					
 					vector<char> secondStrand;				//we get the second strand of DNA from .fasta 
 					
-					for(const char& c : seq)
-					{
-						secondStrand.push_back(giveComplementaryBase(c));
-					}
+					
 					
 					
 					if(compare(secondStrand, motifReverse_))
@@ -217,7 +214,127 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 	return positions; 
 }
 
+void Sequence::fastaPlusMatrix(const string& fastaFile, matrix& pwm, const double& seuil)
+{
+	ifstream file;								//the file we are going to read
+	char base, nucl, extra; 
+	string line("");
+	vector<char> seq, secondStrand;
+	list<char> l;
+	size_t compteur(0);
+	size_t compteurSeq(0);
+	double score;
+	string chrNb_;
+	
+	file.open("../test/" + fastaFile);
+	
+	if(file.fail())								// if it didnt open -> show an error 
+	{
+		cerr << "The file could not be opened!" << endl;
+	}
+	else
+	{	
+		while(!file.eof())
+		{
+			file >> nucl;
+			if(nucl != '>') 
+			{
+				cout << endl;
+				throw runtime_error("Error: missing header in .fasta!");
+			}
+			else
+			{
+				file >> line;
+				chrNb_ = chromosomeNb(line);
+				compteur =0;
+				++compteurSeq; 
 
+				for(size_t i(0); i < pwm.size(); ++i)
+				{
+					if(i == 0) {l.clear();}
+				
+					file >> ws >> base;
+				
+					cout << base;			
+					l.push_back(base);			
+				}
+				
+				seq = {l.begin(), l.end()};
+				
+				score = calculateScore(pwm, seq);
+
+				if(score >= seuil)
+				{
+					motifs4output.push_back({compteur+1,compteurSeq,chrNb_,'+', toString(seq),score});
+				}
+					
+				secondStrand = giveReverseComplementarySeq(seq);
+				
+				score = calculateScore(pwm, secondStrand);
+				
+				if(score >= seuil)
+				{
+					motifs4output.push_back({compteur+1,compteurSeq,chrNb_,'-', toString(secondStrand),score});
+				}
+
+				while(file >> noskipws >> nucl)
+				{
+					cout << nucl;
+					file.get(extra);
+					if(nucl == '\n' and extra != '>') 
+					{
+						if(!file.eof()) 
+						{
+							cout << endl;
+							throw runtime_error("Error: new lines inside are not allowed!");
+						}
+						if(file.eof()) {file.close();}
+					}
+					else if(nucl == '\n') 
+					{
+						file.putback(extra);
+						break;
+					}
+					else if(isspace(nucl)) 
+					{
+						cout << endl;
+						throw runtime_error("Error: no spaces allowed!");
+					}
+					else
+					{
+						file.putback(extra);
+						l.pop_front();
+						l.push_back(nucl);
+					}
+					
+					++compteur;
+					seq = {begin(l), end(l)};
+
+					score = calculateScore(pwm, seq);
+				
+					if(score >= seuil)
+					{
+						motifs4output.push_back({compteur+1,compteurSeq,chrNb_,'+', toString(seq),score});
+					}
+						
+					secondStrand = giveReverseComplementarySeq(seq);
+					
+					score = calculateScore(pwm, secondStrand);
+					
+					if(score >= seuil)
+					{
+						motifs4output.push_back({compteur+1,compteurSeq,chrNb_,'-', toString(secondStrand),score});
+					}
+				}
+			}
+		}
+	}
+	
+	file.close();
+	for(const PosDir& c : motifs4output) {cout << "pos:" <<c.pos << " ,seqNb:" << c.seqNb << " ,chrNb:"
+			<< c.chrNb << " ,dir:" << c.dir << " ,bScore:" << c.bindingscore << " ,site:" 
+			<< c.sequence << endl;}
+}
 
 
 //A method giving the REVERSE complementary sequence from one of the two DNA strand
@@ -542,6 +659,28 @@ void Sequence::loadResultsOnFile(const string& fileName, const vector<PosDir>& p
             sortie << entry.sequence << " "  << entry.bindingscore << " " ;
             sortie << "\n";
             ++i;
+        }
+    }
+    sortie.close();
+}
+
+void Sequence::loadResultsOnFile(const string& fileName)    //fonction that loads on a file (fileName) all the information of a/several sequence(s)
+
+{
+    ofstream sortie;
+    sortie.open("../test/" + fileName);
+    
+    if (sortie.fail()) 
+    {
+        throw runtime_error("Coulnd't open the file");
+    } 
+    else 
+    {
+        for(const PosDir& entry : motifs4output)
+        {
+            sortie << "seq" << entry.seqNb << "/" <<entry.chrNb <<" "  << entry.pos << " " << entry.dir << " " ;
+            sortie << entry.sequence << " "  << entry.bindingscore << " " ;
+            sortie << "\n";
         }
     }
     sortie.close();

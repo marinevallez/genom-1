@@ -20,9 +20,10 @@ int main()
         cout << " - Fasta files (write '1') : this will give you a Position Weight Matrix \n" <<endl;
         cout << " - Genomic fasta files and Bed files (write '2'): this could give you a Position Weight Matrix and a list of motif \n" <<endl;
         cout << " -  Genomic fasta files and BedGraph files (write '3') : this could give you a Position Weight Matrix and a list of motif completed with a bedgraph score \n" <<endl;
+        cout << " - Non-genomic fasta file, .mat and a threshold for the score (enter '4') to produce a list of sites \n" << endl;
         cin >> answer;
         ++nbr;
-    } while ( (answer != '1') and (answer != '2') and (answer != '3') and  (nbr <= 10));
+    } while ( (answer != '1') and (answer != '2') and (answer != '3') and (answer != '4') and  (nbr <= 10));
     
     if(nbr > 10) { cout << " A non-sense answer has been entered too many times ! " <<endl; }
     
@@ -201,6 +202,34 @@ int main()
             logo.afficher_logo(Protein.getPatterns(), Protein.getmx());
         }
     }
+    
+    else if(answer == '4')
+    {
+		Sequence seq;
+		MatrixProtein matrix_;
+		cout << "Enter .mat file name: " << endl;
+		string matName;
+		cin >> matName;							//need to check what the user enters (to do later)
+		matrix_.loadmatrix_fromfile(matName);
+		matrix pssm_ = matrix_.getpssm_rel();			// we assume it's a PWM
+		
+		cout << "Please enter a threshold: " << endl;
+		double seuil_;
+		cin >> seuil_;
+		
+		cout << "Please enter .fasta name: " << endl;
+		string fastaName_;
+		cin >> fastaName_;
+		try
+		{
+		seq.fastaPlusMatrix(fastaName_, pssm_, seuil_);
+		seq.loadResultsOnFile("List of sites (fasta + mat).txt");
+		}
+		catch(runtime_error& e)
+		{
+			cout << e.what() << endl;
+		}
+	}
     
     return 0;
 }

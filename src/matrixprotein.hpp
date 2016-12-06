@@ -3,6 +3,17 @@
 
 #include <iostream>
 #include <vector>
+#include <fstream>
+#include <stdio.h>
+#include <sstream>
+#include <cmath>
+#include <map>
+#include <cassert>
+#include <stdexcept>
+#include <cstdlib>
+#include <iomanip>
+#include <iostream>
+#include "utilities.hpp"
 
 using namespace std;
 
@@ -27,7 +38,6 @@ struct SeqPos {
 
 class MatrixProtein
 {
-    
 private:
     
     //-----Attributes-----
@@ -79,11 +89,12 @@ public:
     vector <bool> matrix_status(matrix matrice);
     void matrix_generation();
     void readjust_values(matrix& mtx);
-    double get_affinity_score_from_matrix(vector<vector<double> > matrix,vector<char> sequence);
+    double get_affinity_score_from_matrix(matrix mx,vector<char> sequence);
     void display_PWM_rel();
     matrix getpwm_abs();
     matrix getpssm_abs();
     matrix getmx();
+    matrix getpssm_rel();
     void calcul( vector<char> tab_, vector<double>& tabA_, vector<double>& tabT_, vector<double>& tabG_, vector<double>& tabC_);
     
     // fonctions utilisée pour l'algorithme EM;

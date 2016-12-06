@@ -1,18 +1,4 @@
 #include "matrixprotein.hpp"
-#include <vector>
-#include <fstream>
-#include <stdio.h>
-#include <sstream>
-#include <cmath>
-#include <map>
-#include <cassert>
-#include <stdexcept>
-#include <cstdlib>
-#include <iomanip>
-#include <iostream>
-#include "utilities.hpp"
-
-
 using namespace std;
 
 
@@ -560,14 +546,14 @@ double MatrixProtein::set_average(matrix Matrice, double size)
     
 }
 
-double MatrixProtein::get_affinity_score_from_matrix(vector<vector<double> > matrix,vector<char> sequence) // calculates the binding score (double) of a certain sequence based on a Matrix of type PWM
+double MatrixProtein::get_affinity_score_from_matrix(matrix mx,vector<char> sequence) // calculates the binding score (double) of a certain sequence based on a Matrix of type PWM
 // the function throws an exception which should be catched !
 {
-    if (matrix.size() < sequence.size()) // checks that the sequence is entirly contained in the matrix
+    if (mx.size() < sequence.size()) // checks that the sequence is entirly contained in the matrix
     {
         throw runtime_error("Error : The Matrix doesn't fit the sequence"); //throw exeption
     }
-    if (matrix.size()==0) { // checks if the Matrix is configurated
+    if (mx.size()==0) { // checks if the Matrix is configurated
         throw runtime_error("Error : The Matrix isn't configurated "); //throw exeption
     }
     
@@ -575,19 +561,17 @@ double MatrixProtein::get_affinity_score_from_matrix(vector<vector<double> > mat
     for (unsigned int i(0); i < sequence.size(); ++i) {
         switch (sequence[i]) {
             case 'A':
-                score *= matrix[i][0];
+                score *= mx[i][0];
                 break;
             case 'C':
-                score *= matrix[i][1];
+                score *= mx[i][1];
                 break;
             case 'G':
-                score *= matrix[i][2];
+                score *= mx[i][2];
                 break;
             case 'T':
-                score *= matrix[i][3];
+                score *= mx[i][3];
                 break;
-                
-                
             default:
                 break;
         }
@@ -1086,5 +1070,7 @@ matrix MatrixProtein::getmx()
     return mx;
 }
 
-
-
+matrix MatrixProtein::getpssm_rel()
+{
+	return pssm_rel;
+}

@@ -67,6 +67,11 @@ public:
      */
     
     vector<PosDir> motifRecognition(const string&, const string& fileName) const;
+   /*!
+     *The fastaPlusMatrix method opens a .fasta file (NOT GENOMIC) and using a matrix fills out motifs4output with motifs from the .fasta with a sufficient score (higher than a threshold provided by the user).
+     */
+    
+    void fastaPlusMatrix(const string&,matrix&, const double&);
     
     /*!
      * The motifRecognition method can also open a .fasta file and, with a list of possible motifs, find which one are present within the sequences of the .fasta file.
@@ -121,6 +126,7 @@ public:
     
     void loadResultsOnFile(const string& fileName, const vector<PosDir>& posdir, vector<double> sommeScores);
     void loadResultsOnFile(const string& fileName, const vector<PosDir>& posdir);
+    void loadResultsOnFile(const string& fileName);
     
     /*!
      * loadMatrixOnFile method loads on a given file a given matrix

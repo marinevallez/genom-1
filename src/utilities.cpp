@@ -40,3 +40,35 @@ string toString(const vector<char>& vec)
 	return str;
 } 
 
+double calculateScore(matrix mx, vector<char> seq_)
+{
+	if (mx.size() < seq_.size()) // checks that the sequence is entirly contained in the matrix
+    {
+        throw runtime_error("Error : The Matrix doesn't fit the sequence"); //throw exeption
+    }
+    if (mx.size()==0) { // checks if the Matrix is configurated
+        throw runtime_error("Error : The Matrix isn't configurated "); //throw exeption
+    }
+    
+    double score(1);
+    for (unsigned int i(0); i < seq_.size(); ++i) {
+        switch (seq_[i]) {
+            case 'A':
+                score += mx[i][0];
+                break;
+            case 'C':
+                score += mx[i][1];
+                break;
+            case 'G':
+                score += mx[i][2];
+                break;
+            case 'T':
+                score += mx[i][3];
+                break;
+            default:
+                break;
+        }
+    }
+    return score;
+}
+

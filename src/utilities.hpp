@@ -15,6 +15,8 @@
 #include <iostream>
 using namespace std;
 
+typedef vector<vector<double>> matrix;
+
 double to_Double(const string&); // allows a convertion from string to double
 
 int toInt(const string&);	// allows a convertion from string to int
@@ -22,5 +24,7 @@ int toInt(const string&);	// allows a convertion from string to int
 vector<char> toVector(const string& str);
 
 string toString(const vector<char>&);
+
+double calculateScore(matrix, vector<char>);
 
 #endif
