@@ -423,7 +423,7 @@ vector<Coordinate> Sequence::readBedGraph(const string& fileName, string chrsoug
 }
 
 
-vector<Coordinate> Sequence::ReadBed(const string& fileName, string chrsought) // the function stores data from a file containing a chromosome n°and 2 positions
+vector<Coordinate> Sequence::readBed(const string& fileName, string chrsought) // the function stores data from a file containing a chromosome n°and 2 positions
 {
     
     vector<Coordinate> Coordinates;

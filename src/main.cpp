@@ -65,10 +65,10 @@ int main()
         cout << "Do you want to display the Logo of the PWM ? (type 1)";
         int response;
         cin >> response;
-        if (response == 1) {
+       /* if (response == 1) {
             Logo logo;
             logo.afficher_logo(Protein.getPatterns(), Protein.getmx());
-        }
+        }*/
         
         
         
@@ -101,7 +101,7 @@ int main()
         
         
         vector<Coordinate> coordinates;
-        coordinates = sequence.ReadBed(Bed, chr);
+        coordinates = sequence.readBed(Bed, chr);
         //vector<Coordinate> Coordinate_ (sequence.Convert_BedCToC(coordinates));
         vector<string> fasta_seq (sequence.scanFasta(coordinates, Genom, nbr));
         size_t sizein(fasta_seq.size());
@@ -125,10 +125,10 @@ int main()
         cout << "Do you want to display the Logo of this PWM ? (type 1)";
         int response;
         cin >> response;
-        if (response == 1) {
+       /* if (response == 1) {
             Logo logo;
             logo.afficher_logo(Protein.getPatterns(), Protein.getmx());
-        }
+        }*/
     }
     
     
@@ -197,10 +197,10 @@ int main()
         cout << "Do you want to display the Logo of this PWM ? (type 1)";
         int response;
         cin >> response;
-        if (response == 1) {
+      /*  if (response == 1) {
             Logo logo;
             logo.afficher_logo(Protein.getPatterns(), Protein.getmx());
-        }
+        }*/
     }
     
     else if(answer == '4')
