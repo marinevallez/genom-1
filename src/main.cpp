@@ -65,10 +65,10 @@ int main()
         cout << "Do you want to display the Logo of the PWM ? (type 1)";
         int response;
         cin >> response;
-       /* if (response == 1) {
+        if (response == 1) {
             Logo logo;
             logo.afficher_logo(Protein.getPatterns(), Protein.getmx());
-        }*/
+        }
         
         
         
@@ -125,10 +125,10 @@ int main()
         cout << "Do you want to display the Logo of this PWM ? (type 1)";
         int response;
         cin >> response;
-       /* if (response == 1) {
+       if (response == 1) {
             Logo logo;
             logo.afficher_logo(Protein.getPatterns(), Protein.getmx());
-        }*/
+        }
     }
     
     
@@ -197,10 +197,10 @@ int main()
         cout << "Do you want to display the Logo of this PWM ? (type 1)";
         int response;
         cin >> response;
-      /*  if (response == 1) {
+        if (response == 1) {
             Logo logo;
             logo.afficher_logo(Protein.getPatterns(), Protein.getmx());
-        }*/
+        }
     }
     
     else if(answer == '4')
