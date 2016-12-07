@@ -601,7 +601,7 @@ void MatrixProtein::get_relevent_site(vector<vector<char>> Input, int set, int t
     {
         for (size_t j(0); j < Input[i].size() - set; ++j) {
             vector<char> tmp;
-            for (size_t z(0); z < set; ++z)
+            for (int z(0); z < set; ++z)
             {
                 tmp.push_back(Input[i][j+z]); // construct small vector of size n (given by the User)
             }
@@ -754,11 +754,11 @@ void MatrixProtein::FindMotif(vector<vector<double>> finale_ , vector<string> Fr
         vector<double> score(b, 0);
         vector<int> indices(0);
         vector<SeqPos> vec1(0);
-        for (size_t j(0) ; j < b ; ++j)
+        for (int j(0) ; j < b ; ++j)
         {
             if (j == 0) // soit je remplit le tableau temporaire pour la premiere fois
             {
-                for ( size_t k(0) ; k < longueur_motif_ ; ++k)
+                for (int k(0) ; k < longueur_motif_ ; ++k)
                 {
                     tab2[k] = FromFasta_[i][k];
                 }
@@ -793,7 +793,7 @@ void MatrixProtein::FindMotif(vector<vector<double>> finale_ , vector<string> Fr
             vector<char>vec2(0);
             SeqPos TMP;
             TMP.position = index;
-            for ( size_t d(index) ; d < index + longueur_motif_ ; ++d)
+            for (int d(index) ; d < index + longueur_motif_ ; ++d)
             {
                 vec2.push_back(FromFasta_[i][d]);  // on met dans un tableau les bases du motif de la position retrnue par indice de longueur "longueur_mtif"
             }
@@ -834,11 +834,11 @@ void MatrixProtein::EMalgorithm(int longueur_motif, vector<string> FromFasta, ve
         
         somme = somme + a; // pour calculer le nombre total (dans toute la liste de site) de combinaison de taille  "longueur_motif".
         
-        for (size_t j(0) ; j < a ; ++j)
+        for (int j(0) ; j < a ; ++j)
         {
             if (j == 0) // soit je remplit le tableau temporaire pour la premiere fois
             {
-                for ( size_t k(0) ; k < longueur_motif ; ++k)
+                for ( int k(0) ; k < longueur_motif ; ++k)
                 {
                     tab[k] = FromFasta[i][k];
                 }
@@ -865,7 +865,7 @@ void MatrixProtein::EMalgorithm(int longueur_motif, vector<string> FromFasta, ve
     // DIVISION PAR LA SOMME
     for ( size_t i(0) ; i < finale.size() ; ++i)
     {
-        for (size_t j(0); j < longueur_motif; ++j)
+        for (int j(0); j < longueur_motif; ++j)
         {
             finale[i][j] = finale[i][j]/somme;
         }
@@ -901,9 +901,9 @@ void MatrixProtein::EMalgorithm(int longueur_motif, vector<string> FromFasta, ve
     PWM.push_back(tabC);
     
     
-    for ( size_t i(0) ; i < PWM.size() ; ++i)
+    for (size_t i(0) ; i < PWM.size() ; ++i)
     {
-        for (size_t j(0); j < longueur_motif; ++j)
+        for (int j(0); j < longueur_motif; ++j)
         {
             PWM[i][j] = PWM[i][j]/somme;
             // on divise par la somme pour avoir la probabilité
@@ -940,7 +940,7 @@ void MatrixProtein::EMalgorithm(int longueur_motif, vector<string> FromFasta, ve
         for ( size_t i(0) ; i < 4 ; ++i)
         {
             
-            for (size_t j(0); j < longueur_motif; ++j)
+            for (int j(0); j < longueur_motif; ++j)
             {
                 PWM[i][j] = PWM[i][j]/somme;
             }

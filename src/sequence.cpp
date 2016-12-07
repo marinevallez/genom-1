@@ -197,10 +197,10 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 					
 					
 					
-					
 					if(compare(secondStrand, motifReverse_))
 					{
-						positions.push_back({compteur+1, compteurSeq,chrNb_, '-',toString(motif_), 0.0});
+						cout << "here " << endl;
+						positions.push_back({compteur+1, compteurSeq,chrNb_, '-', toString(motif_), 0.0});
 					}
 				}
 			}
@@ -548,7 +548,7 @@ vector<string> Sequence::scanFasta(vector<Coordinate>& coordinates, const string
         else
         {
             //trying for all :
-            for(int i(0); i < coordinates.size() ; ++i)
+            for(size_t i(0); i < coordinates.size() ; ++i)
             {
                 
                 start = (coordinates[i]).start;
