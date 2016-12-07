@@ -169,12 +169,12 @@ class Sequence {
     
     void loadMatrixOnFile(const string& fileName, matrix matrice);
 
-/*!
+/*
 * The find method takes a matrix, loads it, goes through sequences in fasta 
 * and gets all motifs with sufficient scores with their positions and direction.
-*/
+
     
-    /*void find(MatrixProtein&, const string&);*/
+    void find(MatrixProtein&, const string&);*/
     
 /*!
 *  A getter method to get motifs4output to be exported into a .txt file.
