@@ -122,6 +122,7 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 	}
 	else
 	{	
+		cout << "Scanning " + fileName + "...";
 		while(!file.eof())
 		{
 			file >> nucl;
@@ -136,6 +137,7 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 				chrNb_ = chromosomeNb(line);
 				
 				++compteurSeq; 
+				compteur = 0;
 
 				for(size_t i(0); i < motif_.size(); ++i)
 				{
@@ -148,19 +150,18 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 						cout << endl;
 						throw runtime_error("Error: no spaces allowed!");
 					}
-					cout << base;			
+								
 					l.push_back(base);			
 				}
 
 				while(file >> noskipws >> nucl)
 				{
-					cout << nucl;
 					file.get(extra);
 					if(nucl == '\n' and extra != '>') 
 					{
 						if(!file.eof()) 
 						{
-							cout << endl;
+							
 							throw runtime_error("Error: new lines inside are not allowed!");
 						}
 						if(file.eof()) {file.close();}
@@ -172,7 +173,7 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 					}
 					else if(isspace(nucl)) 
 					{
-						cout << endl;
+						
 						throw runtime_error("Error: no spaces allowed!");
 					}
 					else
@@ -202,9 +203,10 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 	}
 	
 	file.close();
-	for(const PosDir& c : positions) {cout << "pos:" <<c.pos << " ,seqNb:" << c.seqNb << " ,chrNb:"
-			<< c.chrNb << " ,dir:" << c.dir << " ,bScore:" << c.bindingscore << " ,site:" 
-			<< c.sequence << endl;}
+	cout << endl << "Done reading. Here are the motifs found in " + fileName + ":" << endl;
+	for(const PosDir& c : positions) {cout << "pos: " <<c.pos << ", seqNb: " << c.seqNb << ", chrNb: "
+			<< c.chrNb << ", dir: " << c.dir << ", bScore: " << c.bindingscore << ", site: " 
+			<< c.sequence << endl;}	
 	return positions; 
 }
 
@@ -455,7 +457,7 @@ vector<Coordinate> Sequence::readBed(const string& fileName, string chrsought) /
             if (temporarySites[z] == chrsought) {
                 c.chromosome = temporarySites[z];
                 ++z;
-                c.start = toInt(temporarySites[z]); 	//does not compile here but don't know why ?
+                c.start = toInt(temporarySites[z]); 
                 ++z;
                 c.end = toInt(temporarySites[z]);
                 ++z;
@@ -467,6 +469,7 @@ vector<Coordinate> Sequence::readBed(const string& fileName, string chrsought) /
             
         }
     }
+    cout << Coordinates.size() << endl;
     return Coordinates;
     
 }
@@ -525,7 +528,7 @@ vector<string> Sequence::scanFasta(vector<Coordinate>& coordinates, const string
     long long int start, end;
     ifstream file;
     
-    file.open(/*"../test/" +*/ fileName);
+    file.open("../test/" + fileName);
     if(file.fail())
     {
         cerr << "This file could not be opened ! Scan fasta" << endl;
@@ -556,7 +559,7 @@ vector<string> Sequence::scanFasta(vector<Coordinate>& coordinates, const string
                     int score (0);
                     file >> read;
                     if ((read != 'A') and (read != 'C') and (read != 'T') and (read != 'G') and (read != 'a') and (read != 't') and (read != 'g') and (read != 'c') and (read != 'N') and (read != '>')) {
-                        throw runtime_error("The Fasta file contains some unknown characters");
+                        throw runtime_error("Error: the .fasta file contains some unknown characters!");
                     }
                     if ((read == 'A') or (read == 'C') or (read == 'T') or (read == 'G') or (read == 'a') or (read == 't') or (read == 'g') or (read == 'c')) {
                         ++ score; // checks that we don't have a entire line of n
@@ -580,6 +583,7 @@ vector<string> Sequence::scanFasta(vector<Coordinate>& coordinates, const string
     }
     //TEST
     file.close();
+    cout << listOfMotifs.size() << endl;
     makeFasta(listOfMotifs, coordinates);
     return listOfMotifs;
 }
@@ -587,12 +591,12 @@ vector<string> Sequence::scanFasta(vector<Coordinate>& coordinates, const string
 void Sequence::makeFasta(const vector<string>& regions, const vector<Coordinate>& coordinates) const
 {
 	unsigned int fileNb(1);
-	string newFastaName("../test/sites" + std::to_string(fileNb) + ".fasta"), header;
+	string newFastaName("../Output/ExtractedSequences" + std::to_string(fileNb) + ".fasta"), header;
 	ofstream newFasta;
 	while(ifstream(newFastaName))
 	{
 		++fileNb;
-		newFastaName = "../test/sites" + std::to_string(fileNb) + ".fasta";
+		newFastaName = "../Output/ExtractedSequences" + std::to_string(fileNb) + ".fasta";
 	}
 	
 	
@@ -610,7 +614,6 @@ void Sequence::makeFasta(const vector<string>& regions, const vector<Coordinate>
 		}
 		
 	}
-	
 }
 
 
@@ -659,7 +662,6 @@ void Sequence::loadResultsOnFile(const string& fileName, const vector<PosDir>& p
 }
 
 void Sequence::loadResultsOnFile(const string& fileName)    //fonction that loads on a file (fileName) all the information of a/several sequence(s)
-
 {
     ofstream sortie;
     sortie.open("../Output/" + fileName);
@@ -681,19 +683,20 @@ void Sequence::loadResultsOnFile(const string& fileName)    //fonction that load
 }
 
 
-/*int main()
- {
+int main()
+{
 	Sequence seq_;
 	MatrixProtein mtrx;
 	try
 	{
- seq_.find(mtrx, "promoters.fasta");
- loadResultsOnFile("List of Sites", seq_.getMotifs4Output() , 0.0);
+		//auto testing = seq_.readBed("BMAL1_sites.bed", "chr7");
+		//seq_.scanFasta(testing,"chr7.fa", );
+		seq_.motifRecognition("AAATCG", "sites1.fasta");
 	}
 	catch(const runtime_error& e) {cout << e.what() << endl;}
 	
 	return 0;
- } */
+} 
 
 
 
