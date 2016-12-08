@@ -469,9 +469,7 @@ vector<Coordinate> Sequence::readBed(const string& fileName, string chrsought) /
             
         }
     }
-    cout << Coordinates.size() << endl;
-    return Coordinates;
-    
+    return Coordinates;  
 }
 
 double Sequence::interval_addition(int pos, vector<Coordinate> Coordinates)
@@ -583,7 +581,6 @@ vector<string> Sequence::scanFasta(vector<Coordinate>& coordinates, const string
     }
     //TEST
     file.close();
-    cout << listOfMotifs.size() << endl;
     makeFasta(listOfMotifs, coordinates);
     return listOfMotifs;
 }
@@ -683,7 +680,7 @@ void Sequence::loadResultsOnFile(const string& fileName)    //fonction that load
 }
 
 
-int main()
+/*int main()
 {
 	Sequence seq_;
 	MatrixProtein mtrx;
@@ -696,7 +693,7 @@ int main()
 	catch(const runtime_error& e) {cout << e.what() << endl;}
 	
 	return 0;
-} 
+} */
 
 
 
