@@ -81,9 +81,9 @@ int main()
         string Genom;
         cin >> Genom;
         
-        //COUGAR
-        //Genom = "/Users/oriane/Desktop/chr11.fa";
-        string chr("chr11.fa");
+        
+     
+        string chr(Genom);
         chr.pop_back();
         chr.pop_back();
         chr.pop_back();
@@ -91,8 +91,6 @@ int main()
         cout << "Enter a Bed file \n";
         string Bed;
         cin >> Bed;
-        //COUGAR
-        //Bed = "/Users/oriane/Desktop/BMAL1_sites.bed";
         
         do {
             cout << "How long are the motifs you want ? (between 1 and 15)";
@@ -141,9 +139,9 @@ int main()
         string Genom;
         cin >> Genom;
         
-        //COUGAR
-        //Genom = "/Users/oriane/Desktop/chr11.fa";
-        string chr("chr11.fa");
+        
+
+        string chr(Genom);
         chr.pop_back();
         chr.pop_back();
         chr.pop_back();
@@ -151,8 +149,9 @@ int main()
         cout << "Enter a GraphBed file \n";
         string Bed;
         cin >> Bed;
-        //COUGAR
-        //Bed = "/Users/oriane/Desktop/BMAL1_ZT06_selection.bedgraph";
+        
+        
+        
         
         do {
             cout << "How long are the motifs you want ? (between 1 and 15)";
