@@ -618,7 +618,7 @@ void Sequence::loadResultsOnFile(const string& fileName, const vector<PosDir>& p
 
 {
     ofstream sortie;
-    sortie.open("../test/" + fileName, ios::out|ios::app);	//mode append (ajout)
+    sortie.open("../Output/" + fileName, ios::out|ios::app);	//mode append (ajout)
     
     if (sortie.fail()) {
         cerr << "coulnd't open the file" << endl;
@@ -641,7 +641,7 @@ void Sequence::loadResultsOnFile(const string& fileName, const vector<PosDir>& p
 
 {
     ofstream sortie;
-    sortie.open("../test/" + fileName, ios::out|ios::app);	//mode append (ajout)
+    sortie.open("../Output/" + fileName, ios::out|ios::app);	//mode append (ajout)
     
     if (sortie.fail()) {
         cerr << "coulnd't open the file" << endl;
@@ -662,7 +662,7 @@ void Sequence::loadResultsOnFile(const string& fileName)    //fonction that load
 
 {
     ofstream sortie;
-    sortie.open("../test/" + fileName);
+    sortie.open("../Output/" + fileName);
     
     if (sortie.fail()) 
     {

@@ -25,15 +25,15 @@ int main()
         ++nbr;
     } while ( (answer != '1') and (answer != '2') and (answer != '3') and (answer != '4') and  (nbr <= 10));
     
-    if(nbr > 10) { cout << " A non-sense answer has been entered too many times ! " <<endl; }
+    if(nbr > 10) { cout << " A non-sense answer has been entered too many times ! \n" <<endl; }
     
     else if (answer == '1') {
-        cout << "Enter the Fasta files name :" ;
+        cout << "Enter the Fasta files name : \n" ;
         string fasta;
         cin >> fasta;
         int nbr;
         do {
-            cout << "How long are the motifs you want ? (between 1 and 15)";
+            cout << "How long are the motifs you want ? (between 1 and 15) \n";
             cin >> nbr;
         } while ((nbr < 0) and (nbr > 10));
         
@@ -61,8 +61,8 @@ int main()
         Protein.EMalgorithm(nbr,sequences_, {0,0}, 0);
         
         sequence.loadMatrixOnFile("Matrix_Output", Protein.getmx());
-        cout << "The Matrix has been saved on the Output file on the test folder ";
-        cout << "Do you want to display the Logo of the PWM ? (type 1)";
+        cout << "The Matrix has been saved on the Output file on the Output folder \n";
+        cout << "Do you want to display the Logo of the PWM ? (type 1) \n";
         int response;
         cin >> response;
         if (response == 1) {
@@ -93,7 +93,7 @@ int main()
         cin >> Bed;
         
         do {
-            cout << "How long are the motifs you want ? (between 1 and 15)";
+            cout << "How long are the motifs you want ? (between 1 and 15) \n";
             cin >> nbr;
         } while ((nbr < 0) and (nbr > 10));
         
@@ -114,13 +114,13 @@ int main()
         
         Protein.EMalgorithm(nbr,fasta_seq, debut, sizein );
         sequence.loadMatrixOnFile("Matrix_Output", Protein.getmx());
-        cout << "The Matrix has been saved on the Matrix_Output file on the test folder \n The List of site has been saved on the Motif_Output on the test folder";
+        cout << "The Matrix has been saved on the Matrix_Output file on the Output folder \n The List of site has been saved on the Motif_Output on the Output folder \n";
         
         sequence.fillPosDir(Protein, chr);
         sequence.Clean_Motif_Output("Motif_Output");
         
         sequence.loadResultsOnFile("Motif_Output", sequence.getMotifs4Output() );
-        cout << "Do you want to display the Logo of this PWM ? (type 1)";
+        cout << "Do you want to display the Logo of this PWM ? (type 1) \n";
         int response;
         cin >> response;
        if (response == 1) {
@@ -154,7 +154,7 @@ int main()
         
         
         do {
-            cout << "How long are the motifs you want ? (between 1 and 15)";
+            cout << "How long are the motifs you want ? (between 1 and 15) \n";
             cin >> nbr;
         } while ((nbr < 0) and (nbr > 10));
         
@@ -164,6 +164,7 @@ int main()
             Coordinate_ = sequence.readBedGraph(Bed, chr);
         } catch (runtime_error message) {
             cout << message.what();
+            return 0;
         }
         vector<Coordinate> relevantCoordinate;
         for (auto& n : Coordinate_) {
@@ -184,7 +185,7 @@ int main()
         
         Protein.EMalgorithm(nbr,fasta_seq, debut, sizein );
         sequence.loadMatrixOnFile("Matrix_Output", Protein.getmx());
-        cout << "The Matrix has been saved on the Matrix_Output file on the test folder \n The List of site has been saved on the Motif_Output on the test folder";
+        cout << "The Matrix has been saved on the Matrix_Output file on the Output folder \n The List of site has been saved on the Motif_Output on the Output folder \n";
         sequence.fillPosDir(Protein, chr);
         vector<double> Sommes;
         for (size_t x(0); x < sequence.getMotifs4Output().size(); ++x) {
@@ -193,7 +194,7 @@ int main()
         }
         sequence.Clean_Motif_Output("Motif_Output");
         sequence.loadResultsOnFile("Motif_Output", sequence.getMotifs4Output(), Sommes );
-        cout << "Do you want to display the Logo of this PWM ? (type 1)";
+        cout << "Do you want to display the Logo of this PWM ? (type 1) \n";
         int response;
         cin >> response;
         if (response == 1) {
@@ -206,23 +207,23 @@ int main()
     {
 		Sequence seq;
 		MatrixProtein matrix_;
-		cout << "Enter .mat file name: " << endl;
+		cout << "Enter .mat file name: \n" << endl;
 		string matName;
 		cin >> matName;							//need to check what the user enters (to do later)
 		matrix_.loadmatrix_fromfile(matName);
 		matrix pssm_ = matrix_.getpssm_rel();			// we assume it's a PWM
 		
-		cout << "Please enter a threshold: " << endl;
+		cout << "Please enter a threshold: \n" << endl;
 		double seuil_;
 		cin >> seuil_;
 		
-		cout << "Please enter .fasta name: " << endl;
+		cout << "Please enter .fasta name: \n" << endl;
 		string fastaName_;
 		cin >> fastaName_;
 		try
 		{
 		seq.fastaPlusMatrix(fastaName_, pssm_, seuil_);
-		seq.loadResultsOnFile("List of sites (fasta + mat).txt");
+		seq.loadResultsOnFile("List of sites (fasta + mat).txt \n");
 		}
 		catch(runtime_error& e)
 		{
