@@ -184,9 +184,6 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 					
 					++compteur;
 					seq = {begin(l), end(l)};
-					
-					/*for(auto& c : seq) {cout << c;}
-					cout << " ";*/
 
 					if(compare(seq, motif_))
 					{
@@ -195,11 +192,8 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 					
 					vector<char> secondStrand;				//we get the second strand of DNA from .fasta 
 					
-					
-					
-					if(compare(secondStrand, motifReverse_))
+					if(compare(seq, giveReverseComplementarySeq(motif_)))
 					{
-						cout << "here " << endl;
 						positions.push_back({compteur+1, compteurSeq,chrNb_, '-', toString(motif_), 0.0});
 					}
 				}
