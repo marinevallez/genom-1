@@ -79,7 +79,7 @@ void MatrixProtein::loadmatrix_fromfile(const string& Data){ // the function sto
     int row;
     vector<double> temp; // stock in a 1x1 Matrix to calculate the number of data
     ifstream file;
-    file.open("../Resources/" + Data);
+    file.open("../test/" + Data);
     
     
     if (file.fail())
@@ -254,36 +254,70 @@ void MatrixProtein::swaptoabsolute(matrix& mtx)
     
 }
 
-void MatrixProtein::swaptopssm(matrix& mtx){
-    assert (check_if_pmworpssm(mtx));
+void MatrixProtein::swaptopssm(matrix mtx){
+    //assert (check_if_pmworpssm(mtx));
+    matrix mx_(mtx.size(), vector<double>(mtx[0].size()));
     for (unsigned int i(0); i < mtx.size() ; ++i)
     {
         for (unsigned int j(0); j < mtx[i].size(); ++j)
         {
             if ( mtx[i][j] == 0 )
             {
-                mtx[i][j] = -100;
+                mx_[i][j] = -100;
             }
             else
             {
-                mtx[i][j] = log2(mx[i][j]/0.25);
+                mx_[i][j] = log2(mtx[i][j]/0.25);
             }
         }
     }
+    mx = mx_;
     
-    
-}
-void MatrixProtein::swaptopwm(matrix& mtx){
-    assert (check_if_pmworpssm(mtx) == 0);
-    for (unsigned int i(0); i < mx.size() ; ++i)
-    {
-        for (unsigned int j(0); j < mx[i].size(); ++j)
-        {
-            mx[i][j] = exp2(mx[i][j])*0.25;
-        }   // we choose 0.25 as a backgroud because each aa has the same probability to appear randomly
-    }
 }
 
+void MatrixProtein::swaptopwm(matrix mtx){
+    //assert (check_if_pmworpssm(mtx) == 0);
+    matrix mx_(mtx.size(), vector<double>(mtx[0].size()));
+    for (unsigned int i(0); i < mtx.size() ; ++i)
+    {
+        for (unsigned int j(0); j < mtx[i].size(); ++j)
+        {
+			if ( mtx[i][j] == -100 )
+            {
+                mx_[i][j] = 0;
+            }
+            else 
+            {
+				mx_[i][j] = exp2(mtx[i][j])*0.25;
+			}
+        }   // we choose 0.25 as a backgroud because each aa has the same probability to appear randomly
+    }
+    mx = mx_;
+}
+
+void MatrixProtein::setpssm_rel(matrix mtx){
+	matrix pssm_rel_temp(mtx.size(), vector<double>(mtx[0].size()));
+	for (unsigned int i(0); i < mtx.size() ; ++i)
+    {
+        for (unsigned int j(0); j < mtx[i].size(); ++j)
+        {
+			pssm_rel_temp[i][j] = mtx[i][j];
+        }   
+    }
+    pssm_rel = pssm_rel_temp;
+}
+
+void MatrixProtein::setpwm_rel(matrix mtx){
+	matrix pwm_rel_temp(mtx.size(), vector<double>(mtx[0].size()));
+	for (unsigned int i(0); i < mtx.size() ; ++i)
+    {
+        for (unsigned int j(0); j < mtx[i].size(); ++j)
+        {
+			pwm_rel_temp[i][j] = mtx[i][j];
+        }   
+    }
+    pwm_rel = pwm_rel_temp;
+}
 
 vector <bool> MatrixProtein::matrix_status(matrix matrice)
 {
@@ -1086,4 +1120,9 @@ matrix MatrixProtein::getmx()
 matrix MatrixProtein::getpssm_rel()
 {
 	return pssm_rel;
+}
+
+matrix MatrixProtein::getpwm_rel()
+{
+	return pwm_rel;
 }

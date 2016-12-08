@@ -63,7 +63,7 @@ public:
     
     void setPatterns(vector<Pattern>);
     
-    void get_relevent_site(vector<vector<char>> Input, int set, int = 0);//this function takes a list of motif (all the motif don't need to have the same lenght) and return the list of all the site of size 'set' having a affinity score above a certain threshold (this threshold can either be given (last argument) or one will be calculated by default (see calculation of default threshold))
+    void get_relevent_site(vector<vector<char> > Input, int set, int = 0);//this function takes a list of motif (all the motif don't need to have the same lenght) and return the list of all the site of size 'set' having a affinity score above a certain threshold (this threshold can either be given (last argument) or one will be calculated by default (see calculation of default threshold))
     /*!
      * The findPatterns method finds all theoretical motifs from a .mat file. With a given threshold, it calculates all(depending on the size of the .mat, yet assumed seven columns long) motifs and keeps those with a score above the threshold.
      */
@@ -76,8 +76,8 @@ public:
     //void display_PWM(matrix finale);
     void loadmatrix_fromfile(const string& Data);
     void setrw(int value);
-    void swaptopssm(matrix& mtx);
-    void swaptopwm(matrix& mtx);
+    void swaptopssm(matrix mtx);
+    void swaptopwm(matrix mtx);
     void swaptoabsolute(matrix& mtx);
     void swaptorelative(matrix& mtx);
     bool absolute(matrix matrice);
@@ -91,20 +91,23 @@ public:
     void readjust_values(matrix& mtx);
     double get_affinity_score_from_matrix(matrix mx,vector<char> sequence);
     void display_PWM_rel();
-    matrix getpwm_abs();
     matrix getpssm_abs();
-    matrix getmx();
     matrix getpssm_rel();
+    matrix getpwm_rel();
+    matrix getpwm_abs();
+    matrix getmx();
+    void setpssm_rel(matrix mtx);
+    void setpwm_rel(matrix mtx);
     void calcul( vector<char> tab_, vector<double>& tabA_, vector<double>& tabT_, vector<double>& tabG_, vector<double>& tabC_);
     
     // fonctions utilisée pour l'algorithme EM;
     void RemetZero( vector<double>& vec_);
-    void calculScore(vector<vector<double>> finale_, vector<double>& score_, int j_, vector<char> tab2_);
-    void FindMotif(vector<vector<double>> finale_,vector<string> FromFasta_, int longueur_motif_, vector<vector<SeqPos>>& best_seqs_);
-    void fillPattern(vector<vector<SeqPos>> best_seqs_, int sizeint, vector<int>);
+    void calculScore(vector<vector<double> > finale_, vector<double>& score_, int j_, vector<char> tab2_);
+    void FindMotif(vector<vector<double> > finale_,vector<string> FromFasta_, int longueur_motif_, vector<vector<SeqPos> >& best_seqs_);
+    void fillPattern(vector<vector<SeqPos> > best_seqs_, int sizeint, vector<int>);
     /*This fills the Pattern with the relevant information : The position given for a reverse seq is the position of it's foward seq */
     double calculScoreFinal(string seq);
-    void enleveZero(vector<vector<double>>& mx, double somme_);
+    void enleveZero(vector<vector<double> >& mx, double somme_);
     
     
     // Algorithme EM complet --> Met la matrice PWM dans l'attribut mx + change le pattern
