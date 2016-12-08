@@ -104,6 +104,7 @@ public:
     void fillPattern(vector<vector<SeqPos>> best_seqs_, int sizeint, vector<int>);
     /*This fills the Pattern with the relevant information : The position given for a reverse seq is the position of it's foward seq */
     double calculScoreFinal(string seq);
+    void enleveZero(vector<vector<double>>& mx, double somme_);
     
     
     // Algorithme EM complet --> Met la matrice PWM dans l'attribut mx + change le pattern

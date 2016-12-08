@@ -736,7 +736,7 @@ void MatrixProtein::calculScore(vector<vector<double>> finale_, vector<double>& 
         }
         
         
-        score_[j_] += finale_[indice][l]; // on calcul le "score" pour chaque combinaison de taille longueur_motif possible
+       score_[j_] = score_[j_]*finale_[indice][l]; // on calcul le "score" pour chaque combinaison de taille longueur_motif possible
     }
 }
 
@@ -745,13 +745,14 @@ void MatrixProtein::FindMotif(vector<vector<double>> finale_ , vector<string> Fr
 {
     int index(0);
     int b(0);
-    double nf(0);
+    
     vector<char> tab2(longueur_motif_);
     
     for( size_t i(0) ; i < FromFasta_.size() ; ++i) // on va dans chaque motif de la liste
     {
         b = FromFasta_[i].size() - longueur_motif_ + 1; // nombre de combinaison dans la séquence de taille  "longueur_motif".
-        vector<double> score(b, 0);
+        vector<double> score(b, 1);
+        double nf(0);
         vector<int> indices(0);
         vector<SeqPos> vec1(0);
         for (int j(0) ; j < b ; ++j)
@@ -774,7 +775,7 @@ void MatrixProtein::FindMotif(vector<vector<double>> finale_ , vector<string> Fr
             calculScore(finale_, score, j, tab2);
             
             
-            if( score[j] == nf) // pour rajouter un autre indice si y en a dejà un avec le même score
+            if( log2(score[j]) == log2(nf)) // pour rajouter un autre indice si y en a dejà un avec le même score
             {
                 indices.push_back(j);
             }
@@ -803,7 +804,7 @@ void MatrixProtein::FindMotif(vector<vector<double>> finale_ , vector<string> Fr
         }
         
         best_seqs_.push_back(vec1); // tous les motifs ensemble
-        nf = 0;
+    
     }
 }
 
@@ -985,7 +986,7 @@ void MatrixProtein::EMalgorithm(int longueur_motif, vector<string> FromFasta, ve
 
 double MatrixProtein::calculScoreFinal(string seq)
 {
-    double score(0);
+    double score(1);
     int indice(4);
     for ( size_t i(0) ; i < seq.size() ; ++i)
     {
@@ -1010,7 +1011,7 @@ double MatrixProtein::calculScoreFinal(string seq)
         }
         if (indice != 4)
         {
-            score += mx[i][indice];
+            score = score * mx[i][indice];
         }
     }
     
@@ -1063,6 +1064,18 @@ void MatrixProtein::fillPattern(vector<vector<SeqPos>> best_seqs_, int sizeint, 
         }
         
     }
+}
+
+void MatrixProtein::enleveZero(vector<vector<double>>& mx, double somme_) 
+{
+	for ( size_t i(0); i < mx.size() ; ++i)
+	{
+		for ( size_t j(0); j < mx[i].size() ; ++j)
+		{
+			mx[i][j] = (mx[i][j]* somme_ +  0.25)/ (somme_+ 1); 
+			
+		}
+	}
 }
 
 matrix MatrixProtein::getmx()
