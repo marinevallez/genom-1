@@ -18,9 +18,9 @@ int main()
     do {
         cout << " What files would you like to work with : \n " <<endl;
         cout << " - Fasta files (write '1') : this will give you a Position Weight Matrix \n" <<endl;
-        cout << " - Genomic fasta files and Bed files (write '2'): this could give you a Position Weight Matrix and a list of motif \n" <<endl;
-        cout << " -  Genomic fasta files and BedGraph files (write '3') : this could give you a Position Weight Matrix and a list of motif completed with a bedgraph score \n" <<endl;
-        cout << " - Non-genomic fasta file, .mat and a threshold for the score (enter '4') to produce a list of sites \n" << endl;
+        cout << " - Genomic fasta files and Bed files (write '2'): this will give you a Position Weight Matrix and a list of motif. \n" <<endl;
+        cout << " -  Genomic fasta files and BedGraph files (write '3') : this will give you a Position Weight Matrix and a list of motif completed with a bedgraph score. \n" <<endl;
+        cout << " - Short .fasta and .mat (write '4') : this will give you a list of potential binding sites of a protein." << endl;
         cin >> answer;
         ++nbr;
     } while ( (answer != '1') and (answer != '2') and (answer != '3') and (answer != '4') and  (nbr <= 10));
@@ -207,24 +207,47 @@ int main()
     {
 		Sequence seq;
 		MatrixProtein matrix_;
-		cout << "Enter .mat file name: \n" << endl;
-		string matName;
-		cin >> matName;							//need to check what the user enters (to do later)
+		string matName, fastaName_;
+		double seuil_, trials(0);
+		
+		do
+		{
+			cout << "Please enter the name of the .mat file you would like to work with: " << endl;
+			cin	>> matName;
+			++trials;
+		}
+		while(!ifstream("../Resources/" + matName) and trials < 5);
+
+		trials = 0;
+		
 		matrix_.loadmatrix_fromfile(matName);
 		matrix pssm_ = matrix_.getpssm_rel();			// we assume it's a PWM
 		
-		cout << "Please enter a threshold: \n" << endl;
-		double seuil_;
-		cin >> seuil_;
+		do
+		{
+			cout << "Please enter the name of the .fasta you would like to work with: " << endl;
+			cin >> fastaName_;
+			++trials;
+		}
+		while(!ifstream("../Resources/" + fastaName_) and trials < 5);
 		
-		cout << "Please enter .fasta name: \n" << endl;
-		string fastaName_;
-		cin >> fastaName_;
+		trials = 0;
+		
+		do
+		{
+			cout << "Please enter a threshold for the binding of score (you will get a list of sites whose score is higher than the entered threshold): " << endl;
+			cin >> seuil_;
+			++trials; 
+		}
+		while(seuil_ < 0 and trials < 5); 
+		
 		try
 		{
 		seq.fastaPlusMatrix(fastaName_, pssm_, seuil_);
-		seq.loadResultsOnFile("List of sites (fasta + mat).txt \n");
+		seq.loadResultsOnFile("PotentialMotifs.txt");
+		cout << "The sites were saved to Output/PotentialMotifs.txt." << endl;
 		}
+		
 		catch(runtime_error& e)
 		{
 			cout << e.what() << endl;

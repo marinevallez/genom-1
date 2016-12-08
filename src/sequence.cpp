@@ -100,7 +100,7 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 	size_t compteurSeq(0);
 	string chrNb_;
 	
-	file.open("../test/" + fileName);
+	file.open("../Resources/" + fileName);
 
 	vector<char> motif_;							//used to convert a string into a table of char
 													//used to convert a string into a table of char, the motif we are looking for
@@ -222,7 +222,7 @@ void Sequence::fastaPlusMatrix(const string& fastaFile, matrix& pwm, const doubl
 	double score;
 	string chrNb_;
 	
-	file.open("../test/" + fastaFile);
+	file.open("../Resources/" + fastaFile);
 	
 	if(file.fail())								// if it didnt open -> show an error 
 	{
@@ -230,6 +230,7 @@ void Sequence::fastaPlusMatrix(const string& fastaFile, matrix& pwm, const doubl
 	}
 	else
 	{	
+		cout << "Scanning " + fastaFile + "...";
 		while(!file.eof())
 		{
 			file >> nucl;
@@ -242,7 +243,7 @@ void Sequence::fastaPlusMatrix(const string& fastaFile, matrix& pwm, const doubl
 			{
 				file >> line;
 				chrNb_ = chromosomeNb(line);
-				compteur =0;
+				compteur = 0;
 				++compteurSeq; 
 
 				for(size_t i(0); i < pwm.size(); ++i)
@@ -250,8 +251,7 @@ void Sequence::fastaPlusMatrix(const string& fastaFile, matrix& pwm, const doubl
 					if(i == 0) {l.clear();}
 				
 					file >> ws >> base;
-				
-					cout << base;			
+						
 					l.push_back(base);			
 				}
 				
@@ -275,7 +275,6 @@ void Sequence::fastaPlusMatrix(const string& fastaFile, matrix& pwm, const doubl
 
 				while(file >> noskipws >> nucl)
 				{
-					cout << nucl;
 					file.get(extra);
 					if(nucl == '\n' and extra != '>') 
 					{
@@ -327,9 +326,7 @@ void Sequence::fastaPlusMatrix(const string& fastaFile, matrix& pwm, const doubl
 	}
 	
 	file.close();
-	for(const PosDir& c : motifs4output) {cout << "pos:" <<c.pos << " ,seqNb:" << c.seqNb << " ,chrNb:"
-			<< c.chrNb << " ,dir:" << c.dir << " ,bScore:" << c.bindingscore << " ,site:" 
-			<< c.sequence << endl;}
+	cout << endl << "Done reading " + fastaFile + "." << endl;
 }
 
 
@@ -649,8 +646,8 @@ void Sequence::loadResultsOnFile(const string& fileName, const vector<PosDir>& p
         int i(0);
         for(const PosDir& entry : posdir)
         {
-            sortie << "seq" << i << " " <<entry.chrNb <<" "  << entry.pos << " " << entry.dir << " " ;
-            sortie << entry.sequence << " "  << entry.bindingscore << " " ;
+            sortie << "seq" << i << setfill(' ') << setw(4) << entry.chrNb << entry.pos << entry.dir;
+            sortie << entry.sequence << entry.bindingscore ;
             sortie << "\n";
             ++i;
         }
@@ -669,10 +666,16 @@ void Sequence::loadResultsOnFile(const string& fileName)    //fonction that load
     } 
     else 
     {
+		int const col1(8);
+		int const col2(7);
+		int const col3(13);
+		int const col4(10);
+
+		sortie << "Seq#/chr#  Position Strand     Motif     Score" << endl;
         for(const PosDir& entry : motifs4output)
         {
-            sortie << "seq" << entry.seqNb << "/" <<entry.chrNb <<" "  << entry.pos << " " << entry.dir << " " ;
-            sortie << entry.sequence << " "  << entry.bindingscore << " " ;
+            sortie << "seq" << entry.seqNb << "/" << entry.chrNb << setw(col1)  << entry.pos << setw(col2) << entry.dir << setw(col3);
+            sortie << entry.sequence << setw(col4) << entry.bindingscore;
             sortie << "\n";
         }
     }
