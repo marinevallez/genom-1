@@ -16,7 +16,7 @@ int main()
     //info to documentation
     
     do {
-        cout << " What files would you want to work with : \n " <<endl;
+        cout << " What files would you like to work with : \n " <<endl;
         cout << " - Fasta files (write '1') : this will give you a Position Weight Matrix \n" <<endl;
         cout << " - Genomic fasta files and Bed files (write '2'): this could give you a Position Weight Matrix and a list of motif \n" <<endl;
         cout << " -  Genomic fasta files and BedGraph files (write '3') : this could give you a Position Weight Matrix and a list of motif completed with a bedgraph score \n" <<endl;
