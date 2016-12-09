@@ -1,43 +1,56 @@
 %% LyX 2.2.1 created this file.  For more info, see http://www.lyx.org/.
 %% Do not edit unless you really know what you are doing.
-\documentclass[english]{article}
+\documentclass[a4paper,12pt,titlepage,microtype,hyperref,english]{article}
+\usepackage[margin=1.3in]{geometry}
 \usepackage[T1]{fontenc}
 \usepackage[latin9]{luainputenc}
 \usepackage{graphicx}
 \usepackage{babel}
+\usepackage{amsmath}
+\usepackage{gensymb}
+\usepackage[colorlinks,bookmarks=false,linkcolor=blue,urlcolor=blue]{hyperref}
+
 \begin{document}
 
+
 \title{GENOMIC PROJECT}
+\author{Genom-1 Group}  %Don't know if it's nice ?
+
+
 \maketitle
+\tableofcontents
+
+\baselineskip=16pt
+\parindent=15pt
+\parskip=5pt
 
 \section{Introduction}
 
-We were given the objective to build a program with an application
-in actual genomic problems. Several inputs can be given by the user,
-such as a genome sequence, a position-weight-matrix (PWM), binding
-scores along a specific sequence ... The idea is to offer different
-outputs that can help the user to solve his problem. The output can
-be a list of sites, affinity score for a given sequence, a PWM (or
-a PSSM), or a graphic representation of the PMW (logo showing the
-different nucleotides A, T, C and G at different sizes, among their
-probability). 
-\begin{figure}[h]
-\caption{An example of PWM }
+We were given the objective to build a program with actual applications
+in current genomic problems. Several resource files can be given by the user,
+such as a genomic sequence, a Position Weight Matrix (PWM) or Position-Specific Scoring Matrix (PSSM), affinity
+scores along a specific sequence\ldots The idea is to offer different
+outputs that can help the user to solve his/her problem. The output can
+be a list of binding sites present in a chromosome, an affinity score for a given binding site, a PWM (or
+a PSSM), or a graphic representation of the consensus sequence determined by the PMW (a logo showing the
+different nucleotides A, T, C and G, their sizes representing their respective probability). 
 
-\centering{}\includegraphics[scale=0.5]{C:/Users/Guillaume/Pictures/pwm}
+\begin{figure}[!h]
+\caption{Example of a PWM matrix.}
+\centering{}\includegraphics[scale=0.5]{ImagesREADME/PWM.pdf}
 \end{figure}
-\begin{figure}
-\noindent \caption{A sequence logo}
 
-\noindent \centering\includegraphics[scale=0.7]{C:/Users/Guillaume/Pictures/logo}
+\begin{figure}[!h]
+\noindent \caption{Logo of a consensus sequence.}
+\noindent \centering\includegraphics[scale=0.7]{ImagesREADME/Logo}
 \end{figure}
 
 
 \section{Download the program}
 
-To download the program, go to : https://github.com/EPFL-SV-cpp-projects/genom-1.
-Open a terminal, and type ``git clone : \textbf{https://github.com/EPFL-SV-cpp-projects/genom-1''.
-}The genom-1 folder and all its content will be copied in your directory,
+To download the program, go to : \url{https://github.com/EPFL-SV-cpp-projects/genom-1}.
+Open a terminal and go to the directory where you want the program, then type "git clone~\textbf{https://github.com/EPFL-SV-cpp-projects/genom-1''.
+}The genom-1 folder and all of its content will be copied into your directory,
 you can then compile and execute the program.
 
 \section{Compilation and execution}
@@ -82,4 +95,6 @@ along the sequence) and output a PWM (or/and it's logarithmic version).
 
 3.- Based on the matrix or based on the binding scores and list of
 sites, being able produce a sequence logo.
+
+
 \end{document}
