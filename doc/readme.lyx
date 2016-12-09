@@ -1,0 +1,288 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+GENOMIC PROJECT
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+We were given the objective to build a program with an application in actual
+ genomic problems.
+ Several inputs can be given by the user, such as a genome sequence, a position-
+weight-matrix (PWM), binding scores along a specific sequence ...
+ The idea is to offer different outputs that can help the user to solve
+ his problem.
+ The output can be a list of sites, affinity score for a given sequence,
+ a PWM (or a PSSM), or a graphic representation of the PMW (logo showing
+ the different nucleotides A, T, C and G at different sizes, among their
+ probability).
+ 
+\begin_inset Float figure
+placement h
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+An example of PWM 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename C:/Users/Guillaume/Pictures/pwm.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+A sequence logo
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\noindent
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+centering
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename C:/Users/Guillaume/Pictures/logo.png
+	scale 70
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Download the program
+\end_layout
+
+\begin_layout Standard
+To download the program, go to : https://github.com/EPFL-SV-cpp-projects/genom-1.
+ Open a terminal, and type 
+\begin_inset Quotes eld
+\end_inset
+
+git clone : 
+\series bold
+https://github.com/EPFL-SV-cpp-projects/genom-1
+\begin_inset Quotes erd
+\end_inset
+
+.
+ 
+\series default
+The genom-1 folder and all its content will be copied in your directory,
+ you can then compile and execute the program.
+\end_layout
+
+\begin_layout Section
+Compilation and execution
+\end_layout
+
+\begin_layout Standard
+To compile and execute the program, a fews steps are required.
+ Make sure you are in the genom-1 folder and then :
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+rm –rf build 
+\series default
+and
+\series bold
+ mkdir build
+\series default
+ to make sure an empty build folder is crated
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+cmake../ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+make
+\end_layout
+
+\begin_layout Standard
+And then you have several options
+\end_layout
+
+\begin_layout Standard
+If you want to see the documentation with the doxyfile, describing more
+ precisely the different classes and fonctions involved in the program you
+ will then have to write 
+\series bold
+make doc
+\end_layout
+
+\begin_layout Standard
+If you want to execute the program, then do 
+\series bold
+../src/Main
+\end_layout
+
+\begin_layout Standard
+If you want to run the tests of the program, then do 
+\series bold
+make test
+\end_layout
+
+\begin_layout Section
+The functionalities of the program 
+\end_layout
+
+\begin_layout Standard
+When you execute the program, a menu will appear, proposing you a list of
+ outputs designed by their numbers.
+ You can choose the task the program must do by hitting '1', '2' or '3'
+ or '4'.
+ Then you will be asked to provide the inputs (if the program needs a file
+ you can write its name like "
+\begin_inset Formula $example.fasta$
+\end_inset
+
+").
+ Here are the mains functionalities of the program :
+\end_layout
+
+\begin_layout Standard
+1.- Being able to read a DNA sequence and a PWM (or/and it's logarithmic
+ version) and give as output the list of site along the genome where the
+ protein is gonna attach.
+\end_layout
+
+\begin_layout Standard
+2.- Being able to read a DNA sequence, a list of sites and their respective
+ binding score (the product of the probabilities of each nucleotide along
+ the sequence) and output a PWM (or/and it's logarithmic version).
+\end_layout
+
+\begin_layout Standard
+3.- Based on the matrix or based on the binding scores and list of sites,
+ being able produce a sequence logo.
+\end_layout
+
+\end_body
+\end_document
