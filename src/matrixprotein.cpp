@@ -1009,7 +1009,7 @@ void MatrixProtein::EMalgorithm(int longueur_motif, vector<string> FromFasta, ve
         tabpos.clear();
     }
     
-    
+    enleveZero(PWMfinale, somme); 
     mx = PWMfinale;
     fillPattern(best_seqs,sizeint, start); // normalement, ici patterns est rempli
     
