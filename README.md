@@ -6,14 +6,8 @@ Project in genomics no 1
             December 9, 2016
 
 
-Contents
-1 Introduction 
-2 Download the program 
-3 Compilation and execution 
-4 The functionalities of the program 
-
-
 1 Introduction
+==============
 We were given the objective to build a program with actual applications in current genomic problems. 
 Several resource files can be given by the user, such as a genomic sequence, a Position Weight Matrix (PWM) 
 or Position-Specific Scoring Matrix (PSSM), affinity scores along a specific sequence...
@@ -23,27 +17,35 @@ a PWM (or a PSSM), or a graphic representation of the consensus sequence determi
 (a logo showing the different nucleotides A, T, C and G, their sizes representing their respective probability).
 
 2 Download the program
+======================
 To download the program, go to : https://github.com/EPFL-SV-cpp-projects/ genom-1. 
 Open a terminal and go to the directory where you want the program, 
 then type "git clone https://github.com/EPFL-SV-cpp-projects/genom- 1”. 
 The genom-1 folder and all of its content will be copied into your directory, you can then compile and execute the program.
 
 3 Compilation and execution
+===========================
 To compile and execute the program, a fews steps are required. Make sure you are in the genom-1 folder and then :
-rm –rf build and mkdir build to make sure an empty build folder is crated cmake../
+rm –rf build and mkdir build to make sure an empty, clean build folder is created 
+cmake../
 make
-And then you have several options
-If you want to see the documentation with the doxyfile, describing more pre- cisely the different classes and fonctions involved in the program you will then have to write make doc
-If you want to execute the program, then do ../src/Main
-If you want to run the tests of the program, then do make test
+And then you have several options :
+make doc to generate the API documentation
+make test to compile the tests
+./Main to execute the program
+./Genom1Test to run the tests
 
 4 The functionalities of the program
-When you execute the program, a menu will appear, proposing you a list of outputs designed by their numbers. 
-You can choose the task the program must do by hitting ’1’, ’2’ or ’3’ or ’4’. 
-Then you will be asked to provide the inputs (if the program needs a file you can write its name like "example.fasta"). 
-Here are the mains functionalities of the program :
-1.- Being able to read a DNA sequence and a PWM (or/and it’s logarithmic version) and give as output the list of site along the genome where the protein is gonna attach.
-2.- Being able to read a DNA sequence, a list of sites and their respective bind- ing score (the product of the probabilities of each nucleotide along the sequence) and output a PWM (or/and it’s logarithmic version).
-3.- Based on the matrix or based on the binding scores and list of sites, being 2
-able produce a sequence logo.
+=====================================
+When executing the program, a menu will appear offering a list of results. 
+You can choose the task that the program will perform by hitting ’1’, ’2’ , ’3’ or ’4’. 
+Then you will be asked to provide the resource files (if the program needs a file you can write its name like "example.fasta"). Make sure to also write the name of the extension, like .fasta or .mat. 
+
+Here are the main functionalities of the program :
+1.- Read a DNA sequence and a PWM (or/and its logarithmic equivalent)and give as results the list of binding sites along the genome.
+2.- Read a DNA sequence, a list of sites and their respective binding scores and output a PWM (or/and its logarithmic equivalent).
+3.- Based on a matrix or on the binding scores and list of sites, produce the consensus sequence logo.
+4.- Using a matrix and a sequence, give the list of all possibles sites that are above a threshold given by the user.
+
+
 
