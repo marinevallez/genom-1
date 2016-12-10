@@ -1,6 +1,4 @@
-
-> Written with [StackEdit](https://stackedit.io/).
-# genom-1
+#genom-1
 Project in genomics no 1
 
 1 Introduction
