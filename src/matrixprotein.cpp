@@ -324,25 +324,26 @@ vector <bool> MatrixProtein::matrix_status(matrix matrice)
     
     vector <bool> a(2);
     
-    assert(possible(matrice));
-    if (check_if_pmworpssm(matrice))
-    {
-        a[0] = 1;
-        PWM_to_PSSM(matrice);
-    }
-    else
-    {
-        a[0] = 0;
-    }
-    if (absolute(matrice))
-    {
-        a[1] = 0;
-    }
-    else
-    {
-        a[1] = 1;
-    }
-    
+    if ((possible(matrice)))
+	{
+		if (check_if_pmworpssm(matrice))
+		{
+			a[0] = 1;
+			PWM_to_PSSM(matrice);
+		}
+		else
+		{
+			a[0] = 0;
+		}
+		if (absolute(matrice))
+		{
+			a[1] = 0;
+		}
+		else
+		{
+			a[1] = 1;
+		}
+	}
     
     return a;
 }
@@ -429,7 +430,7 @@ bool MatrixProtein::possible(matrix matrice){
         }
     }
     
-    return (a1 + a2 + a3);
+    return (a1 or a2 or a3);
 }
 
 void MatrixProtein::PWM_to_PSSM_2(matrix& matrice)
