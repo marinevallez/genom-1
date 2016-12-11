@@ -21,6 +21,7 @@ const vector<char> seq2({'A','T','T','T','G','A','A','C','C'});
 const vector<char> seq1Complement({'T','G','A','A','G','C','T','A','G'});
 const vector<char> reverseSeq1({'G','A','T','C','G','A','A','G','T'});
 const vector<PosDir> goodVec({{6,1,"chrT",'+',"CCCTTTG",0.0},{38,1,"chrT",'-',"CCCTTTG",0.0}});
+const vector<PosDir> fastaCheckPosDir({{7,1,"chrT",'+', "AAAACCC", 0.0}}); 
 
 //Prototypes
 
@@ -61,6 +62,45 @@ TEST(SequenceTest, ReverseComplementary)
 	Sequence seq;
 	vector<char> rev_ = seq.giveReverseComplementarySeq(seq1);
 	ASSERT_TRUE(isEqual(rev_, reverseSeq1));
+}
+
+TEST(SequenceTest, FastaCheckingSpaces)
+{
+	Sequence seq;
+	try 
+	{
+		vector<PosDir> results = seq.motifRecognition("AAACCC", "SeqFail3.fasta");
+	}
+	catch (const runtime_error& err)
+	{
+		EXPECT_EQ(err.what(), string("Error: no spaces allowed!"));
+	}
+}
+
+TEST(SequenceTest, FastaCheckingHeader)
+{
+	Sequence seq;
+	try 
+	{
+		vector<PosDir> results = seq.motifRecognition("AAACCC", "SeqFail2.fasta");
+	}
+	catch (const runtime_error& err)
+	{
+		EXPECT_EQ(err.what(),string("Error: missing header in .fasta!"));
+	}
+}
+
+TEST(Sequencetest, FastaCheckingNucl)
+{
+	Sequence seq;
+	try 
+	{
+		vector<PosDir> results = seq.motifRecognition("AAACCC", "fasta_check1.fasta");
+	}
+	catch (const runtime_error& err)
+	{
+		EXPECT_EQ(err.what(), string("Error: Wrong nucleotide detected in the .fasta!"));
+	}
 }
 
 TEST(MatrixProteinTest, SwapToPwm)
@@ -181,18 +221,20 @@ bool isEqualM(const matrix& m1, const matrix& m2)
 
 bool isEqualBool(const vector<bool>& v1, const vector<bool>& v2)
 {
+	bool res;
 	if (v1.size() != v2.size())
 	{
-		return false;
+		res = false;
 	}
 	for (size_t i(0); i < v1.size(); ++i)
 	{
 		
 		if (v1[i] == v2[i])
 		{
-			return true;
+			res = true;
 		}
 	}
+	return res;
 }
 
 
