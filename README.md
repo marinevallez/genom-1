@@ -10,6 +10,10 @@ The idea is to offer different outputs that can help the user to solve his/her p
 2 A bit of biology
 =============
 
+Transcription Factors refer to any proteins that are required to initiate or regulate transcription in eucaryotes. They include gene regulatory proteins, general transcription factors, co-activators, co-repressors, histone-modifying enzymes, and chromatin remodeling complexes. Transcription is the process by which a gene’s DNA sequence is converted into a complementary messenger RNA molecule, itself undergoing translation, process involved in the production of proteins. The study of transcription factors and regulatory proteins is of critical importance in the understanding of, for example, genetic diseases.
+
+Such proteins comprise one or several **binding domains** in their active conformation, which permit them to bind to the DNA sequence. The amino acids of the binding domains bind specifically to DNA nucleic acids by complementarity. These binding sites, referred as motifs, are described with a **Position Weight Matrix** (also known as **Position-Specific Scoring Matrix**), which contains the probability that each nucleic acid (A,C,G or T) is at each position of the motif. Therefore, the probability of a specific motif may be known and comparison of the probabilities - referred as scores - to a threshold value may *distinguish relevant binding sites from non-functional sites* of similar sequences. Binding sites for known proteins may thus be found in different regions of the genome. The PWN also permits the determination of the **consensus sequence** representation, which gives an idea on the several motifs that may be relevant. This latter representation constitutes a visual representation of the motif : the sizes of the letter is proportional to their probability.
+
 3 Download the program
 ======================
 To download the program, go to : 
