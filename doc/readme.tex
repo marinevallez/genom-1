@@ -31,17 +31,22 @@ in current genomic problems. Several resource files can be given by the user,
 such as a genomic sequence, a Position Weight Matrix (PWM) or Position-Specific Scoring Matrix (PSSM), affinity
 scores along a specific sequence\ldots The idea is to offer different
 outputs that can help the user to solve his/her problem. The output can
-be a list of binding sites present in a chromosome, an affinity score for a given binding site, a PWM (or
-a PSSM), or a graphic representation of the consensus sequence determined by the PMW (a logo showing the
-different nucleotides A, T, C and G, their sizes representing their respective probability). 
+be a list of binding sites present on a chromosome, an affinity score for a given binding site, a PWM (or
+a PSSM), or a graphic representation of the consensus sequence determined by the PMW. 
+
+\section{A bit of biology}
+
+Transcription Factors refer to any proteins that are required to initiate or regulate transcription in eucaryotes. They include gene regulatory proteins, general transcription factors, co-activators, co-repressors, histone-modifying enzymes, and chromatin remodeling complexes. Transcription is the process by which a gene?s DNA sequence is converted into a complementary messenger RNA molecule, itself undergoing translation, process involved in the production of proteins. The study of transcription factors and regulatory proteins is of critical importance in the understanding of, for example, genetic diseases.
+
+Such proteins comprise one or several \textbf{binding domains} in their active conformation, which permit them to bind to the DNA sequence. The amino acids of the binding domains bind specifically to DNA nucleic acids by complementarity. These binding sites, referred as motifs, are described with a \textbf{Position Weight Matrix} (Fig.\ref{figure:PWM}) (also known as \textbf{Position-Specific Scoring Matrix}), which contains the probability that each nucleic acid (A ,C, G or T) is at each position of the motif. Therefore, the probability of a specific motif may be known and comparison of the probabilities - referred as scores - to a threshold value may \emph{distinguish relevant binding sites from non-functional sites} of similar sequences. Binding sites for known proteins may thus be found in different regions of the genome. The PWN also permits the determination of the \textbf{consensus sequence} representation (Fig.\ref{figure:Consensus}), which gives an idea on the several motifs that may be relevant. This latter representation constitutes a visual representation of the motif : the sizes of the letter is proportional to their probability.
 
 \begin{figure}[!h]
-\caption{Example of a PWM matrix.}
+\caption{Example of a PWM matrix \label{figure:PWM}.}
 \centering{}\includegraphics[scale=0.5]{ImagesREADME/PWM.pdf}
 \end{figure}
 
 \begin{figure}[!h]
-\noindent \caption{Logo of a consensus sequence.}
+\noindent \caption{Logo of a consensus sequence. \label{figure:Consensus}}
 \noindent \centering\includegraphics[scale=0.7]{ImagesREADME/Logo}
 \end{figure}
 
