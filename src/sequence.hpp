@@ -138,6 +138,13 @@ class Sequence {
 * in a .fasta file for regions listed in the .bedgraph. 
 * */
     
+    vector<string> scanFasta(vector<Coordinate>& coordinates, const string& fileName);
+
+/*!
+* The scanFasta method uses a list of coordinates from a .bedgrah file to scan each chromosomal genomic sequence 
+* in a .fasta file for regions listed in the .bedgraph, looking for a specific chromosome. 
+* */
+    
     vector<string> scanFasta(vector<Coordinate>& coordinates, const string& fileName, int);
     
 /*!

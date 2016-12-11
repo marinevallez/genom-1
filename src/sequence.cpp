@@ -76,8 +76,7 @@ char giveComplementaryBase(const char& nucl)				//it's a function because it has
     }
     else
     {
-        
-        throw runtime_error("Error: Wrong nucleotide detected in the .fasta: ");
+        throw runtime_error("Error: Wrong nucleotide detected in the .fasta!");
     }
     
     return -1; //added to avoid a warning message
@@ -354,9 +353,12 @@ vector<char> Sequence::giveReverseComplementarySeq(const vector<char>& seq) cons
         {
             complementarySequence.push_back('A');
         }
+        
+        /*else if ((seq[position] != 'T') and (seq[position] != 'A') and (seq[position] != 'C') and (seq[position] != 'G') and (seq[position] != 'N'))
+        {
+			throw runtime_error("Error: Wrong nucleotide detected in the .fasta!");	
+		}*/
     }
-    
-    
     
     //  cout << complementarySequence.size();    -> we see that the vectors are the same size
     return complementarySequence;
@@ -508,11 +510,78 @@ double Sequence::interval_addition(int pos, vector<Coordinate> Coordinates)
     return a;
 }
 
+vector<string> Sequence::scanFasta(vector<Coordinate>& coordinates, const string& fileName) //version without motif
+{
+
+    
+    vector<string> listOfMotifs;
+    string motif;
+    char read;
+    string readMotif;
+    long long int start, end;
+    ifstream file;
+    
+    file.open("../test/" + fileName);
+    if(file.fail())
+    {
+        cerr << "This file could not be opened ! Scan fasta" << endl;
+    }
+    else
+    {
+        file >> read;
+        if(read != '>')
+        {
+            
+            throw runtime_error("Error: missing header in .fasta! scan");  //will need to catch
+        }
+        
+        else
+        {
+            //trying for all :
+            for(size_t i(0); i < coordinates.size() ; ++i)
+            {
+                
+                start = (coordinates[i]).start;
+                end = (coordinates[i]).end;
+                motif = "";
+                file.seekg(start + 6);		//we go directly to that position, beware the first line is the header !
+                long long int sizeOfMotif = (end - start);
+                //cout << sizeOfMotif << endl;
+                for(long long int j(0); j < sizeOfMotif; ++j)				 //init at 0 or 1 ?
+                {
+                    int score (0);
+                    file >> read;
+                    if ((read != 'A') and (read != 'C') and (read != 'T') and (read != 'G') and (read != 'a') and (read != 't') and (read != 'g') and (read != 'c') and (read != 'N') and (read != '>')) {
+                        throw runtime_error("Error: the .fasta file contains some unknown characters!");
+                    }
+                    if ((read == 'A') or (read == 'C') or (read == 'T') or (read == 'G') or (read == 'a') or (read == 't') or (read == 'g') or (read == 'c')) {
+                        ++ score; // checks that we don't have a entire line of n
+                    }
+                    if (score != 0) {
+                        motif += read; //we discover the motif string by string
+                    }
+                    
+                }
+                if (motif != "") {
+                    {
+                        listOfMotifs.push_back(motif);
+                    }
+                    
+                }
+                
+                motif.clear();
+                
+            }
+        }
+    }
+    //TEST
+    file.close();
+    makeFasta(listOfMotifs, coordinates);
+    return listOfMotifs;
+}
 
 
-
-
-vector<string> Sequence::scanFasta(vector<Coordinate>& coordinates, const string& fileName, int size_motif)
+vector<string> Sequence::scanFasta(vector<Coordinate>& coordinates, const string& fileName, int size_motif) //version with motif
 {
 
     
@@ -704,7 +773,7 @@ void Sequence::loadResultsOnFile(const string& fileName)    //fonction that load
 void Sequence::loadMatrixOnFile(const string& fileName, matrix matrice)   //fonction that loads a matrix on a txt file
 {
     ofstream sortie;
-    sortie.open("../test/" + fileName); //mode écrasement
+    sortie.open("../Output/" + fileName); //mode écrasement
     
     if (sortie.fail()) {
         cerr << "coulnd't open the file" << endl;
