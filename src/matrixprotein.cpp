@@ -79,7 +79,7 @@ void MatrixProtein::loadmatrix_fromfile(const string& Data){ // the function sto
     int row;
     vector<double> temp; // stock in a 1x1 Matrix to calculate the number of data
     ifstream file;
-    file.open("../test/" + Data);
+    file.open("../Resources/" + Data);
     
     
     if (file.fail())

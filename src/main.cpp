@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdio_ext.h>
 #include "sequence.hpp"
 #include "utilities.hpp"
 #include "Logo.hpp"
@@ -9,7 +10,7 @@ using namespace std;
 int main()
 {
     char answer;
-    int nbr(0);
+    int nbr(0), trials(0);
     
     cout << "Hello ! Welcome to the Genom-1 DNA binding site analysis package ! \n" << endl;
     cout << "This program provides a few fonctionalities that will help you analyse and work on genomic sequences. \n" << endl;
@@ -28,14 +29,42 @@ int main()
     if(nbr > 10) { cout << " A non-sense answer has been entered too many times ! \n" <<endl; }
     
     else if (answer == '1') {
-        cout << "Enter the Fasta files name : \n" ;
         string fasta;
-        cin >> fasta;
-        int nbr;
+        do
+        {
+			if(trials != 0) 
+			{
+				cout << "The file under the name doesn't exist. Please enter the name again: " << endl;
+			}
+			else
+			{
+				cout << "Enter a .fasta file (the file should be located in the Resources folder):  \n";
+				cout << "Please include the extension (.fasta) when entering the name. \n";
+			}
+			
+
+			cin >> fasta;
+			++trials;
+		}
+		while(!ifstream("../Resources/" + fasta) and trials < 5);
+        trials = 0;
+        
         do {
-            cout << "How long are the motifs you want ? (between 1 and 15) \n";
+            if(trials != 0) 
+            {
+				cout << "Please enter a motif length that is between 5 and 16: ";
+			}
+			else 
+			{
+				cout << "How long are the motifs you want ? (between 5 and 16) \n";
+			}
+            
+            cin.clear();
+            __fpurge(stdin);
             cin >> nbr;
-        } while ((nbr < 0) and (nbr > 10));
+            
+            ++trials;
+        } while ((nbr < 4 or nbr > 17) and trials < 5);
         
         MatrixProtein Protein;
         Sequence sequence;
@@ -44,17 +73,18 @@ int main()
         try {
             sequences_ = sequence.loadSeq(fasta);
         } catch (runtime_error message) {
-            cout << message.what();
+            cerr << "Fasta name is invalid!" << endl;
+            return -1;
         }
         
         /* for (size_t i(0); i < sequences_.size(); ++i) {
          vector<char> sequences_char;
-         sequences_char = sequence.toVector(sequences_[i]);
+         sequences_char = toVector(sequences_[i]);
          vector<char> sequences_char_inverse;
          sequences_char_inverse = sequence.giveReverseComplementarySeq(sequences_char);
-         sequences_.push_back(sequence.toString(sequences_char_inverse));
+         sequences_.push_back(toString(sequences_char_inverse));
          
-         }*/
+         } */
         
         
         
@@ -77,26 +107,66 @@ int main()
     else if (answer == '2') {
         MatrixProtein Protein;
         Sequence sequence;
-        cout << "Enter a Genomic Fasta file \n";
-        string Genom;
-        cin >> Genom;
+        string Genom, Bed;
+        double nbr;
+        int trials(0);
         
+        do
+        {
+			if(trials != 0) 
+			{
+				cout << "The file under the name doesn't exist. Please enter the name again: " << endl;
+			}
+			else 
+			{
+				cout << "Enter a genomic .fasta file (the file should be located in the Resources folder):  \n";
+				cout << "Please include the extension (.fasta) when entering the name. \n";
+			}
+			
+			cin >> Genom;
+			++trials;
+		}
+        while(!ifstream("../Resources/" + Genom) and trials < 5);
         
-     
+        trials = 0;
+        
+        do
+        {
+			if(trials != 0) 
+			{
+				cout << "The file under the name doesn't exist. Please enter the name again: " << endl;
+			}
+			else 
+			{
+				cout << "Enter a .bed file (the file should be located in the Resources folder): \n";
+				cout << "Please include the extension (.bed) when entering the name. \n";
+			}
+
+			cin >> Bed;
+			++trials;
+		}
+		 while(!ifstream("../Resources/" + Bed) and trials < 5);
+        
+        do {
+            if(trials != 0) 
+            {
+				cout << "Please enter a motif length that is between 5 and 16: ";
+			}
+			else 
+			{
+				cout << "How long are the motifs you want ? (between 6 and 15) \n";
+			}
+            
+            ++trials;
+        } while ((nbr < 5) and (nbr > 16) and trials < 5);
+        
         string chr(Genom);
         chr.pop_back();
         chr.pop_back();
         chr.pop_back();
-        
-        cout << "Enter a Bed file \n";
-        string Bed;
-        cin >> Bed;
-        
-        do {
-            cout << "How long are the motifs you want ? (between 1 and 15) \n";
-            cin >> nbr;
-        } while ((nbr < 0) and (nbr > 10));
-        
+        chr.pop_back();
+        chr.pop_back();
+        chr.pop_back();
         
         vector<Coordinate> coordinates;
         coordinates = sequence.readBed(Bed, chr);

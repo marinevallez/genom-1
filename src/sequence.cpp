@@ -229,11 +229,11 @@ void Sequence::fastaPlusMatrix(const string& fastaFile, matrix& pwm, const doubl
 	}
 	else
 	{	
-		cout << "Scanning " + fastaFile + "...";
+		cout << "Scanning " + fastaFile + "..." << endl;
 		while(!file.eof())
 		{
 			file >> nucl;
-			if(nucl != '>') 
+			if(nucl != '>' and nucl != ' ') 
 			{
 				cout << endl;
 				throw runtime_error("Error: missing header in .fasta!");
@@ -277,12 +277,8 @@ void Sequence::fastaPlusMatrix(const string& fastaFile, matrix& pwm, const doubl
 					file.get(extra);
 					if(nucl == '\n' and extra != '>') 
 					{
-						if(!file.eof()) 
-						{
-							cout << endl;
-							throw runtime_error("Error: new lines inside are not allowed!");
-						}
-						if(file.eof()) {file.close();}
+						cout << endl;
+						throw runtime_error("Error: new lines inside are not allowed!");
 					}
 					else if(nucl == '\n') 
 					{
@@ -354,10 +350,14 @@ vector<char> Sequence::giveReverseComplementarySeq(const vector<char>& seq) cons
             complementarySequence.push_back('A');
         }
         
-        /*else if ((seq[position] != 'T') and (seq[position] != 'A') and (seq[position] != 'C') and (seq[position] != 'G') and (seq[position] != 'N'))
+        else if ((seq[position] != 'T') and (seq[position] != 'A') and (seq[position] != 'C') and (seq[position] != 'G') and (seq[position] != 'N'))
         {
+			if(seq[position] == ' ') 
+			{
+				throw runtime_error("Error: No spaces allowed in .fasta files!");
+			}
 			throw runtime_error("Error: Wrong nucleotide detected in the .fasta!");	
-		}*/
+		}
     }
     
     //  cout << complementarySequence.size();    -> we see that the vectors are the same size
@@ -800,6 +800,7 @@ vector<string> Sequence::loadSeq( string fileName )
 {
     vector<string> sequences;
     ifstream file(fileName);    //the file we are reading
+    file.open("../Resources/" + fileName);
     
     if(file.fail())        // if it didnt open -> show an error
     {
