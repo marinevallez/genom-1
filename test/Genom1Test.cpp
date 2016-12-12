@@ -107,7 +107,7 @@ TEST(SequenceTest, FastaCheckingNucl)
 TEST(SequenceTest, ScanFastaExtraction)
 {
 	Sequence seq;
-	vector<Coordinate> coord = seq.readBed("BMAL1_sites.bed", "chr7");
+	vector<Coordinate> coord = seq.readBed("BMAL1_sites.bed", "chr7.fasta");
 	vector<string> regions = seq.scanFasta(coord,"chr7.fasta");
 	EXPECT_GE(coord.size(),regions.size());
 }
@@ -115,7 +115,7 @@ TEST(SequenceTest, ScanFastaExtraction)
 TEST(SequenceTest, ScanFastaAberrantMotif)
 {
 	Sequence seq;
-	vector<Coordinate> coord = seq.readBed("BMAL1_sites.bed", "chr7");
+	vector<Coordinate> coord = seq.readBed("BMAL1_sites.bed", "chr7.fasta");
 	vector<string> regions = seq.scanFasta(coord,"chr7.fasta", 60);
 	EXPECT_EQ(0,regions.size());
 }
