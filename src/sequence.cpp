@@ -372,7 +372,7 @@ vector<Coordinate> Sequence::readBedGraph(const string& fileName, string chrsoug
     
     vector<string> temporarySites; // stock in a 1x1 Matrix to calculate the number of data
     ifstream file;
-    file.open("../test/" + fileName);
+    file.open("../Resources/" + fileName);
     
     
 
@@ -426,7 +426,7 @@ vector<Coordinate> Sequence::readBed(const string& fileName, string chrsought) /
     
     vector<string> temporarySites; // stock in a 1x1 Matrix to calculate the number of data
     ifstream file;
-    file.open("../test/" + fileName);
+    file.open("../Resources/" + fileName);
     
     
     if (file.fail()) {
@@ -521,7 +521,7 @@ vector<string> Sequence::scanFasta(vector<Coordinate>& coordinates, const string
     long long int start, end;
     ifstream file;
     
-    file.open("../test/" + fileName);
+    file.open("../Resources/" + fileName);
     if(file.fail())
     {
         cerr << "This file could not be opened ! Scan fasta" << endl;
@@ -592,7 +592,7 @@ vector<string> Sequence::scanFasta(vector<Coordinate>& coordinates, const string
     long long int start, end;
     ifstream file;
     
-    file.open("../test/" + fileName);
+    file.open("../Resources/" + fileName);
     if(file.fail())
     {
         cerr << "This file could not be opened ! Scan fasta" << endl;
