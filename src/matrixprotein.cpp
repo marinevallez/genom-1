@@ -307,6 +307,18 @@ void MatrixProtein::setpssm_rel(matrix mtx){
     pssm_rel = pssm_rel_temp;
 }
 
+void MatrixProtein::set_mx(matrix mtx){
+	matrix mx_temp(mtx.size(), vector<double>(mtx[0].size()));
+	for (unsigned int i(0); i < mtx.size() ; ++i)
+    {
+        for (unsigned int j(0); j < mtx[i].size(); ++j)
+        {
+			mx_temp[i][j] = mtx[i][j];
+        }   
+    }
+    mx = mx_temp;
+}
+
 void MatrixProtein::setpwm_rel(matrix mtx){
 	matrix pwm_rel_temp(mtx.size(), vector<double>(mtx[0].size()));
 	for (unsigned int i(0); i < mtx.size() ; ++i)

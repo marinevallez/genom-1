@@ -767,8 +767,60 @@ void Sequence::loadResultsOnFile(const string& fileName)    //fonction that load
 	return 0;
 } */
 
-
-
+// A TESTER A PLACE DE L'AUTRE, en commentaire pour ne pas faire bug
+/*void Sequence::loadMatrixOnFile(const string& fileName, matrix matrice)   //fonction that loads a matrix on a txt file
+{
+    ofstream sortie;
+    sortie.open("../Output/" + fileName); //mode écrasement
+    MatrixProtein Matrix;
+    
+    Matrix.setmx(matrice);
+    
+    Matrix.matrix_generation();
+        
+    if (sortie.fail()) {
+        cerr << "coulnd't open the file" << endl;
+    } else {
+		
+		sortie << "La matrice PWM relative : "<<endl;
+		
+        for (size_t i(0); i < pwm_rel.size() ; ++i) {
+            for (size_t j(0) ; j < pwm_rel[i].size() ; ++j) {
+                sortie << setprecision(5) << setw(5) << pwm_rel[i][j] << " | " ;
+            }
+            sortie << endl;
+        }
+        
+        sortie << "La matrice PWM absolue : "<<endl;
+        
+        for (size_t i(0); i < pwm_abs.size() ; ++i) {
+            for (size_t j(0) ; j < pwm_abs[i].size() ; ++j) {
+                sortie << setprecision(5) << setw(5) << pwm_abs[i][j] << " | " ;
+            }
+            sortie << endl;
+        }
+        
+        sortie << "La matrice PSSM absolue : "<<endl;
+        
+        for (size_t i(0); i < pssm_abs.size() ; ++i) {
+            for (size_t j(0) ; j < pssm_abs[i].size() ; ++j) {
+                sortie << setprecision(5) << setw(5) << pssm_abs[i][j] << " | " ;
+            }
+            sortie << endl;
+        }
+        
+        sortie << "La matrice PSSM relative : "<<endl;
+        
+        for (size_t i(0); i < pssm_rel.size() ; ++i) {
+            for (size_t j(0) ; j < pssm_rel[i].size() ; ++j) {
+                sortie << setprecision(5) << setw(5) << pssm_rel[i][j] << " | " ;
+            }
+            sortie << endl;
+        }
+        
+        sortie.close();
+    }
+}*/
 
 void Sequence::loadMatrixOnFile(const string& fileName, matrix matrice)   //fonction that loads a matrix on a txt file
 {

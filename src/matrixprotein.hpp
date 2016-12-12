@@ -98,6 +98,7 @@ public:
     matrix getmx();
     void setpssm_rel(matrix mtx);
     void setpwm_rel(matrix mtx);
+    void set_mx(matrix mtx);
     void calcul( vector<char> tab_, vector<double>& tabA_, vector<double>& tabT_, vector<double>& tabG_, vector<double>& tabC_);
     
     // fonctions utilisée pour l'algorithme EM;
