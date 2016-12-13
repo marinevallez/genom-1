@@ -18,10 +18,10 @@ int main()
     
     do {
         cout << " What files would you like to work with : \n " <<endl;
-        cout << " - Fasta files (write '1') : this will give you a Position Weight Matrix \n" <<endl;
-        cout << " - Genomic fasta files and Bed files (write '2'): this will give you a Position Weight Matrix and a list of motif. \n" <<endl;
-        cout << " -  Genomic fasta files and BedGraph files (write '3') : this will give you a Position Weight Matrix and a list of motif completed with a bedgraph score. \n" <<endl;
-        cout << " - Short .fasta and .mat (write '4') : this will give you a list of potential binding sites of a protein." << endl;
+        cout << " - Short .fasta file (write '1') : this will give you a Position Weight Matrix \n" <<endl;
+        cout << " - Genomic .fasta file and .bed file (write '2'): this will give you a Position Weight Matrix and a list of motifs. \n" <<endl;
+        cout << " -  Genomic .fasta file and .bedgraph files (write '3') : this will give you a Position Weight Matrix and a list of motifs completed with a bedgraph score. \n" <<endl;
+        cout << " - Short .fasta and .mat files (write '4') : this will give you a list of potential binding sites of a protein." << endl;
         cin >> answer;
         ++nbr;
     } while ( (answer != '1') and (answer != '2') and (answer != '3') and (answer != '4') and  (nbr <= 10));
@@ -46,7 +46,7 @@ int main()
 			cin >> fasta;
 			++trials;
 		}
-		while(!ifstream("../Resources/" + fasta) and trials < 5);
+		while((!ifstream("../Resources/" + fasta) or fasta.substr(fasta.size() - 6) != ".fasta") and trials < 5);
         trials = 0;
         
         do {
@@ -126,7 +126,7 @@ int main()
 			cin >> Genom;
 			++trials;
 		}
-        while(!ifstream("../Resources/" + Genom) and trials < 5);
+        while((!ifstream("../Resources/" + Genom) or Genom.substr(Genom.size() - 3) != ".fa") and trials < 5);
         
         trials = 0;
         
@@ -144,9 +144,10 @@ int main()
 
 			cin >> Bed;
 			++trials;
-		}
-		 while(!ifstream("../Resources/" + Bed) and trials < 5);
+		} while((!ifstream("../Resources/" + Bed) or Bed.substr(Bed.size() - 4) != ".bed") and trials < 5);
         
+       trials = 0;
+       
         do {
             if(trials != 0) 
             {
@@ -157,6 +158,7 @@ int main()
 				cout << "How long are the motifs you want ? (between 6 and 15) \n";
 			}
             
+            cin >> nbr;
             ++trials;
         } while ((nbr < 5) and (nbr > 16) and trials < 5);
         
@@ -164,9 +166,7 @@ int main()
         chr.pop_back();
         chr.pop_back();
         chr.pop_back();
-        chr.pop_back();
-        chr.pop_back();
-        chr.pop_back();
+
         
         vector<Coordinate> coordinates;
         coordinates = sequence.readBed(Bed, chr);
@@ -203,30 +203,65 @@ int main()
     
     else if (answer == '3') {
         
+        string Genom, Bed;
         MatrixProtein Protein;
+        int trials(0);
         Sequence sequence;
-        cout << "Enter a Genomic Fasta file \n";
-        string Genom;
-        cin >> Genom;
+        do
+        {
+			if(trials != 0) 
+			{
+				cout << "The file under the name doesn't exist. Please enter the name again: " << endl;
+			}
+			else 
+			{
+				cout << "Enter a genomic .fasta file (the file should be located in the Resources folder):  \n";
+				cout << "Please include the extension (.fasta) when entering the name. \n";
+			}
+			
+			cin >> Genom;
+			++trials;
+			
+		}  while((!ifstream("../Resources/" + Genom) or Genom.substr(Genom.size() - 3) != ".fa") and trials < 5);
         
-        
+        trials = 0;
 
         string chr(Genom);
         chr.pop_back();
         chr.pop_back();
         chr.pop_back();
         
-        cout << "Enter a GraphBed file \n";
-        string Bed;
-        cin >> Bed;
+        do
+        {
+			if(trials != 0) 
+			{
+				cout << "The file under the name doesn't exist. Please enter the name again: " << endl;
+			}
+			else 
+			{
+				cout << "Enter a .bedgraph file (the file should be located in the Resources folder): \n";
+				cout << "Please include the extension (.bedgraph) when entering the name. \n";
+			}
+
+			cin >> Bed;
+			++trials;
+		}
+		 while((!ifstream("../Resources/" + Bed) or Bed.substr(Bed.size() - 9) != ".bedgraph") and trials < 5);
         
-        
-        
+        trials = 0;
         
         do {
-            cout << "How long are the motifs you want ? (between 1 and 15) \n";
-            cin >> nbr;
-        } while ((nbr < 0) and (nbr > 10));
+            if(trials != 0) 
+            {
+				cout << "Please enter a motif length that is between 5 and 16: ";
+			}
+			else 
+			{
+				cout << "How long are the motifs you want ? (between 6 and 15) \n";
+			}
+            
+            ++trials;
+        } while ((nbr < 5) and (nbr > 16) and trials < 5);
         
         
         vector<Coordinate> Coordinate_ ;
@@ -282,11 +317,19 @@ int main()
 		
 		do
 		{
-			cout << "Please enter the name of the .mat file you would like to work with: " << endl;
+			if(trials != 0)
+			{
+				cout << "The file under the name doesn't exist. Please enter the name again: " << endl;
+			}
+			else
+			{
+				cout << "Please enter the name of the .mat file you would like to work with. " << endl;
+				cout << "Please include the extension (.mat) when entering the name: ";
+			}
 			cin	>> matName;
 			++trials;
 		}
-		while(!ifstream("../Resources/" + matName) and trials < 5);
+		while((!ifstream("../Resources/" + matName) or matName.substr(matName.size() - 4) != ".mat") and trials < 5);
 
 		trials = 0;
 		
@@ -295,17 +338,33 @@ int main()
 		
 		do
 		{
-			cout << "Please enter the name of the .fasta you would like to work with: " << endl;
+			if(trials != 0)
+			{
+				cout << "The file under that name doesn't exist. Please enter the name again: " << endl;
+			}
+			else
+			{
+				cout << "Please enter the name of the .fasta you would like to work with. " << endl;
+				cout << "Please include the extension (.fasta) when entering the name: ";
+			}
 			cin >> fastaName_;
 			++trials;
 		}
-		while(!ifstream("../Resources/" + fastaName_) and trials < 5);
+		while((!ifstream("../Resources/" + fastaName_) or fastaName_.substr(fastaName_.size() - 6) != ".fasta") and trials < 5);
 		
 		trials = 0;
 		
 		do
 		{
-			cout << "Please enter a threshold for the binding of score (you will get a list of sites whose score is higher than the entered threshold): " << endl;
+			if(trials != 0)
+			{
+				cout << "Threshold must be positive. Please enter a new threshol: ";
+			}
+			else
+			{
+				cout << "Please enter a threshold for the binding of score (you will get a list of sites whose score is higher than the entered threshold): " << endl;
+			}
+			
 			cin >> seuil_;
 			++trials; 
 		}
@@ -314,7 +373,7 @@ int main()
 		try
 		{
 		seq.fastaPlusMatrix(fastaName_, pssm_, seuil_);
-		seq.loadResultsOnFile("PotentialMotifs.txt");
+		seq.loadResultsOnFile("Motif_Output.txt");
 		cout << "The sites were saved to Output/PotentialMotifs.txt." << endl;
 		}
 		

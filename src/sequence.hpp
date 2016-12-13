@@ -228,7 +228,7 @@ string chromosomeNb(const string&);
 /*!
  * compare is a local function used by the Sequence class to compare vectors of characters; checks whether entries of both vectors are the same.
  * */
-bool compare(const vector<char>& v1, const vector<char>& v2)
+bool compare(const vector<char>&, const vector<char>&);
 
 /*!
  * giveComplementaryBase is a local function used by the Sequence class for internal manipulations of DNA sequences, when necessary.

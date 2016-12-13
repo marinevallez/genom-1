@@ -38,14 +38,12 @@ string chromosomeNb(const string& str)  //a function that extracts the chromosom
 
 bool compare(const vector<char>& v1, const vector<char>& v2)
 {
-
 	if(v1.size() == v2.size())
 	{
 		for(size_t i(0); i < v1.size(); ++i)
 		{
 			if(v1[i] != v2[i] and v1[i] != 'N') {return false;}
 		}
-		
 		return true;
 	}
 	else
@@ -53,7 +51,6 @@ bool compare(const vector<char>& v1, const vector<char>& v2)
 		cerr << "Can't compare these vectors!" << endl;		//maybe throw an error
 		return false;
 	}
-
 }
 
 char giveComplementaryBase(const char& nucl)				//it's a function because it has nothing to do with the sequence class, it's a function to convert letters
@@ -262,7 +259,7 @@ void Sequence::fastaPlusMatrix(const string& fastaFile, matrix& pwm, const doubl
 				{
 					motifs4output.push_back({compteur+1,compteurSeq,chrNb_,'+', toString(seq),score});
 				}
-					
+	
 				secondStrand = giveReverseComplementarySeq(seq);
 				
 				score = calculateScore(pwm, secondStrand);
@@ -274,8 +271,9 @@ void Sequence::fastaPlusMatrix(const string& fastaFile, matrix& pwm, const doubl
 
 				while(file >> noskipws >> nucl)
 				{
+					cout << nucl;
 					file.get(extra);
-					if(nucl == '\n' and extra != '>') 
+					if(nucl == '\n' and extra != '>' and !file.eof()) 
 					{
 						cout << endl;
 						throw runtime_error("Error: new lines inside are not allowed!");
@@ -331,7 +329,7 @@ vector<char> Sequence::giveReverseComplementarySeq(const vector<char>& seq) cons
 
     vector<char> complementarySequence;    							//the reverse comp. sequence we get
     
-    for (int position(seq.size()); position > -1; --position)  	//we start from the end (seq.size()) then go upward in the vector (--position) until top is reached
+    for (int position(seq.size() - 1); position > 0; --position)  	//we start from the end (seq.size()) then go upward in the vector (--position) until top is reached
     {
         if((seq[position] == 'C') or (seq[position] == 'c'))								//conversion of nucleotides
         {
@@ -350,7 +348,7 @@ vector<char> Sequence::giveReverseComplementarySeq(const vector<char>& seq) cons
             complementarySequence.push_back('A');
         }
         
-        else if ((seq[position] != 'T') and (seq[position] != 'A') and (seq[position] != 'C') and (seq[position] != 'G') and (seq[position] != 'N'))
+        else //if ((seq[position] != 'T') or (seq[position] != 'A') or (seq[position] != 'C') or (seq[position] != 'G') or (seq[position] != 'N'))
         {
 			if(seq[position] == ' ') 
 			{
