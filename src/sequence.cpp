@@ -96,7 +96,7 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 	size_t compteurSeq(0);
 	string chrNb_;
 	
-	file.open("../Resources/" + fileName);
+	file.open(fileName);
 
 	vector<char> motif_;							//used to convert a string into a table of char
 													//used to convert a string into a table of char, the motif we are looking for
@@ -118,7 +118,7 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 	}
 	else
 	{	
-		cout << "Scanning " + fileName + "...";
+		cout << "Scanning " + fileName + "..." << endl;
 		while(!file.eof())
 		{
 			file >> nucl;
@@ -155,12 +155,12 @@ vector<PosDir> Sequence::motifRecognition(const string& motif, const string& fil
 					file.get(extra);
 					if(nucl == '\n' and extra != '>') 
 					{
-						if(!file.eof()) 
+						if(extra == '\n') break;
+						else
 						{
-							
+							cout << endl;
 							throw runtime_error("Error: new lines inside are not allowed!");
 						}
-						if(file.eof()) {file.close();}
 					}
 					else if(nucl == '\n') 
 					{
@@ -218,7 +218,7 @@ void Sequence::fastaPlusMatrix(const string& fastaFile, matrix& pwm, const doubl
 	double score;
 	string chrNb_;
 	
-	file.open("../Resources/" + fastaFile);
+	file.open(fastaFile);
 	
 	if(file.fail())								// if it didnt open -> show an error 
 	{
@@ -272,7 +272,6 @@ void Sequence::fastaPlusMatrix(const string& fastaFile, matrix& pwm, const doubl
 				while(!file.eof())
 				{
 					file >> noskipws >> nucl;
-					cout << nucl;
 					file.get(extra);
 					if(nucl == '\n' and extra != '>') 
 					{
@@ -353,13 +352,14 @@ vector<char> Sequence::giveReverseComplementarySeq(const vector<char>& seq) cons
             complementarySequence.push_back('A');
         }
         
-        else if ((seq[position] != 'T') or (seq[position] != 'A') or (seq[position] != 'C') or (seq[position] != 'G') or (seq[position] != 'N'))
+        else //if ((seq[position] != 'T') or (seq[position] != 'A') or (seq[position] != 'C') or (seq[position] != 'G') or (seq[position] != 'N'))
         {
+			cout << "hello";
 			if(seq[position] == ' ') 
 			{
 				throw runtime_error("Error: No spaces allowed in .fasta files!");
 			}
-			throw runtime_error("Error: Wrong nucleotide detected in the .fasta!");	
+			else throw runtime_error("Error: Wrong nucleotide detected in the .fasta!");	
 		}
     }
     
@@ -375,7 +375,7 @@ vector<Coordinate> Sequence::readBedGraph(const string& fileName, string chrsoug
     
     vector<string> temporarySites; // stock in a 1x1 Matrix to calculate the number of data
     ifstream file;
-    file.open("../Resources/" + fileName);
+    file.open(fileName);
     
     
 
@@ -524,7 +524,7 @@ vector<string> Sequence::scanFasta(vector<Coordinate>& coordinates, const string
     long long int start, end;
     ifstream file;
     
-    file.open("../Resources/" + fileName);
+    file.open(fileName);
     if(file.fail())
     {
         cerr << "This file could not be opened ! Scan fasta" << endl;
@@ -684,10 +684,11 @@ void Sequence::makeFasta(const vector<string>& regions, const vector<Coordinate>
 
 
 void Sequence::loadResultsOnFile(const string& fileName, const vector<PosDir>& posdir, vector <double> sommeScores )    //fonction that loads on a file (fileName) all the information of a/several sequence(s)
-
 {
+	
+	
     ofstream sortie;
-    sortie.open("../Output/" + fileName, ios::out|ios::app);	//mode append (ajout)
+    sortie.open("../Output/" + fileName);	//mode append (ajout)
     
     if (sortie.fail()) {
         cerr << "coulnd't open the file" << endl;
@@ -729,29 +730,37 @@ void Sequence::loadResultsOnFile(const string& fileName, const vector<PosDir>& p
 
 void Sequence::loadResultsOnFile(const string& fileName)    //fonction that loads on a file (fileName) all the information of a/several sequence(s)
 {
-    ofstream sortie;
-    sortie.open("../Output/" + fileName);
+	unsigned int fileNb(1);
+	string newFileName("../Output/" +fileName + std::to_string(fileNb) + ".txt"), header;
+	ofstream newFile;
+	while(ifstream(newFileName))
+	{
+		++fileNb;
+		newFileName = "../Output/" + fileName + std::to_string(fileNb) + ".txt";
+	}
+	
+    newFile.open(newFileName);
     
-    if (sortie.fail()) 
+    if (newFile.fail()) 
     {
-        throw runtime_error("Coulnd't open the file");
+        throw runtime_error("Error: Could not create the file!");
     } 
     else 
     {
-		int const col1(8);
+		int const col1(10);
 		int const col2(7);
 		int const col3(13);
 		int const col4(10);
 
-		sortie << "Seq#/chr#  Position Strand     Motif     Score" << endl;
+		newFile << "Seq#/chr#  Position Strand     Motif     Score" << endl;
         for(const PosDir& entry : motifs4output)
         {
-            sortie << "seq" << entry.seqNb << "/" << entry.chrNb << setw(col1)  << entry.pos << setw(col2) << entry.dir << setw(col3);
-            sortie << entry.sequence << setw(col4) << entry.bindingscore;
-            sortie << "\n";
+            newFile << "seq" << entry.seqNb << "/" << entry.chrNb << setw(col1)  << entry.pos << setw(col2) << entry.dir << setw(col3);
+            newFile << entry.sequence << setw(col4) << entry.bindingscore;
+            newFile << "\n";
         }
     }
-    sortie.close();
+    newFile.close();
 }
 
 
@@ -831,7 +840,7 @@ void Sequence::loadMatrixOnFile(const string& fileName, matrix matrice)   //fonc
     sortie.open("../Output/" + fileName); //mode écrasement
     
     if (sortie.fail()) {
-        cerr << "coulnd't open the file" << endl;
+        cerr << "Coulnd't open the file" << endl;
     } else {
         for (size_t i(0); i < matrice.size() ; ++i) {
             for (size_t j(0) ; j < matrice[i].size() ; ++j) {

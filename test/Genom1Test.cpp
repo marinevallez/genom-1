@@ -43,7 +43,7 @@ TEST(SequenceTest, SequenceComparison)
 TEST(SequenceTest, MotifRecognitionInFasta)
 {
 	Sequence seq;
-	vector<PosDir> results = seq.motifRecognition("CCCTTTG", "fasta_test.fasta");
+	vector<PosDir> results = seq.motifRecognition("CCCTTTG", "../test/fasta_test.fasta");
 	ASSERT_TRUE(isEqualPosDir(goodVec, results));
 	
 }
@@ -70,7 +70,7 @@ TEST(SequenceTest, FastaCheckingSpaces)
 	Sequence seq;
 	try 
 	{
-		vector<PosDir> results = seq.motifRecognition("AAACCC", "SeqFail3.fasta");
+		vector<PosDir> results = seq.motifRecognition("AAACCC", "../test/SeqFail3.fasta");
 	}
 	catch (const runtime_error& err)
 	{
@@ -83,7 +83,7 @@ TEST(SequenceTest, FastaCheckingHeader)
 	Sequence seq;
 	try 
 	{
-		vector<PosDir> results = seq.motifRecognition("AAACCC", "SeqFail2.fasta");
+		vector<PosDir> results = seq.motifRecognition("AAACCC", "../test/SeqFail2.fasta");
 	}
 	catch (const runtime_error& err)
 	{
@@ -96,7 +96,7 @@ TEST(SequenceTest, FastaCheckingNucl)
 	Sequence seq;
 	try 
 	{
-		vector<PosDir> results = seq.motifRecognition("AAACCC", "SeqFail1.fasta");
+		vector<PosDir> results = seq.motifRecognition("AAACCC", "../test/SeqFail1.fasta");
 	}
 	catch (const runtime_error& err)
 	{
@@ -107,16 +107,16 @@ TEST(SequenceTest, FastaCheckingNucl)
 TEST(SequenceTest, ScanFastaExtraction)
 {
 	Sequence seq;
-	vector<Coordinate> coord = seq.readBed("BMAL1_sites.bed", "chr7.fa");
-	vector<string> regions = seq.scanFasta(coord,"chr7.fa");
+	vector<Coordinate> coord = seq.readBed("BMAL1_sites.bed", "../Resources/chr7.fa");
+	vector<string> regions = seq.scanFasta(coord,"../Resources/chr7.fa");
 	EXPECT_GE(coord.size(),regions.size());
 }
 
 TEST(SequenceTest, ScanFastaAberrantMotif)
 {
 	Sequence seq;
-	vector<Coordinate> coord = seq.readBed("BMAL1_sites.bed", "chr7.fa");
-	vector<string> regions = seq.scanFasta(coord,"chr7.fa", 60);
+	vector<Coordinate> coord = seq.readBed("BMAL1_sites.bed", "../Resources/chr7.fa");
+	vector<string> regions = seq.scanFasta(coord,"../Resources/chr7.fa", 60);
 	EXPECT_EQ(0,regions.size());
 }
 
@@ -124,11 +124,9 @@ TEST(SequenceTest, FastaPlusMatrix)
 {
 	Sequence seq;
 	MatrixProtein mat;
-	mat.loadmatrix_fromfile("DBP_PPM.mat");
+	mat.loadmatrix_fromfile("../Resources/DBP_PPM.mat");
 	matrix pssm = mat.getpssm_rel();
-	seq.fastaPlusMatrix("fasta_test.fasta", pssm, 6.0);
-	cout << seq.getMotifs4Output().size() << endl;
-	cout << fastaPlusMatrixCheck.size() << endl;
+	seq.fastaPlusMatrix("../test/fasta_test.fasta", pssm, 6.0);
 	vector<PosDir> test = seq.getMotifs4Output();
 	for(size_t i(0); i < seq.getMotifs4Output().size(); ++i)
 	{

@@ -79,12 +79,12 @@ void MatrixProtein::loadmatrix_fromfile(const string& Data){ // the function sto
     int row;
     vector<double> temp; // stock in a 1x1 Matrix to calculate the number of data
     ifstream file;
-    file.open("../Resources/" + Data);
+    file.open(Data);
     
     
     if (file.fail())
     {
-        throw runtime_error("Erreur de lecture du fichier de donnée");
+        throw runtime_error("Erreur de lecture du fichier de donnée!");
     }
     
     string var;

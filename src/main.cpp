@@ -78,7 +78,7 @@ int main()
             return -1;
         }
         
-		for (size_t i(0); i < sequences_.size(); ++i) {
+		/*for (size_t i(0); i < sequences_.size(); ++i) {
          vector<char> sequences_char;
          sequences_char = toVector(sequences_[i]);
          vector<char> sequences_char_inverse;
@@ -86,9 +86,7 @@ int main()
          sequences_.push_back(toString(sequences_char_inverse));
          cout << " running loop ";
          
-         } 
-        
-        cout << "done loop";
+         } */
         
         Protein.EMalgorithm(nbr,sequences_, {0,0}, 0);
         
@@ -186,7 +184,7 @@ int main()
         
         Protein.EMalgorithm(nbr,fasta_seq, debut, sizein );
         sequence.loadMatrixOnFile("Matrix_Output", Protein.getmx());
-        cout << "The Matrix has been saved on the Matrix_Output file on the Output folder \n The List of site has been saved on the Motif_Output on the Output folder \n";
+        cout << "The Matrix has been saved on the Matrix_Output file in the Output folder. \nThe list of sites has been saved on the Motif_Output in the Output folder. \n";
         
         sequence.fillPosDir(Protein, chr);
         sequence.Clean_Motif_Output("Motif_Output");
@@ -217,7 +215,7 @@ int main()
 			else 
 			{
 				cout << endl << "Enter a genomic .fasta file (the file should be located in the Resources folder). \n";
-				cout << "Please include the extension (.fasta) when entering the name: ";
+				cout << "Please include the extension (.fa) when entering the name: ";
 			}
 			
 			cin >> Genom;
@@ -267,7 +265,7 @@ int main()
         
         vector<Coordinate> Coordinate_ ;
         try {
-            Coordinate_ = sequence.readBedGraph(Bed, chr);
+            Coordinate_ = sequence.readBedGraph("../Resources/" + Bed, chr);
         } catch (runtime_error message) {
             cout << message.what();
             return 0;
@@ -291,7 +289,7 @@ int main()
         
         Protein.EMalgorithm(nbr,fasta_seq, debut, sizein );
         sequence.loadMatrixOnFile("Matrix_Output", Protein.getmx());
-        cout << "The Matrix has been saved on the Matrix_Output file on the Output folder \n The List of site has been saved on the Motif_Output on the Output folder \n";
+        cout << "The Matrix has been saved on the Matrix_Output file in the Output folder. \nThe list of binding sites has been saved on the Motif_Output in the Output folder. \n";
         sequence.fillPosDir(Protein, chr);
         vector<double> Sommes;
         for (size_t x(0); x < sequence.getMotifs4Output().size(); ++x) {
@@ -324,7 +322,7 @@ int main()
 			}
 			else
 			{
-				cout << "Please enter the name of the .mat file you would like to work with. " << endl;
+				cout << endl << "Please enter the name of the .mat file you would like to work with. " << endl;
 				cout << "Please include the extension (.mat) when entering the name: ";
 			}
 			cin	>> matName;
@@ -345,7 +343,7 @@ int main()
 			}
 			else
 			{
-				cout << "Please enter the name of the .fasta you would like to work with. " << endl;
+				cout << endl << "Please enter the name of the .fasta you would like to work with. " << endl;
 				cout << "Please include the extension (.fasta) when entering the name: ";
 			}
 			cin >> fastaName_;
@@ -363,7 +361,7 @@ int main()
 			}
 			else
 			{
-				cout << "Please enter a threshold for the binding of score (you will get a list of sites whose score is higher than the entered threshold): " << endl;
+				cout << endl << "Please enter a threshold for the binding of score (you will get a list of sites whose score is higher than the entered threshold): " << endl;
 			}
 			
 			cin >> seuil_;
@@ -371,11 +369,25 @@ int main()
 		}
 		while(seuil_ < 0 and trials < 5); 
 		
+		string chr(fastaName_);
+		for(size_t i(0); i < 6; ++i)
+		{
+			chr.pop_back();
+		}
+		
 		try
 		{
-		seq.fastaPlusMatrix(fastaName_, pssm_, seuil_);
-		seq.loadResultsOnFile("Motif_Output.txt");
-		cout << "The sites were saved to Output/Motif_Output.txt." << endl;
+			seq.fastaPlusMatrix("../Resources/" + fastaName_, pssm_, seuil_);
+			seq.loadResultsOnFile("Motif_Output");
+			//seq.fillPosDir(matrix_,chr);
+			cout << "The sites were saved to the Output folder." << endl;
+		//	cout << "Do you want to display the Logo of this PWM ? (type 1) \n";
+		//	int response;
+		//	cin >> response;
+		/*	if (response == 1) {
+            Logo logo;
+            logo.afficher_logo(matrix_.getPatterns(), matrix_.getmx());
+        }*/
 		}
 		
 		catch(runtime_error& e)
@@ -383,6 +395,6 @@ int main()
 			cout << e.what() << endl;
 		}
 	}
-    
+        
     return 0;
 }
