@@ -221,6 +221,16 @@ class Sequence {
 };
 
 /*!
+ * chromosomeNb is a local function used by the Sequence class to extract the chromosome number from headers in .fasta files
+ * */
+string chromosomeNb(const string&);
+
+/*!
+ * compare is a local function used by the Sequence class to compare vectors of characters; checks whether entries of both vectors are the same.
+ * */
+bool compare(const vector<char>& v1, const vector<char>& v2)
+
+/*!
  * giveComplementaryBase is a local function used by the Sequence class for internal manipulations of DNA sequences, when necessary.
  * */
 char giveComplementaryBase(const char&);
