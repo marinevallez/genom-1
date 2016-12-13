@@ -96,7 +96,7 @@ TEST(SequenceTest, FastaCheckingNucl)
 	Sequence seq;
 	try 
 	{
-		vector<PosDir> results = seq.motifRecognition("AAACCC", "fasta_check1.fasta");
+		vector<PosDir> results = seq.motifRecognition("AAACCC", "SeqFail1.fasta");
 	}
 	catch (const runtime_error& err)
 	{
@@ -107,16 +107,16 @@ TEST(SequenceTest, FastaCheckingNucl)
 TEST(SequenceTest, ScanFastaExtraction)
 {
 	Sequence seq;
-	vector<Coordinate> coord = seq.readBed("BMAL1_sites.bed", "chr7.fasta");
-	vector<string> regions = seq.scanFasta(coord,"chr7.fasta");
+	vector<Coordinate> coord = seq.readBed("BMAL1_sites.bed", "chr7.fa");
+	vector<string> regions = seq.scanFasta(coord,"chr7.fa");
 	EXPECT_GE(coord.size(),regions.size());
 }
 
 TEST(SequenceTest, ScanFastaAberrantMotif)
 {
 	Sequence seq;
-	vector<Coordinate> coord = seq.readBed("BMAL1_sites.bed", "chr7.fasta");
-	vector<string> regions = seq.scanFasta(coord,"chr7.fasta", 60);
+	vector<Coordinate> coord = seq.readBed("BMAL1_sites.bed", "chr7.fa");
+	vector<string> regions = seq.scanFasta(coord,"chr7.fa", 60);
 	EXPECT_EQ(0,regions.size());
 }
 
@@ -134,8 +134,12 @@ TEST(SequenceTest, FastaPlusMatrix)
 	{
 		cout << seq.getMotifs4Output()[i].pos << " " << seq.getMotifs4Output()[i].sequence;
 		cout << " " << seq.getMotifs4Output()[i].seqNb << " " << seq.getMotifs4Output()[i].chrNb << " " << seq.getMotifs4Output()[i].dir << " " << seq.getMotifs4Output()[i].bindingscore << endl;
+		ASSERT_TRUE(seq.getMotifs4Output()[i].pos == fastaPlusMatrixCheck[i].pos);
+		ASSERT_TRUE(seq.getMotifs4Output()[i].sequence == fastaPlusMatrixCheck[i].sequence);
+		ASSERT_TRUE(seq.getMotifs4Output()[i].seqNb == fastaPlusMatrixCheck[i].seqNb);
+		ASSERT_TRUE(seq.getMotifs4Output()[i].dir == fastaPlusMatrixCheck[i].dir);
+		EXPECT_NEAR(seq.getMotifs4Output()[i].bindingscore, fastaPlusMatrixCheck[i].bindingscore, 0.001);
 	}
-	ASSERT_TRUE(isEqualPosDir(test,fastaPlusMatrixCheck));
 }
 
 TEST(MatrixProteinTest, SwapToPwm)

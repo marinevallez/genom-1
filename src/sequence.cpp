@@ -269,14 +269,19 @@ void Sequence::fastaPlusMatrix(const string& fastaFile, matrix& pwm, const doubl
 					motifs4output.push_back({compteur+1,compteurSeq,chrNb_,'-', toString(secondStrand),score});
 				}
 
-				while(file >> noskipws >> nucl)
+				while(!file.eof())
 				{
+					file >> noskipws >> nucl;
 					cout << nucl;
 					file.get(extra);
-					if(nucl == '\n' and extra != '>' and !file.eof()) 
+					if(nucl == '\n' and extra != '>') 
 					{
-						cout << endl;
-						throw runtime_error("Error: new lines inside are not allowed!");
+						if(extra == '\n') break;
+						else
+						{
+							cout << endl;
+							throw runtime_error("Error: new lines inside are not allowed!");
+						}
 					}
 					else if(nucl == '\n') 
 					{
@@ -329,7 +334,7 @@ vector<char> Sequence::giveReverseComplementarySeq(const vector<char>& seq) cons
 
     vector<char> complementarySequence;    							//the reverse comp. sequence we get
     
-    for (int position(seq.size() - 1); position > 0; --position)  	//we start from the end (seq.size()) then go upward in the vector (--position) until top is reached
+    for (int position(seq.size() - 1); position > -1; --position)  	//we start from the end (seq.size()) then go upward in the vector (--position) until top is reached
     {
         if((seq[position] == 'C') or (seq[position] == 'c'))								//conversion of nucleotides
         {
@@ -348,7 +353,7 @@ vector<char> Sequence::giveReverseComplementarySeq(const vector<char>& seq) cons
             complementarySequence.push_back('A');
         }
         
-        else //if ((seq[position] != 'T') or (seq[position] != 'A') or (seq[position] != 'C') or (seq[position] != 'G') or (seq[position] != 'N'))
+        else if ((seq[position] != 'T') or (seq[position] != 'A') or (seq[position] != 'C') or (seq[position] != 'G') or (seq[position] != 'N'))
         {
 			if(seq[position] == ' ') 
 			{

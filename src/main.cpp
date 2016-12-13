@@ -17,13 +17,14 @@ int main()
     //info to documentation
     
     do {
-        cout << " What files would you like to work with : \n " <<endl;
-        cout << " - Short .fasta file (write '1') : this will give you a Position Weight Matrix \n" <<endl;
-        cout << " - Genomic .fasta file and .bed file (write '2'): this will give you a Position Weight Matrix and a list of motifs. \n" <<endl;
-        cout << " -  Genomic .fasta file and .bedgraph files (write '3') : this will give you a Position Weight Matrix and a list of motifs completed with a bedgraph score. \n" <<endl;
-        cout << " - Short .fasta and .mat files (write '4') : this will give you a list of potential binding sites of a protein." << endl;
-        cin >> answer;
-        ++nbr;
+		cout << " What files would you like to work with : \n " <<endl;
+		cout << " - Short .fasta file (write '1') : this will give you a Position Weight Matrix \n" <<endl;
+		cout << " - Genomic .fasta file and .bed file (write '2'): this will give you a Position Weight Matrix and a list of motifs. \n" <<endl;
+		cout << " -  Genomic .fasta file and .bedgraph files (write '3') : this will give you a Position Weight Matrix and a list of motifs completed with a bedgraph score. \n" <<endl;
+		cout << " - Short .fasta and .mat files (write '4') : this will give you a list of potential binding sites of a protein. \n" << endl;
+		cout << "Option: ";
+		cin >> answer;
+		++nbr;
     } while ( (answer != '1') and (answer != '2') and (answer != '3') and (answer != '4') and  (nbr <= 10));
     
     if(nbr > 10) { cout << " A non-sense answer has been entered too many times ! \n" <<endl; }
@@ -38,8 +39,8 @@ int main()
 			}
 			else
 			{
-				cout << "Enter a .fasta file (the file should be located in the Resources folder):  \n";
-				cout << "Please include the extension (.fasta) when entering the name. \n";
+				cout <<  endl << "Enter a .fasta file (the file should be located in the Resources folder).  \n";
+				cout << "Please include the extension (.fasta) when entering the name: ";
 			}
 			
 
@@ -56,7 +57,7 @@ int main()
 			}
 			else 
 			{
-				cout << "How long are the motifs you want ? (between 5 and 16) \n";
+				cout << endl << "How long are the motifs you want ? (between 5 and 16): ";
 			}
             
             cin.clear();
@@ -77,21 +78,22 @@ int main()
             return -1;
         }
         
-        /* for (size_t i(0); i < sequences_.size(); ++i) {
+		for (size_t i(0); i < sequences_.size(); ++i) {
          vector<char> sequences_char;
          sequences_char = toVector(sequences_[i]);
          vector<char> sequences_char_inverse;
          sequences_char_inverse = sequence.giveReverseComplementarySeq(sequences_char);
          sequences_.push_back(toString(sequences_char_inverse));
+         cout << " running loop ";
          
-         } */
+         } 
         
-        
+        cout << "done loop";
         
         Protein.EMalgorithm(nbr,sequences_, {0,0}, 0);
         
         sequence.loadMatrixOnFile("Matrix_Output", Protein.getmx());
-        cout << "The Matrix has been saved on the Output file on the Output folder \n";
+        cout << endl << "The Matrix has been saved on the Output file on the Output folder \n";
         cout << "Do you want to display the Logo of the PWM ? (type 1) \n";
         int response;
         cin >> response;
@@ -111,7 +113,7 @@ int main()
         double nbr;
         int trials(0);
         
-        do
+		do
         {
 			if(trials != 0) 
 			{
@@ -119,8 +121,8 @@ int main()
 			}
 			else 
 			{
-				cout << "Enter a genomic .fasta file (the file should be located in the Resources folder):  \n";
-				cout << "Please include the extension (.fasta) when entering the name. \n";
+				cout <<  endl << "Enter a genomic .fasta file (the file should be located in the Resources folder). \n";
+				cout << "Please include the extension (.fasta) when entering the name: ";
 			}
 			
 			cin >> Genom;
@@ -138,8 +140,8 @@ int main()
 			}
 			else 
 			{
-				cout << "Enter a .bed file (the file should be located in the Resources folder): \n";
-				cout << "Please include the extension (.bed) when entering the name. \n";
+				cout << endl <<"Enter a .bed file (the file should be located in the Resources folder). \n";
+				cout << "Please include the extension (.bed) when entering the name: ";
 			}
 
 			cin >> Bed;
@@ -155,7 +157,7 @@ int main()
 			}
 			else 
 			{
-				cout << "How long are the motifs you want ? (between 6 and 15) \n";
+				cout << endl << "How long are the motifs you want ? (between 6 and 15): ";
 			}
             
             cin >> nbr;
@@ -202,7 +204,6 @@ int main()
     
     
     else if (answer == '3') {
-        
         string Genom, Bed;
         MatrixProtein Protein;
         int trials(0);
@@ -215,8 +216,8 @@ int main()
 			}
 			else 
 			{
-				cout << "Enter a genomic .fasta file (the file should be located in the Resources folder):  \n";
-				cout << "Please include the extension (.fasta) when entering the name. \n";
+				cout << endl << "Enter a genomic .fasta file (the file should be located in the Resources folder). \n";
+				cout << "Please include the extension (.fasta) when entering the name: ";
 			}
 			
 			cin >> Genom;
@@ -239,8 +240,8 @@ int main()
 			}
 			else 
 			{
-				cout << "Enter a .bedgraph file (the file should be located in the Resources folder): \n";
-				cout << "Please include the extension (.bedgraph) when entering the name. \n";
+				cout <<  endl <<"Enter a .bedgraph file (the file should be located in the Resources folder). \n";
+				cout << "Please include the extension (.bedgraph) when entering the name: ";
 			}
 
 			cin >> Bed;
@@ -257,9 +258,9 @@ int main()
 			}
 			else 
 			{
-				cout << "How long are the motifs you want ? (between 6 and 15) \n";
+				cout << endl << "How long are the motifs you want ? (between 6 and 15): ";
 			}
-            
+            cin >> nbr;
             ++trials;
         } while ((nbr < 5) and (nbr > 16) and trials < 5);
         
@@ -374,7 +375,7 @@ int main()
 		{
 		seq.fastaPlusMatrix(fastaName_, pssm_, seuil_);
 		seq.loadResultsOnFile("Motif_Output.txt");
-		cout << "The sites were saved to Output/PotentialMotifs.txt." << endl;
+		cout << "The sites were saved to Output/Motif_Output.txt." << endl;
 		}
 		
 		catch(runtime_error& e)
