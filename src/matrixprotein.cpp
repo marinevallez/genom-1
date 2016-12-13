@@ -1100,7 +1100,7 @@ void MatrixProtein::fillPattern(vector<vector<SeqPos>> best_seqs_, int sizeint, 
                 double bs (calculScoreFinal(toString(best_seqs_[i][j].sequence)));
                 string site( toString(best_seqs_[i][j].sequence));
                 Pattern p;
-                p.bScore = log2(bs/4);
+                p.bScore = log2(bs)+ 2* site.size();
                 p.site = site;
                 p.pos =  Position;
                 p.chrNb = "chr0";
