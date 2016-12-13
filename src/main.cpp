@@ -14,7 +14,7 @@ int main()
     
     cout << "Hello ! Welcome to the Genom-1 DNA binding site analysis package ! \n" << endl;
     cout << "This program provides a few fonctionalities that will help you analyse and work on genomic sequences. \n" << endl;
-    //info to documentation
+    cout << "You will find more informations on how to use the Genom-1 package in the README.pdf provided. \n" << endl;
     
     do {
 		cout << " What files would you like to work with : \n " <<endl;
@@ -35,7 +35,7 @@ int main()
         {
 			if(trials != 0) 
 			{
-				cout << "The file under the name doesn't exist. Please enter the name again: " << endl;
+				cout << "The file under this name does not exist. Please enter the name again: " << endl;
 			}
 			else
 			{
@@ -53,15 +53,15 @@ int main()
         do {
             if(trials != 0) 
             {
-				cout << "Please enter a motif length that is between 5 and 16: ";
+				cout << "Please enter a motif length that is between 5 and 16: \n ";
 			}
 			else 
 			{
-				cout << endl << "How long are the motifs you want ? (between 5 and 16): ";
+				cout << endl << "How long would you like the motifs to be ? \n ";
 			}
             
             cin.clear();
-            __fpurge(stdin);
+            fpurge(stdin);
             cin >> nbr;
             
             ++trials;
@@ -74,7 +74,7 @@ int main()
         try {
             sequences_ = sequence.loadSeq(fasta);
         } catch (runtime_error message) {
-            cerr << "Fasta name is invalid!" << endl;
+            cerr << "The name of the .fasta file entered is invalid !" << endl;
             return -1;
         }
         
@@ -90,9 +90,9 @@ int main()
         
         Protein.EMalgorithm(nbr,sequences_, {0,0}, 0);
         
-        sequence.loadMatrixOnFile("Matrix_Output", Protein.getmx());
-        cout << endl << "The Matrix has been saved on the Output file on the Output folder \n";
-        cout << "Do you want to display the Logo of the PWM ? (type 1) \n";
+        sequence.loadMatrixOnFile("Matrix_Output.txt", Protein.getmx());
+        cout << endl << "The Matrix has been saved on the Output file in the Output folder \n";
+        cout << "Would you like to display the logo of the PWM ? (type '1') \n";
         int response;
         cin >> response;
         if (response == 1) {
@@ -115,12 +115,12 @@ int main()
         {
 			if(trials != 0) 
 			{
-				cout << "The file under the name doesn't exist. Please enter the name again: " << endl;
+				cout << "The file under the name does not exist. Please enter the name again: " << endl;
 			}
 			else 
 			{
 				cout <<  endl << "Enter a genomic .fasta file (the file should be located in the Resources folder). \n";
-				cout << "Please include the extension (.fasta) when entering the name: ";
+				cout << "Please include the extension (.fa) when entering the name: ";
 			}
 			
 			cin >> Genom;
@@ -134,7 +134,7 @@ int main()
         {
 			if(trials != 0) 
 			{
-				cout << "The file under the name doesn't exist. Please enter the name again: " << endl;
+				cout << "The file under the name does not exist. Please enter the name again: " << endl;
 			}
 			else 
 			{
@@ -151,11 +151,11 @@ int main()
         do {
             if(trials != 0) 
             {
-				cout << "Please enter a motif length that is between 5 and 16: ";
+				cout << "Please enter a motif length that is between 5 and 16: \n";
 			}
 			else 
 			{
-				cout << endl << "How long are the motifs you want ? (between 6 and 15): ";
+				cout << endl << "How long would you like the motifs to be ? \n ";
 			}
             
             cin >> nbr;
@@ -183,14 +183,14 @@ int main()
         }
         
         Protein.EMalgorithm(nbr,fasta_seq, debut, sizein );
-        sequence.loadMatrixOnFile("Matrix_Output", Protein.getmx());
-        cout << "The Matrix has been saved on the Matrix_Output file in the Output folder. \nThe list of sites has been saved on the Motif_Output in the Output folder. \n";
+        sequence.loadMatrixOnFile("Matrix_Output.txt", Protein.getmx());
+        cout << "The Matrix has been saved on the Matrix_Output.txt file in the Output folder. \nThe list of sites has been saved on the Motif_Output in the Output folder. \n";
         
         sequence.fillPosDir(Protein, chr);
-        sequence.Clean_Motif_Output("Motif_Output");
+        sequence.Clean_Motif_Output("Motif_Output.txt");
         
-        sequence.loadResultsOnFile("Motif_Output", sequence.getMotifs4Output() );
-        cout << "Do you want to display the Logo of this PWM ? (type 1) \n";
+        sequence.loadResultsOnFile("Motif_Output.txt", sequence.getMotifs4Output());
+        cout << "Would you like to display the logo of the PWM ? (type '1') \n";
         int response;
         cin >> response;
        if (response == 1) {
@@ -210,7 +210,7 @@ int main()
         {
 			if(trials != 0) 
 			{
-				cout << "The file under the name doesn't exist. Please enter the name again: " << endl;
+				cout << "The file under the name does not exist. Please enter the name again: " << endl;
 			}
 			else 
 			{
@@ -234,7 +234,7 @@ int main()
         {
 			if(trials != 0) 
 			{
-				cout << "The file under the name doesn't exist. Please enter the name again: " << endl;
+				cout << "The file under the name does not exist. Please enter the name again: " << endl;
 			}
 			else 
 			{
@@ -252,11 +252,11 @@ int main()
         do {
             if(trials != 0) 
             {
-				cout << "Please enter a motif length that is between 5 and 16: ";
+				cout << "Please enter a motif length that is between 5 and 16:";
 			}
 			else 
 			{
-				cout << endl << "How long are the motifs you want ? (between 6 and 15): ";
+				cout << endl << "How long would you like the motifs to be ? ";
 			}
             cin >> nbr;
             ++trials;
@@ -288,17 +288,17 @@ int main()
         }
         
         Protein.EMalgorithm(nbr,fasta_seq, debut, sizein );
-        sequence.loadMatrixOnFile("Matrix_Output", Protein.getmx());
-        cout << "The Matrix has been saved on the Matrix_Output file in the Output folder. \nThe list of binding sites has been saved on the Motif_Output in the Output folder. \n";
+        sequence.loadMatrixOnFile("Matrix_Output.txt", Protein.getmx());
+        cout << "The Matrix has been saved on the Matrix_Output.txt file in the Output folder. \nThe list of binding sites has been saved on the Motif_Output in the Output folder. \n";
         sequence.fillPosDir(Protein, chr);
         vector<double> Sommes;
         for (size_t x(0); x < sequence.getMotifs4Output().size(); ++x) {
             double tmp (sequence.interval_addition(sequence.getMotifs4Output()[x].pos, Coordinate_));
             Sommes.push_back(tmp);
         }
-        sequence.Clean_Motif_Output("Motif_Output");
-        sequence.loadResultsOnFile("Motif_Output", sequence.getMotifs4Output(), Sommes );
-        cout << "Do you want to display the Logo of this PWM ? (type 1) \n";
+        sequence.Clean_Motif_Output("Motif_Output.txt");
+        sequence.loadResultsOnFile("Motif_Output.txt", sequence.getMotifs4Output(), Sommes);
+        cout << "Would you like to display the logo of the PWM ? (type '1') \n";
         int response;
         cin >> response;
         if (response == 1) {
@@ -318,7 +318,7 @@ int main()
 		{
 			if(trials != 0)
 			{
-				cout << "The file under the name doesn't exist. Please enter the name again: " << endl;
+				cout << "The file under the name does not exist. Please enter the name again: " << endl;
 			}
 			else
 			{
@@ -357,7 +357,7 @@ int main()
 		{
 			if(trials != 0)
 			{
-				cout << "Threshold must be positive. Please enter a new threshol: ";
+				cout << "The threshold must be positive. Please enter a new threshold: ";
 			}
 			else
 			{
@@ -381,7 +381,7 @@ int main()
 			seq.loadResultsOnFile("Motif_Output");
 			//seq.fillPosDir(matrix_,chr);
 			cout << "The sites were saved to the Output folder." << endl;
-		//	cout << "Do you want to display the Logo of this PWM ? (type 1) \n";
+		//	cout << "Would you like to display the logo of the PWM ? (type '1') \n";
 		//	int response;
 		//	cin >> response;
 		/*	if (response == 1) {

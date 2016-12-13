@@ -685,42 +685,65 @@ void Sequence::makeFasta(const vector<string>& regions, const vector<Coordinate>
 
 void Sequence::loadResultsOnFile(const string& fileName, const vector<PosDir>& posdir, vector <double> sommeScores )    //fonction that loads on a file (fileName) all the information of a/several sequence(s)
 {
-	
-	
+	unsigned int fileNb(1);
+	int i(1);
+	string newFileName("../Output/" +fileName + std::to_string(fileNb) + ".txt"), header;
     ofstream sortie;
-    sortie.open("../Output/" + fileName);	//mode append (ajout)
+    while(ifstream(newFileName))
+    {
+		++fileNb;
+		newFileName = "../Output/" + fileName + std::to_string(fileNb) + ".txt";
+	}
+	
+    sortie.open("../Output/" + fileName);
     
     if (sortie.fail()) {
-        cerr << "coulnd't open the file" << endl;
+        cerr << "Could not create the file" << endl;
     } else {
+       int const col1(16);
+		int const col2(11);
+		int const col3(13);
+		int const col4(10);
 
-        int i(0);
+		sortie << "Seq#/chr#"  << setw(col1) << "Position" << setw(col2) << "Strand" << setw(col3) << "Motif" << setw(col4) << "Score" << setw(col4) << "Interval" << endl;
         for(const PosDir& entry : posdir)
         {
-            sortie << "seq" << i << " " <<entry.chrNb <<" "  << entry.pos << " " << entry.dir << " " ;
-            sortie << entry.sequence << " "  << entry.bindingscore << " " <<sommeScores[i] ;
+            sortie << "seq" << i << "/" << entry.chrNb << setw(col1)  << entry.pos << setw(col2) << entry.dir << setw(col3);
+            sortie << entry.sequence << setw(col4) << entry.bindingscore <<  setw(col4) << sommeScores[i];;
             sortie << "\n";
             ++i;
         }
-
     }
     sortie.close();
 }
 
 void Sequence::loadResultsOnFile(const string& fileName, const vector<PosDir>& posdir )    //fonction that loads on a file (fileName) all the information of a/several sequence(s)
-
 {
+	unsigned int fileNb(1);
+	int i(1);
+	string newFileName("../Output/" +fileName + std::to_string(fileNb) + ".txt"), header;
     ofstream sortie;
-    sortie.open("../Output/" + fileName, ios::out|ios::app);	//mode append (ajout)
+    while(ifstream(newFileName))
+    {
+		++fileNb;
+		newFileName = "../Output/" + fileName + std::to_string(fileNb) + ".txt";
+	}
+	
+    sortie.open("../Output/" + fileName);
     
     if (sortie.fail()) {
-        cerr << "coulnd't open the file" << endl;
+        cerr << "Could not create the file" << endl;
     } else {
-        int i(0);
+       int const col1(16);
+		int const col2(11);
+		int const col3(13);
+		int const col4(10);
+
+		sortie << "Seq#/chr#"  << setw(col1) << "Position" << setw(col2) << "Strand" << setw(col3) << "Motif" << setw(col4) << "Score" << endl;
         for(const PosDir& entry : posdir)
         {
-            sortie << "seq" << i << setfill(' ') << setw(4) << entry.chrNb << entry.pos << entry.dir;
-            sortie << entry.sequence << entry.bindingscore ;
+            sortie << "seq" << i << "/" << entry.chrNb << setw(col1)  << entry.pos << setw(col2) << entry.dir << setw(col3);
+            sortie << entry.sequence << setw(col4) << entry.bindingscore;
             sortie << "\n";
             ++i;
         }
@@ -747,12 +770,12 @@ void Sequence::loadResultsOnFile(const string& fileName)    //fonction that load
     } 
     else 
     {
-		int const col1(10);
-		int const col2(7);
+		int const col1(16);
+		int const col2(11);
 		int const col3(13);
 		int const col4(10);
 
-		newFile << "Seq#/chr#  Position Strand     Motif     Score" << endl;
+		newFile << "Seq#/chr#" << setw(col1) <<  "Position" << setw(col2) << "Strand" << setw(col3) << "Motif" <<  setw(col4)  << "Score" << endl;
         for(const PosDir& entry : motifs4output)
         {
             newFile << "seq" << entry.seqNb << "/" << entry.chrNb << setw(col1)  << entry.pos << setw(col2) << entry.dir << setw(col3);
@@ -840,7 +863,7 @@ void Sequence::loadMatrixOnFile(const string& fileName, matrix matrice)   //fonc
     sortie.open("../Output/" + fileName); //mode écrasement
     
     if (sortie.fail()) {
-        cerr << "Coulnd't open the file" << endl;
+        cerr << "Could not create the file!" << endl;
     } else {
         for (size_t i(0); i < matrice.size() ; ++i) {
             for (size_t j(0) ; j < matrice[i].size() ; ++j) {
