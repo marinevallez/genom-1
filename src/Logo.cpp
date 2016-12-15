@@ -14,11 +14,7 @@ Logo::Logo()
 
 double Logo::size( double size_b)
 {
-    double taille(pow(13,size_b)*10);
-    if (taille < 0.01) {
-        taille = 0.01;
-    }
-    return taille; // abribtray
+    return size_b;
 }
 
 sf::RectangleShape Logo::set_text( double taille, size_t lettre, double emplacement, int largeur)
@@ -136,7 +132,7 @@ vector<size_t> Logo::Letters_order(Letters Letters_, size_t j)
 }
 
 
-int Logo::afficher_logo(vector<Pattern> sequences, vector<vector<double>> MX)
+int Logo::afficher_logo(vector<Pattern> sequences, matrix m)
 {
     sf::RenderWindow window(sf::VideoMode(1400, 500), "PWM logo");
     
@@ -149,13 +145,16 @@ int Logo::afficher_logo(vector<Pattern> sequences, vector<vector<double>> MX)
     
     // Creation letters
     
-    Letters Letters_(sequences);
+    Letters Letters_(m);
+   
     int largeur(95);
-    Letters_.set_lettre_size(MX);
+    
     
     int position_axe_x(350);
     for (size_t j(0); j < Letters_.get_lettre_size().size(); ++j) {
-        
+        for (size_t h(0); h < Letters_.get_lettre_size()[j].size(); ++h) {
+            cout << size(Letters_.get_lettre_size()[j][h]) <<" ";
+        }
         vector<size_t> position(Letters_order(Letters_, j)); // gets the order of probability for the letter
         
         //Calculate the position of the letter from the 0 of the Bits axes, taking in account the size of the letter above it, the origine is on the left corner of the window

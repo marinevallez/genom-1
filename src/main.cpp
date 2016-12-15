@@ -1,5 +1,5 @@
 #include <iostream>
-#include <stdio_ext.h>
+//#include <stdio_ext.h>
 #include "sequence.hpp"
 #include "utilities.hpp"
 #include "Logo.hpp"
@@ -332,8 +332,8 @@ int main()
 
 		trials = 0;
 		
-		matrix_.loadmatrix_fromfile(matName);
-		matrix pssm_ = matrix_.getpssm_rel();			// we assume it's a PWM
+		matrix_.loadmatrix_fromfile("../Resources/" + matName);
+		matrix pssm_ (matrix_.getpssm(matrix_.getmx()));			// we assume it's a PWM
 		
 		do
 		{

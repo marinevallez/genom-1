@@ -333,7 +333,7 @@ vector<char> Sequence::giveReverseComplementarySeq(const vector<char>& seq) cons
 
     vector<char> complementarySequence;    							//the reverse comp. sequence we get
     
-    for (int position(seq.size() - 1); position > -1; --position)  	//we start from the end (seq.size()) then go upward in the vector (--position) until top is reached
+    for (int position(seq.size() - 1); position > -1; --position) 	//we start from the end (seq.size()) then go upward in the vector (--position) until top is reached
     {
         if((seq[position] == 'C') or (seq[position] == 'c'))								//conversion of nucleotides
         {
@@ -352,9 +352,9 @@ vector<char> Sequence::giveReverseComplementarySeq(const vector<char>& seq) cons
             complementarySequence.push_back('A');
         }
         
-        else //if ((seq[position] != 'T') or (seq[position] != 'A') or (seq[position] != 'C') or (seq[position] != 'G') or (seq[position] != 'N'))
+        else
         {
-			cout << "hello";
+			
 			if(seq[position] == ' ') 
 			{
 				throw runtime_error("Error: No spaces allowed in .fasta files!");
@@ -706,12 +706,19 @@ void Sequence::loadResultsOnFile(const string& fileName, const vector<PosDir>& p
 		int const col4(10);
 
 		sortie << "Seq#/chr#"  << setw(col1) << "Position" << setw(col2) << "Strand" << setw(col3) << "Motif" << setw(col4) << "Score" << setw(col4) << "Interval" << endl;
-        for(const PosDir& entry : posdir)
+        for(const PosDir& entry : motifs4output)
         {
-            sortie << "seq" << i << "/" << entry.chrNb << setw(col1)  << entry.pos << setw(col2) << entry.dir << setw(col3);
-            sortie << entry.sequence << setw(col4) << entry.bindingscore <<  setw(col4) << sommeScores[i];;
-            sortie << "\n";
-            ++i;
+            if (entry.dir == '+') {
+                sortie << "seq" << entry.seqNb << "/" << entry.chrNb << setw(col1)  << entry.pos << setw(col2) << entry.dir << setw(col3);
+                sortie << entry.sequence << setw(col4) << entry.bindingscore << setw(col4) << sommeScores[i];
+                sortie << "\n";
+            } else {
+                string seq (toString(giveReverseComplementarySeq(toVector(entry.sequence))));
+                sortie << "seq" << entry.seqNb << "/" << entry.chrNb << setw(col1)  << entry.pos << setw(col2) << entry.dir << setw(col3);
+                sortie << seq << setw(col4) << entry.bindingscore << setw(col4) << sommeScores[i];
+                sortie << "\n";
+            }
+            
         }
     }
     sortie.close();
@@ -740,12 +747,19 @@ void Sequence::loadResultsOnFile(const string& fileName, const vector<PosDir>& p
 		int const col4(10);
 
 		sortie << "Seq#/chr#"  << setw(col1) << "Position" << setw(col2) << "Strand" << setw(col3) << "Motif" << setw(col4) << "Score" << endl;
-        for(const PosDir& entry : posdir)
+        for(const PosDir& entry : motifs4output)
         {
-            sortie << "seq" << i << "/" << entry.chrNb << setw(col1)  << entry.pos << setw(col2) << entry.dir << setw(col3);
-            sortie << entry.sequence << setw(col4) << entry.bindingscore;
-            sortie << "\n";
-            ++i;
+            if (entry.dir == '+') {
+                sortie << "seq" << entry.seqNb << "/" << entry.chrNb << setw(col1)  << entry.pos << setw(col2) << entry.dir << setw(col3);
+                sortie << entry.sequence << setw(col4) << entry.bindingscore;
+                sortie << "\n";
+            } else {
+                string seq (toString(giveReverseComplementarySeq(toVector(entry.sequence))));
+                sortie << "seq" << entry.seqNb << "/" << entry.chrNb << setw(col1)  << entry.pos << setw(col2) << entry.dir << setw(col3);
+                sortie << seq << setw(col4) << entry.bindingscore;
+                sortie << "\n";
+            }
+            
         }
     }
     sortie.close();
@@ -778,9 +792,17 @@ void Sequence::loadResultsOnFile(const string& fileName)    //fonction that load
 		newFile << "Seq#/chr#" << setw(col1) <<  "Position" << setw(col2) << "Strand" << setw(col3) << "Motif" <<  setw(col4)  << "Score" << endl;
         for(const PosDir& entry : motifs4output)
         {
-            newFile << "seq" << entry.seqNb << "/" << entry.chrNb << setw(col1)  << entry.pos << setw(col2) << entry.dir << setw(col3);
-            newFile << entry.sequence << setw(col4) << entry.bindingscore;
-            newFile << "\n";
+            if (entry.dir == '+') {
+                newFile << "seq" << entry.seqNb << "/" << entry.chrNb << setw(col1)  << entry.pos << setw(col2) << entry.dir << setw(col3);
+                newFile << entry.sequence << setw(col4) << entry.bindingscore;
+                newFile << "\n";
+            } else {
+                string seq (toString(giveReverseComplementarySeq(toVector(entry.sequence))));
+                newFile << "seq" << entry.seqNb << "/" << entry.chrNb << setw(col1)  << entry.pos << setw(col2) << entry.dir << setw(col3);
+                newFile << seq << setw(col4) << entry.bindingscore;
+                newFile << "\n";
+            }
+            
         }
     }
     newFile.close();

@@ -111,7 +111,7 @@ void MatrixProtein::loadmatrix_fromfile(const string& Data){ // the function sto
         }
     }
     mx = matrix_;
-    matrix_generation();
+    //matrix_generation();
 }
 
 /*vector<Pattern> MatrixProtein::getPatterns() const
@@ -994,7 +994,7 @@ void MatrixProtein::EMalgorithm(int longueur_motif, vector<string> FromFasta, ve
             }
         }
         ++compte;
-    } while ((compte < 100  or (PWM != copiePWM)));
+    } while ((PWM != copiePWM));
     
     
     
@@ -1035,6 +1035,7 @@ double MatrixProtein::calculScoreFinal(string seq)
 {
     double score(1);
     int indice(4);
+    matrix pssm(getpssm(mx));
     for ( size_t i(0) ; i < seq.size() ; ++i)
     {
         if ( (seq[i] == 'A') or (seq[i] == 'a'))
@@ -1058,7 +1059,7 @@ double MatrixProtein::calculScoreFinal(string seq)
         }
         if (indice != 4)
         {
-            score = score * mx[i][indice];
+            score += pssm[i][indice];
         }
     }
     
@@ -1100,12 +1101,15 @@ void MatrixProtein::fillPattern(vector<vector<SeqPos>> best_seqs_, int sizeint, 
                 double bs (calculScoreFinal(toString(best_seqs_[i][j].sequence)));
                 string site( toString(best_seqs_[i][j].sequence));
                 Pattern p;
-                p.bScore = log2(bs)+ 2* site.size();
+                p.bScore = bs;
                 p.site = site;
                 p.pos =  Position;
                 p.chrNb = "chr0";
                 p.dir = dir;
-                patterns.push_back(p);
+                if (p.bScore > 0) {
+                    patterns.push_back(p);
+                }
+                
             }
             
         }
@@ -1138,4 +1142,23 @@ matrix MatrixProtein::getpssm_rel()
 matrix MatrixProtein::getpwm_rel()
 {
 	return pwm_rel;
+}
+matrix MatrixProtein::getpssm(matrix mtx)
+{
+    matrix mx_(mtx.size(), vector<double>(mtx[0].size()));
+    for (unsigned int i(0); i < mtx.size() ; ++i)
+    {
+        for (unsigned int j(0); j < mtx[i].size(); ++j)
+        {
+            if ( mtx[i][j] == 0 )
+            {
+                mx_[i][j] = -100;
+            }
+            else
+            {
+                mx_[i][j] = log2(mtx[i][j]/0.25);
+            }
+        }
+    }
+    return mx_;
 }

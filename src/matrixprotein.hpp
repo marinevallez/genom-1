@@ -92,6 +92,7 @@ public:
     double get_affinity_score_from_matrix(matrix mx,vector<char> sequence);
     void display_PWM_rel();
     matrix getpssm_abs();
+    matrix getpssm(matrix);
     matrix getpssm_rel();
     matrix getpwm_rel();
     matrix getpwm_abs();

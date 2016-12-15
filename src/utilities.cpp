@@ -50,7 +50,7 @@ double calculateScore(matrix mx, vector<char> seq_)
         throw runtime_error("Error : The Matrix isn't configurated "); //throw exeption
     }
     
-    double score(1);
+    double score(0);
     for (unsigned int i(0); i < seq_.size(); ++i) {
         switch (seq_[i]) {
             case 'A':
