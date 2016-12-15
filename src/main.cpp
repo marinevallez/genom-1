@@ -1,5 +1,5 @@
 #include <iostream>
-#include <stdio_ext.h>
+//#include <stdio_ext.h>
 #include "sequence.hpp"
 #include "utilities.hpp"
 #include "Logo.hpp"
@@ -9,6 +9,9 @@ using namespace std;
 
 int main()
 {
+	char repeat;	
+	do { //for the presentation
+		
     char answer;
     int nbr(0), trials(0);
     
@@ -396,5 +399,8 @@ int main()
 		}
 	}
         
+        cout << "Would you like to run the program again ? (type 'y')" << endl;
+        cin >> repeat;
+	} while(repeat == 'y');
     return 0;
 }
