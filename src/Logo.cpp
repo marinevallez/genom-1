@@ -151,10 +151,7 @@ int Logo::afficher_logo(vector<Pattern> sequences, matrix m)
     
     
     int position_axe_x(350);
-    for (size_t j(0); j < Letters_.get_lettre_size().size(); ++j) {
-        for (size_t h(0); h < Letters_.get_lettre_size()[j].size(); ++h) {
-            cout << size(Letters_.get_lettre_size()[j][h]) <<" ";
-        }
+     for (size_t j(0); j < Letters_.get_lettre_size().size(); ++j) {
         vector<size_t> position(Letters_order(Letters_, j)); // gets the order of probability for the letter
         
         //Calculate the position of the letter from the 0 of the Bits axes, taking in account the size of the letter above it, the origine is on the left corner of the window
