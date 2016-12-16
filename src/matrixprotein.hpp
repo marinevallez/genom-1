@@ -20,6 +20,13 @@ using namespace std;
 
 typedef vector<vector<double> > matrix;
 
+/*!
+ * 
+ * The Pattern struct groups together all the informations related to one pattern.  Pattern contains motif itself (site),  
+ * the bScore, the chromosome number, the position of this motif, and the direction (forward '+' or reverse '-'). 
+ * 
+ * */
+ 
 struct Pattern
 {
     double bScore;
@@ -103,15 +110,60 @@ public:
     void calcul( vector<char> tab_, vector<double>& tabA_, vector<double>& tabT_, vector<double>& tabG_, vector<double>& tabC_);
     
     // fonctions utilisée pour l'algorithme EM;
+    
+ /*!
+ * 
+ * The "RemetZero" method allows to reset a vector by putting each box to Zero without changing the lenght of the vector. 
+ * 
+* */
+
     void RemetZero( vector<double>& vec_);
+  
+/*!
+ * The "calculScore" method calculate the score of a motif tab2_ with the matrix finale and put the score in 
+ * the box j_ of the table  score_. 
+ * 
+ * */
+ 
     void calculScore(vector<vector<double> > finale_, vector<double>& score_, int j_, vector<char> tab2_);
+    
+/*!
+ * 
+ *  The method "FindMotif" puts the motifs with the best scores in the vector best_seqs, using the matrix finale
+ *  and the vector of string FromFasta_. Each motif in best_seqs is represnted by a SeqPos, which contains also 
+ * its position. 
+ * 
+ * */
     void FindMotif(vector<vector<double> > finale_,vector<string> FromFasta_, int longueur_motif_, vector<vector<SeqPos> >& best_seqs_);
+    
+ /*!
+ * The "fillPattern" method fill the attribute "patterns" with the motifs with the higher scores coming from "best_seqs_". 
+ * In this pattern, the score, the position on the sequence, the direction, the chromosome number are specified. 
+ * This fills the Pattern with the relevant information : The position given for a reverse seq is the position of 
+ * it's foward seq.
+ * */
+ 
     void fillPattern(vector<vector<SeqPos> > best_seqs_, int sizeint, vector<int>);
-    /*This fills the Pattern with the relevant information : The position given for a reverse seq is the position of it's foward seq */
+    
+  /*!
+ * The "calculScoreFinal" method calculates the score of a given sequence "seq". 
+ * */
+ 
     double calculScoreFinal(string seq);
+    
+ /*!
+ * The "enleveZero" method removes all the zeros of the matrix mx and add a very small number to each box of the matrix, 
+ * then divide again to make sure that the sum of line is still 1. 
+ * 
+ * */
+ 
     void enleveZero(vector<vector<double> >& mx, double somme_);
     
-    
+ /*!
+ * The "EMalgorithm" method creates the PWM matrix from a Fasta file, and put the result in the attribute
+ * mx. This method also fills the attribute patterns with the the motifs (length = longueur_motif) with the higher scores. 
+ * 
+ * */
     // Algorithme EM complet --> Met la matrice PWM dans l'attribut mx + change le pattern
     void EMalgorithm(int longueur_motif, vector<string> FromFasta, vector<int>, int);
     
