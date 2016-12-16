@@ -119,7 +119,7 @@ void MatrixProtein::loadmatrix_fromfile(const string& Data){ // the function sto
     return patterns;
 }*/
 
-
+/*
 void MatrixProtein::matrix_generation()
 {
     std::vector<bool> check(2);
@@ -168,6 +168,57 @@ void MatrixProtein::matrix_generation()
         pssm_abs=mx;
         swaptopwm(mx);
         pwm_abs=mx;
+    }
+}*/
+
+void MatrixProtein::matrix_generation()
+{
+    std::vector<bool> check(2);
+    assert (possible(mx)==1);
+    check=matrix_status(mx);
+    if( (check[0] == 0) & (check[1] == 0))
+    {
+        pwm_abs = mx;
+        swaptorelative(mx);
+        pwm_rel = mx;
+        swaptopwm(mx);
+        pssm_rel = mx;
+        mx=pwm_abs;
+        swaptopwm(mx);
+        pssm_abs=mx;
+        
+    }
+    else if ( (check[0] == 0) & (check[1] == 1))
+    {
+        pwm_rel=mx;
+        swaptoabsolute(mx);
+        pwm_abs = mx;
+        swaptopwm(mx);
+        pssm_abs = mx;
+        mx = pwm_rel;
+        swaptopwm(mx);
+        pssm_rel=mx;
+        
+    }
+    else if ( (check[0] == 1) & (check[1] == 0))
+    {
+        pssm_abs=mx;
+        swaptopssm(mx);
+        pwm_abs = mx;
+        swaptorelative(mx);
+        pwm_rel = mx;
+        swaptopwm(mx);
+        pssm_rel=mx;
+    }
+    else
+    {
+        pssm_rel=mx;
+        swaptopssm(mx);
+        pwm_rel = mx;
+        swaptoabsolute(mx);
+        pwm_abs=mx;
+        swaptopwm(mx);
+        pssm_abs=mx;
     }
 }
 
