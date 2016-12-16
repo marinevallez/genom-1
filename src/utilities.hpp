@@ -17,12 +17,24 @@ using namespace std;
 
 typedef vector<vector<double>> matrix;
 
-double to_Double(const string&); // allows a convertion from string to double
+/*!
+ * Allows a conversion from string to double.
+ * */
+double to_Double(const string&);
 
-int toInt(const string&);	// allows a convertion from string to int
+/*!
+ * Allows a conversion from string to int.
+ * */
+int toInt(const string&);
 
+/*!
+ * Allows a conversion from string to vector.
+ * */
 vector<char> toVector(const string& str);
 
+/*!
+ * Allows a conversion from vector to string.
+ * */
 string toString(const vector<char>&);
 
 double calculateScore(matrix, vector<char>);
