@@ -839,7 +839,7 @@ void Sequence::loadResultsOnFile(const string& fileName)    //fonction that load
         cerr << "coulnd't open the file" << endl;
     } else {
 		
-		sortie << "La matrice PWM relative : "<<endl;
+		sortie << "La matrice PSSM relative : "<<endl;
 		
         for (size_t i(0); i < pwm_rel.size() ; ++i) {
             for (size_t j(0) ; j < pwm_rel[i].size() ; ++j) {
@@ -848,7 +848,7 @@ void Sequence::loadResultsOnFile(const string& fileName)    //fonction that load
             sortie << endl;
         }
         
-        sortie << "La matrice PWM absolue : "<<endl;
+        sortie << "La matrice PSSM absolue : "<<endl;
         
         for (size_t i(0); i < pwm_abs.size() ; ++i) {
             for (size_t j(0) ; j < pwm_abs[i].size() ; ++j) {
@@ -857,7 +857,7 @@ void Sequence::loadResultsOnFile(const string& fileName)    //fonction that load
             sortie << endl;
         }
         
-        sortie << "La matrice PSSM absolue : "<<endl;
+        sortie << "La matrice PWM absolue : "<<endl;
         
         for (size_t i(0); i < pssm_abs.size() ; ++i) {
             for (size_t j(0) ; j < pssm_abs[i].size() ; ++j) {
@@ -866,7 +866,7 @@ void Sequence::loadResultsOnFile(const string& fileName)    //fonction that load
             sortie << endl;
         }
         
-        sortie << "La matrice PSSM relative : "<<endl;
+        sortie << "La matrice PWM relative : "<<endl;
         
         for (size_t i(0); i < pssm_rel.size() ; ++i) {
             for (size_t j(0) ; j < pssm_rel[i].size() ; ++j) {
