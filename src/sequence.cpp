@@ -825,7 +825,7 @@ void Sequence::loadResultsOnFile(const string& fileName)    //fonction that load
 } */
 
 // A TESTER A PLACE DE L'AUTRE, en commentaire pour ne pas faire bug
-/*void Sequence::loadMatrixOnFile(const string& fileName, matrix matrice)   //fonction that loads a matrix on a txt file
+void Sequence::loadMatrixOnFile(const string& fileName, matrix matrice)   //fonction that loads a matrix on a txt file
 {
     ofstream sortie;
     sortie.open("../Output/" + fileName); //mode écrasement
@@ -877,9 +877,9 @@ void Sequence::loadResultsOnFile(const string& fileName)    //fonction that load
         
         sortie.close();
     }
-}*/
+}
 
-void Sequence::loadMatrixOnFile(const string& fileName, matrix matrice)   //fonction that loads a matrix on a txt file
+/*void Sequence::loadMatrixOnFile(const string& fileName, matrix matrice)   //fonction that loads a matrix on a txt file
 {
     ofstream sortie;
     sortie.open("../Output/" + fileName); //mode écrasement
@@ -895,7 +895,7 @@ void Sequence::loadMatrixOnFile(const string& fileName, matrix matrice)   //fonc
         }
         sortie.close();
     }
-}
+}*/
 
 void Sequence::Clean_Motif_Output(const string& fileName)
 {
