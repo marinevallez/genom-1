@@ -422,6 +422,7 @@ bool MatrixProtein::possible(matrix matrice){
     bool a1(1);
     bool a2(1);
     bool a3(1);
+    bool a4(1);
     
     for(size_t i(0); i<matrice.size(); ++i)
     {
@@ -493,7 +494,16 @@ bool MatrixProtein::possible(matrix matrice){
         }
     }
     
-    return (a1 or a2 or a3);
+    for (size_t l(0); l < matrice.size(); ++l)
+    {
+		if(matrice[l].size() != 4)
+		{	
+			a4 = 0;		
+		}
+		
+	} 
+    
+    return (a1 or a2 or a3 or a4);
 }
 
 void MatrixProtein::PWM_to_PSSM_2(matrix& matrice)
@@ -604,7 +614,7 @@ static const char nucleotides[] =		// list of nucleotides
 
 int stringLength = sizeof(nucleotides) - 1;
 
-char MatrixProtein::genRandomChar()  					// Generates a random nucleotide
+char MatrixProtein::genRandomChar()  					
 {
     
     return nucleotides[rand() % stringLength];
@@ -644,7 +654,7 @@ double MatrixProtein::set_average(matrix Matrice, double size)
     
 }
 
-double MatrixProtein::get_affinity_score_from_matrix(matrix mx,vector<char> sequence) // calculates the binding score (double) of a certain sequence based on a Matrix of type PWM
+double MatrixProtein::get_affinity_score_from_matrix(matrix mx,vector<char> sequence) 
 // the function throws an exception which should be catched !
 {
     if (mx.size() < sequence.size()) // checks that the sequence is entirly contained in the matrix

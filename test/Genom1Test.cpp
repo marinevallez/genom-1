@@ -24,12 +24,33 @@ const vector<PosDir> goodVec({{6,1,"chrT",'+',"CCCTTTG",0.0},{38,1,"chrT",'-',"C
 const vector<PosDir> fastaCheckPosDir({{7,1,"chrT",'+', "AAAACCC", 0.0}}); 
 const vector<PosDir> fastaPlusMatrixCheck({{32,1,"chrT",'+',"AAAAAAC", 6.00794},{36,1,"chrT",'+',"AACAAAG", 6.01382}});
 
+
+// EM algo
+//Input
+const vector<string> FromFasta {"ATCCAG", "AATGTCG", "TCCGTAAG"}; 
+const vector<vector<double>> matrice({{0.266667,0.266667,0.2}, {0.333333,0.266667, 0.2}, {0.133333,0.133333, 0.333333}, {0.266667, 0.333333, 0.266667}}); 
+const vector<vector<SeqPos>> bsi2 = {{{{'T','C','C'},1}}, {{{'T','C','G'},5}}, {{{'T','C','C'},1}}};
+
+
+//  output 
+const vector<vector<SeqPos>> bsf = {{{{'T','C','C'},1}}, {{{'T','C','G'},4}}, {{{'T','C','C'},0},{{'C','C','G'}, 1}}}; 
+const vector<vector<double>> PWM = {{0.0625, 0.0625, 0.0625, 0.8125}, {0.0625, 0.8125, 0.0625, 0.0625}, {0.0625, 0.5625, 0.3125, 0.0625}}; 
+
+Pattern p1 = { 2.6716, "TCC", 2, "chr0",  '+'}; 
+Pattern p2 = {2.63373, "TCG", 5, "chr0", '+'}; 
+const vector<Pattern> patfinal = {p1, p2}; 
+
 //Prototypes
 
 bool isEqual(const vector<char>& v1, const vector<char>& v2);
 bool isEqualPosDir(const vector<PosDir>& v1, const vector<PosDir>& v2);
 bool isEqualM(const matrix& m1, const matrix& m2);
 bool isEqualBool(const vector<bool>& v1, const vector<bool>& v2);
+
+// EM algo
+bool isEqualSP(const vector<vector<SeqPos> >& m1, const vector<vector<SeqPos> >& m2); 
+bool isEqualP(const vector<Pattern>& m1, const vector<Pattern>& m2); 
+
 
 //Tests
 
@@ -195,6 +216,33 @@ TEST(MatrixProteinTest, RandomlGeneratesDNA)
 	EXPECT_EQ(actg.size(), length);
 }
 
+// EM algo
+TEST(MatrixProteinTest, FindMotif)
+{
+	int longueur_motif(3); 
+	vector<vector<SeqPos> > bsi(0); 
+	MatrixProtein mp;
+	mp.FindMotif(matrice, FromFasta, longueur_motif, bsi); 
+	ASSERT_TRUE(isEqualSP(bsi, bsf)); 
+
+}
+
+TEST(MatrixProteinTest, EMalgorithm)
+{
+	int longueur_motif(3);
+	MatrixProtein mp;
+	mp.EMalgorithm(longueur_motif, FromFasta, {0,0},0); 
+	ASSERT_TRUE(isEqualM(mp.getmx(), PWM)); 
+	
+} 
+
+/*TEST(MatrixProteinTest, fillPattern)
+{
+	MatrixProtein mp;
+	mp.fillPattern(bsi2, 0, {0,0}); 
+	ASSERT_TRUE(isEqualP(mp.getPatterns(), patfinal)); 
+} */
+
 //Definitions
 
 bool isEqual(const vector<char>& v1, const vector<char>& v2)
@@ -273,6 +321,55 @@ bool isEqualBool(const vector<bool>& v1, const vector<bool>& v2)
 	}
 	return res;
 }
+
+bool isEqualSP(const vector<vector<SeqPos> >& m1, const vector<vector<SeqPos> >& m2)
+{
+
+	if(m1.size() != m2.size())    {return false;}
+	else
+	{
+		 
+		for (unsigned int i(0); i < m1.size() ; ++i)
+		{
+			if(m1[i].size() != m2[i].size())	{return false;}
+			else
+			{
+				
+				for (unsigned int j(0); j < m1[i].size(); ++j)
+				{
+					if ((m1[i][j].sequence != m2[i][j].sequence) or (m1[i][j].position != m2[i][j].position))
+					{
+						
+						return false;
+					}
+				}  
+			} 
+		}
+	}
+	return true; 
+}
+
+bool isEqualP(const vector<Pattern>& m1, const vector<Pattern>& m2)
+{
+	if(m1.size() != m2.size())    {return false;}
+	else
+	{
+		for (unsigned int i(0); i < m1.size() ; ++i)
+		{
+			if (m1[i].site.size() != m1[i].site.size()) { return false;}
+			else {
+					if ((m1[i].bScore != m2[i].bScore) or (m1[i].site != m2[i].site) or (m1[i].pos != m2[i].pos) or (m1[i].chrNb!= m2[i].chrNb) or (m1[i].dir != m2[i].dir))
+					{
+						return false;
+					}
+				}
+		}
+	}
+	return true; 
+}
+
+
+
 
 
 int main(int argc, char **argv) 

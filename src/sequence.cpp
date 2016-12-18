@@ -812,7 +812,9 @@ void Sequence::loadResultsOnFile(const string& fileName)    //fonction that load
 
 
 // A TESTER A PLACE DE L'AUTRE, en commentaire pour ne pas faire bug
+
 void Sequence::loadMatrixOnFile(const string& fileName, MatrixProtein Protein)   //fonction that loads a matrix on a txt file
+
 {
     ofstream sortie;
     sortie.open("../Output/" + fileName); //mode écrasement
