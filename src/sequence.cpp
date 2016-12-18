@@ -809,77 +809,60 @@ void Sequence::loadResultsOnFile(const string& fileName)    //fonction that load
 }
 
 
-/*int main()
-{
-	Sequence seq_;
-	MatrixProtein mtrx;
-	try
-	{
-		//auto testing = seq_.readBed("BMAL1_sites.bed", "chr7");
-		//seq_.scanFasta(testing,"chr7.fa", );
-		seq_.motifRecognition("AAATCG", "sites1.fasta");
-	}
-	catch(const runtime_error& e) {cout << e.what() << endl;}
-	
-	return 0;
-} */
+
 
 // A TESTER A PLACE DE L'AUTRE, en commentaire pour ne pas faire bug
-/*void Sequence::loadMatrixOnFile(const string& fileName, matrix matrice)   //fonction that loads a matrix on a txt file
+void Sequence::loadMatrixOnFile(const string& fileName, MatrixProtein Protein)   //fonction that loads a matrix on a txt file
 {
     ofstream sortie;
     sortie.open("../Output/" + fileName); //mode écrasement
-    MatrixProtein Matrix;
-    
-    Matrix.setmx(matrice);
-    
-    Matrix.matrix_generation();
+    Protein.matrix_generation();
         
     if (sortie.fail()) {
         cerr << "coulnd't open the file" << endl;
     } else {
 		
-		sortie << "La matrice PWM relative : "<<endl;
+		sortie << " PWM relative : \n"<<endl;
 		
-        for (size_t i(0); i < pwm_rel.size() ; ++i) {
-            for (size_t j(0) ; j < pwm_rel[i].size() ; ++j) {
-                sortie << setprecision(5) << setw(5) << pwm_rel[i][j] << " | " ;
+        for (size_t i(0); i < Protein.getpwm_rel().size() ; ++i) {
+            for (size_t j(0) ; j < Protein.getpwm_rel()[i].size() ; ++j) {
+                sortie << setprecision(5) << setw(5) << Protein.getpwm_rel()[i][j] << " | " ;
             }
             sortie << endl;
         }
         
-        sortie << "La matrice PWM absolue : "<<endl;
+        sortie << "\n PWM absolute : \n"<<endl;
         
-        for (size_t i(0); i < pwm_abs.size() ; ++i) {
-            for (size_t j(0) ; j < pwm_abs[i].size() ; ++j) {
-                sortie << setprecision(5) << setw(5) << pwm_abs[i][j] << " | " ;
+        for (size_t i(0); i < Protein.getpwm_abs().size() ; ++i) {
+            for (size_t j(0) ; j < Protein.getpwm_abs()[i].size() ; ++j) {
+                sortie << setprecision(5) << setw(5) << Protein.getpwm_abs()[i][j] << " | " ;
             }
             sortie << endl;
         }
         
-        sortie << "La matrice PSSM absolue : "<<endl;
+        sortie << "\n PSSM absolute : \n"<<endl;
         
-        for (size_t i(0); i < pssm_abs.size() ; ++i) {
-            for (size_t j(0) ; j < pssm_abs[i].size() ; ++j) {
-                sortie << setprecision(5) << setw(5) << pssm_abs[i][j] << " | " ;
+        for (size_t i(0); i < Protein.getpssm_abs().size() ; ++i) {
+            for (size_t j(0) ; j < Protein.getpssm_abs()[i].size() ; ++j) {
+                sortie << setprecision(5) << setw(5) << Protein.getpssm_abs()[i][j] << " | " ;
             }
             sortie << endl;
         }
         
-        sortie << "La matrice PSSM relative : "<<endl;
+        sortie << " \n PSSM relative : \n"<<endl;
         
-        for (size_t i(0); i < pssm_rel.size() ; ++i) {
-            for (size_t j(0) ; j < pssm_rel[i].size() ; ++j) {
-                sortie << setprecision(5) << setw(5) << pssm_rel[i][j] << " | " ;
+        for (size_t i(0); i < Protein.getpssm_rel().size() ; ++i) {
+            for (size_t j(0) ; j < Protein.getpssm_rel()[i].size() ; ++j) {
+                sortie << setprecision(5) << setw(5) << Protein.getpssm_rel()[i][j] << " | " ;
             }
             sortie << endl;
         }
         
         sortie.close();
     }
-}*/
+}
 
-void Sequence::loadMatrixOnFile(const string& fileName, matrix matrice)   //fonction that loads a matrix on a txt file
+/*void Sequence::loadMatrixOnFile(const string& fileName, matrix matrice)   //fonction that loads a matrix on a txt file
 {
     ofstream sortie;
     sortie.open("../Output/" + fileName); //mode écrasement
@@ -895,7 +878,7 @@ void Sequence::loadMatrixOnFile(const string& fileName, matrix matrice)   //fonc
         }
         sortie.close();
     }
-}
+}*/
 
 void Sequence::Clean_Motif_Output(const string& fileName)
 {

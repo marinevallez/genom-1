@@ -111,7 +111,7 @@ void MatrixProtein::loadmatrix_fromfile(const string& Data){ // the function sto
         }
     }
     mx = matrix_;
-    //matrix_generation();
+    matrix_generation();
 }
 
 /*vector<Pattern> MatrixProtein::getPatterns() const

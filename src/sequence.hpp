@@ -174,7 +174,7 @@ class Sequence {
 * The loadMatrixOnFile method loads on a given file a given matrix.
 */
     
-    void loadMatrixOnFile(const string& fileName, matrix matrice);
+    void loadMatrixOnFile(const string& fileName, MatrixProtein matrice);
 
 /*
 * The find method takes a matrix, loads it, goes through sequences in fasta 
