@@ -93,7 +93,7 @@ int main()
         
         Protein.EMalgorithm(nbr,sequences_, {0,0}, 0);
         
-        sequence.loadMatrixOnFile("Matrix_Output.txt", Protein.getmx());
+        sequence.loadMatrixOnFile("Matrix_Output.txt", Protein);
         cout << endl << "The Matrix has been saved on the Output file in the Output folder \n";
         cout << "Would you like to display the logo of the PWM ? (type '1') \n";
         int response;
@@ -186,7 +186,7 @@ int main()
         }
         
         Protein.EMalgorithm(nbr,fasta_seq, debut, sizein );
-        sequence.loadMatrixOnFile("Matrix_Output.txt", Protein.getmx());
+        sequence.loadMatrixOnFile("Matrix_Output.txt", Protein);
         cout << "The Matrix has been saved on the Matrix_Output.txt file in the Output folder. \nThe list of sites has been saved on the Motif_Output in the Output folder. \n";
         
         sequence.fillPosDir(Protein, chr);
@@ -291,7 +291,7 @@ int main()
         }
         
         Protein.EMalgorithm(nbr,fasta_seq, debut, sizein );
-        sequence.loadMatrixOnFile("Matrix_Output.txt", Protein.getmx());
+        sequence.loadMatrixOnFile("Matrix_Output.txt", Protein);
         cout << "The Matrix has been saved on the Matrix_Output.txt file in the Output folder. \nThe list of binding sites has been saved on the Motif_Output in the Output folder. \n";
         sequence.fillPosDir(Protein, chr);
         vector<double> Sommes;
