@@ -720,65 +720,7 @@ void MatrixProtein::get_relevent_site(vector<vector<char>> Input, int set, int t
 }
 
 //COMMENTED AS DOES NOT WORK YET + IS IT USEFUL ?
-/*vector<Pattern> MatrixProtein::findPatterns(string matFile, double threshold) //need to be tested
- {
-	
- //we map matrix colums (in the assumed ACGT order) to a character so that we can concatenate a motif
- map<char, size_t> column2nuc{{0,'A'}, {0, 'a'},
- {1,'C'}, {1, 'c'},
- {2,'G'}, {2, 'g'},
- {3,'T'}, {3, 't'},
- };
- 
-	loadmatrix_fromfile(matFile);
-	vector<Pattern> listOfMotifs;
-	Pattern motif;
-	
-	double temporaryScore;
-	double score(1.0);
-	vector<char> buildingMotif;
-	double compteur(0.0);
-	
-	
-	do {
- //startagain and keeplooking are two labels
- startagain:
- 
- for(size_t row(0); row < pwm_abs.size(); ++row)				//for each row we look for a maximum value...
- {
- keeplooking:
- 
- temporaryScore = pwm_abs[row][0];						//...to find score that is first the first value encountered
- for(size_t column(0); column < (pwm_abs[row]).size(); ++column)  // careful here : here column is an int as we used it in the map
- {
- if (temporaryScore < pwm_abs[row][column])
- {
- temporaryScore = pwm_abs[row][column];
- }
- 
- score *=temporaryScore;
- buildingMotif.push_back(column2nuc[column]);
- 
- if(score < threshold)
- {
- score = 1.0;
- goto startagain;					//if we reached a score that is below the threshold, we break the loop to start again
- } else
- {
- goto keeplooking;					//question : will it increment row with ++row ? do I have to add before goto ?
- }
- 
- }
- }
- motif.bScore = score;							//we set a newfound motif
- motif.site = buildingMotif;
- listOfMotifs.push_back(motif);					//we had this motif to the list
- ++compteur;
-	
-	} while (compteur != pow(4.0, 7.0));  //while we haven't reached all motif possibilites(4^7), we keep trying to find some
-	
-	return listOfMotifs;
- }*/
+
 
 
 
@@ -1055,7 +997,7 @@ void MatrixProtein::EMalgorithm(int longueur_motif, vector<string> FromFasta, ve
             }
         }
         ++compte;
-    } while ((PWM != copiePWM));
+    } while ((PWM != copiePWM) or (compte > 100));
     
     
     
