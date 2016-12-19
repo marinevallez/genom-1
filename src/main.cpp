@@ -1,5 +1,5 @@
 #include <iostream>
-//#include <stdio_ext.h>
+#include <stdio_ext.h>
 #include "sequence.hpp"
 #include "utilities.hpp"
 #include "Logo.hpp"
@@ -64,7 +64,7 @@ int main()
 			}
             
             cin.clear();
-            fpurge(stdin);
+            __fpurge(stdin);
             cin >> nbr;
             
             ++trials;

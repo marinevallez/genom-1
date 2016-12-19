@@ -727,7 +727,7 @@ void Sequence::loadResultsOnFile(const string& fileName, const vector<PosDir>& p
 void Sequence::loadResultsOnFile(const string& fileName, const vector<PosDir>& posdir )    //fonction that loads on a file (fileName) all the information of a/several sequence(s)
 {
 	unsigned int fileNb(1);
-	int i(1);
+	
 	string newFileName("../Output/" +fileName + std::to_string(fileNb) + ".txt"), header;
     ofstream sortie;
     while(ifstream(newFileName))
